@@ -1,0 +1,12 @@
+
+<div ng-show="validator.category === 'string' || validator.category === 'numeric'">
+    <input type="text" name="{{name}}" ng-model="model.value" value-validator="validator" class="input editor" spellcheck="false" autocomplete="off" />
+    <div ng-show="form[name].$error.invalidPattern" ng-bind="validator.friendlyPattern" class="popup validation-message"></div>
+    <div ng-show="form[name].$error.invalidNumeric" ng-bind="validator.friendlyPattern" class="popup validation-message"></div>
+</div>
+
+<div ng-show="validator.category === 'array' || validator.category === 'boolean'">
+    <select ng-model="model.value" class="select editor" ng-options="value for value in dropdownValues">
+        <option value="">null</option>
+    </select>
+</div>

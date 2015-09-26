@@ -1,0 +1,14 @@
+<div ng-if="!rawVisible">
+    <div class="json-editor" json-document name="name" model="model" validators="validators"></div>
+</div>
+
+<div ng-if="rawVisible">
+    <pre class="json-editor" json-raw-document name="{{name}}" ng-model="model.value" contenteditable="true" spellcheck="false" autocomplete="off"></pre>
+    <div class="popup validation-message" ng-show="form[name].$invalid && jsonParseError">
+        <span ng-bind="jsonParseError"></span>
+    </div>
+</div>
+
+<div class="tool-button json-editor-button first" ng-click="rawVisible = false;" ng-class="{ 'inactive': rawVisible }">
+    Editor
+</div><div class="tool-button json-editor-button next inactive" ng-click="rawVisible = true;" ng-class="{ 'inactive': !rawVisible }">Raw</div>

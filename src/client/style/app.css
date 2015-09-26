@@ -1,0 +1,615 @@
+body {
+    font-size: 14px;
+    color: #222;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    overflow-y: scroll;
+}
+
+a {
+    color: #222;
+    text-decoration: none;
+}
+
+input::-ms-clear {
+  width : 0;
+  height: 0;
+}
+
+:-ms-input-placeholder {
+    color:#aaa;
+}
+
+pre {
+    margin: 0;
+}
+
+body, .popup{
+    font-family: helvetica, sans serif;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+    text-align: left;
+}
+
+.clear-fix {
+    clear: both;
+}
+
+.input, .select {
+    border: 1px solid #ddd;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.input {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 10px;
+    height: 32px;
+    min-width: 280px;
+}
+
+.select {
+    padding: 6px;
+}
+
+.input.editor, select.editor {
+    width: 100%;
+}
+
+.input.popup-editor {
+    border: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+.input.popup-editor:focus {
+    outline: none;
+}
+
+.header {
+    top: 0;
+    width: 100%;
+    height: 72px;
+    background-color: #333;
+}
+
+.logo-name {
+    color: #FFF;
+    font-size: 48px;
+    font-family: courier new;
+    float: left;
+    margin-left: 14px;
+    margin-top: 10px;
+}
+
+.filter-box {
+    float: left;
+    margin-left: 14px;
+    height: 72px;
+    line-height: 72px;
+}
+
+.route-list th, .route-list td {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.route-list th {
+    padding: 16px 24px;
+}
+
+.route-list th.http-method {
+    width: 6%;
+}
+
+.route-list th.relative-path {
+    width: 76%;
+}
+
+.route-list th.secure {
+    width: 6%;
+}
+
+.route-list th.api-details {
+    width: 6%;
+}
+
+.route-list th.run {
+    width: 6%;
+}
+
+.route-list td {
+    padding: 10px 24px;
+}
+
+.route-list tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.button {
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    color: #FFF;
+    border: medium none;
+    height: 32px;
+    line-height: 32px;
+    -moz-min-width: 96px;
+    -ms-min-width: 96px;
+    -o-min-width: 96px;
+    -webkit-min-width: 96px;
+    min-width: 96px;
+    background-color: #666;
+    font-size: 14px;
+}
+
+.button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.button:focus{
+    outline: 0;
+}
+
+.view-container {
+    display: none;
+    position: fixed;
+    background-color: #fff;
+    -webkit-box-shadow: 10px 20px 50px rgba(0, 0, 0, 0.5);
+    -ms-box-shadow: 10px 20px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 10px 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.view-header {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 0 12px 12px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.view-body {
+    padding: 12px 12px 0;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.view-body .card-tab {
+    background-color: #888;
+    color: #fff;
+    padding: 6px;
+    display: inline-block;
+    font-weight: bold;
+    -ms-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0;
+}
+
+.view-body .response-tab {
+    background-color: #080;
+}
+
+.view-body .response-tab-error {
+    background-color: #b00;
+}
+
+.view-body .card {
+    background-color: #f8f8f8;
+    padding: 12px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+        
+.view-body .card .relative-path {
+    text-align: center;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    padding: 12px;
+}
+
+.view-body .card .object-container {
+    background-color: #efefef;
+    border: 1px solid #ddd;
+    padding: 6px;
+}
+
+.view-body .card .object-container-header {
+    padding: 2px 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: #555;
+}
+
+.view-body .card .object-type {
+    float: right;
+    position: relative;
+} 
+
+.view-body .card .object-container:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+.view-body .card .object-container-header:last-child {
+    padding-bottom: 0;
+}
+
+.view-body .card .object-container-body {
+    position: relative;
+}
+
+.view-body .card .credential-field {
+    float: left;
+    margin-right: 12px;
+}
+
+.view-body .card .spinner {
+    float: left;
+    margin-top: 6px;
+}
+
+.response-header-key {
+    width: 20%;
+    vertical-align: top;
+}
+
+.response-header-value {
+    width: 80%;
+    white-space: nowrap;
+    -moz-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 1px;
+}
+
+/* Data visualization */
+
+.path-container{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.path-container div {
+    float: left;
+    border: 0;
+}
+
+.path-container .path-key {
+    color: #066;
+}
+
+.path-container .path-qualified-key {
+    font-style: italic;
+}
+
+.path-container .path-value {
+    font-weight: bold;
+    color: #000;
+}
+
+.json-editor, .text-viewer, .upload-field{
+    padding: 6px;
+    background-color: #fff;
+    overflow: auto;
+}
+
+.json-editor .indented{
+    display: block;
+    margin-left: 15px;   
+}
+
+.json-editor-button{
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-top: 0;
+    padding: 0 6px;
+    margin: 0;
+    height: 24px;
+    line-height: 24px;
+}
+
+.tool-button{
+    background-color: #fff;
+    color: #555;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer; 
+}
+
+.json-editor-button.first {
+    margin-left: 6px;
+    -ms-border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.json-editor-button.next {
+    border-left: 0;
+    -ms-border-bottom-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.json-editor-button.inactive{
+    color: #aaa; 
+}
+
+.json-property {
+    color: #333;   
+}
+
+.json-numeric {
+    color: #606;
+}
+
+.json-string {
+    color: #080;
+}
+
+.json-list {
+    color: #066;
+}
+
+.json-value, .json-numeric, .json-string, .json-list {
+    display: inline-block;
+}
+     
+.json-editor, .json-property .json-numeric, .json-string, .json-list, .text-viewer {
+    font-family: Consolas, monospace;
+    font-size: 14px;
+}
+
+.json-editor, .dropdown, .popup.editor-container .editor, .validation-message, .text-viewer {
+    border: 1px solid #ddd;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.popup {
+    position: absolute;
+    background-color: #fff;
+    -webkit-box-shadow: 0 4px 8px #000000;
+    -ms-box-shadow: 0 4px 8px #000000;
+    box-shadow: 0 4px 8px #000000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2000;
+    white-space: nowrap;
+    color: #555;
+}
+
+.dropdown{
+    margin: 0;
+    padding: 3px 6px 0;
+    list-style-type: none;
+    max-height: 264px;
+    overflow-y: auto;
+    overflow-x: hidden; 
+}
+
+.dropdown li{
+    padding-bottom: 3px;
+}
+
+.dropdown-trigger, .dropdown{
+    cursor: pointer;
+}
+
+.popup.editor-container {
+    padding: 0;
+}
+
+.popup.editor-container .input-container{
+    display: inline-block;
+    padding: 0 6px;   
+}
+
+.popup.editor-container .button-container{
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    padding-right: 6px;   
+}
+
+.validation-message{
+    padding: 0 6px;
+    height: 32px;
+    line-height: 32px;
+    border-color: #f00;
+}
+
+/*
+    Icons adapted from 'CSS3 Monochrome Icon Set' by Kushagra Agarwal.
+    http://cssdeck.com/labs/css3-monochrome-icon-set
+    http://cssdeck.com/user/kushsolitary
+*/
+
+div.icon {
+    height: 24px;
+    width: 24px;
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    display: inline-block;
+}
+
+/* Tick */
+div.icon div.tick {
+    width: 16px;
+    height: 4px;
+    background: #0a0;
+    margin: 12px 0 0 2px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+div.icon div.tick:after {
+    content: '';
+    width: 8px;
+    height: 4px;
+    background: #0a0;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+/* Cross */
+div.icon div.cross {
+    width: 18px;
+    height: 4px;
+    background: #b00;
+    margin: 12px 0 0 0;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+div.icon div.cross:after {
+    content: '';
+    width: 18px;
+    height: 4px;
+    background: #b00;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+/* Pointer Right */
+div.icon div.pointer-right {
+    width: 8px;
+    height: 8px;
+    border: solid #444;
+    border-width: 4px 4px 0 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin: 8px 0 0 0;
+}
+
+/* Plus */
+div.icon div.plus {
+    height: 4px;
+    position: absolute;
+    width: 16px;
+    left: 4px;
+    top: 12px;
+    background: #444 none repeat scroll 0 0;
+}
+
+div.icon div.plus:after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    height: 16px;
+    width: 4px;
+    left: 6px;
+    background: #444 none repeat scroll 0% 0%;
+}
+
+/* Spinner from http://www.css-spinners.com/spinner/throbber */
+
+@-moz-keyframes throbber-loader {
+  0% {
+    background: #ddd;
+  }
+  10% {
+    background: #0a0;
+  }
+  40% {
+    background: #ddd;
+  }
+}
+@-webkit-keyframes throbber-loader {
+  0% {
+    background: #ddd;
+  }
+  10% {
+    background: #0a0;
+  }
+  40% {
+    background: #ddd;
+  }
+}
+@keyframes throbber-loader {
+  0% {
+    background: #ddd;
+  }
+  10% {
+    background: #0a0;
+  }
+  40% {
+    background: #ddd;
+  }
+}
+/* :not(:required) hides these rules from IE9 and below */
+.throbber-loader:not(:required) {
+  -moz-animation: throbber-loader 2000ms 300ms infinite ease-out;
+  -webkit-animation: throbber-loader 2000ms 300ms infinite ease-out;
+  animation: throbber-loader 2000ms 300ms infinite ease-out;
+  background: #ddd;
+  display: inline-block;
+  position: relative;
+  text-indent: -9999px;
+  width: 0.9em;
+  height: 1.5em;
+  margin: 0 1.6em;
+}
+.throbber-loader:not(:required):before, .throbber-loader:not(:required):after {
+  background: #ddd;
+  content: '\x200B';
+  display: inline-block;
+  width: 0.9em;
+  height: 1.5em;
+  position: absolute;
+  top: 0;
+}
+.throbber-loader:not(:required):before {
+  -moz-animation: throbber-loader 2000ms 150ms infinite ease-out;
+  -webkit-animation: throbber-loader 2000ms 150ms infinite ease-out;
+  animation: throbber-loader 2000ms 150ms infinite ease-out;
+  left: -1.6em;
+}
+.throbber-loader:not(:required):after {
+  -moz-animation: throbber-loader 2000ms 450ms infinite ease-out;
+  -webkit-animation: throbber-loader 2000ms 450ms infinite ease-out;
+  animation: throbber-loader 2000ms 450ms infinite ease-out;
+  right: -1.6em;
+}

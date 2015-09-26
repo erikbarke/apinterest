@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html ng-app="apinterest">
+<head>
+    <title>apinterest</title>
+    <link href="apinterest/content/style/app.css" rel="stylesheet"/>
+    <link href="apinterest/content/style/gh-fork-ribbon.css" rel="stylesheet" />
+    <link href="apinterest/content/highlight-8.7/googlecode.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="github-fork-ribbon-wrapper right">
+        <div class="github-fork-ribbon">
+            <a href="https://github.com/erikbarke/apinterest">Fork me on GitHub</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="logo-name">apinterest</div>
+    </div>
+
+    <div ng-controller="Explorer as vm">
+
+        <div class="filter-box">
+            <input class="input" type="text" placeholder="filter list" ng-model="vm.filterText" ng-change="vm.filterRouteDescriptions()" />
+        </div>
+
+        <br class="clear-fix" />
+
+        <table class="route-list">
+            <tr>
+                <th class="http-method">Method</th>
+                <th class="secure">Secure</th>
+                <th class="relative-path">Relative path</th>
+                <th class="api-details">Details</th>
+                <th class="run">Run</th>
+            </tr>
+            <tr ng-repeat="routeDescription in vm.filteredRouteDescriptions">
+                <td ng-bind="routeDescription.httpMethod"></td>
+                <td>
+                    <div class="icon">
+                        <div ng-class="{tick: routeDescription.requiresAuthorization, cross: !routeDescription.requiresAuthorization}"></div>
+                    </div>
+                </td>
+                <td ng-bind="routeDescription.relativePath"></td>
+                <td class="clickable" ng-click="vm.showDetailsView(routeDescription.id);">
+                    <div class="icon">
+                        <div class="plus"></div>
+                    </div>
+                </td>
+                <td class="clickable" ng-click="vm.showRequestRunnerView(routeDescription.id);">
+                    <div class="icon">
+                        <div class="pointer-right"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="view-container" ng-style="vm.detailsViewVisible && {'display': 'block'}" view-container view-body="details-view-body">
+
+            <div class="view-header clickable" ng-click="vm.detailsViewVisible = false;">
+                Close
+            </div>
+
+            <div id="details-view-body" class="view-body">
+
+                <div class="card-tab">
+                    Relative path
+                </div>
+                <div class="card">
+                    <span ng-bind="vm.detailsModel.relativePath"></span>
+                </div>
+
+                <div ng-repeat="detail in vm.detailsModel.details">
+                    <div class="card-tab">
+                        <span ng-bind="detail.header"></span>
+                    </div>
+                    <div class="card">
+                        <span ng-bind="detail.description"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-container" ng-style="vm.runnerViewVisible && {'display': 'block'}" view-container view-body="request-view-body">
+
+            <div class="view-header clickable" ng-click="vm.runnerViewVisible = false;">
+                Close
+            </div>
+
+            <div id="request-view-body" class="view-body">
+                <form name="requestForm" enctype="multipart/form-data" autocomplete="off" ng-submit="requestForm.$valid && vm.runRequest()">
+                    <div class="card-tab">
+                        Relative path
+                    </div>
+                    <div class="card">
+                        <div ng-if="vm.requestRunnerModel.pathModel" path-viewer model="vm.requestRunnerModel.pathModel"></div>
+                    </div>
+
+                    <div ng-show="vm.requestRunnerModel.parameters.length > 0">
+                        <div class="card-tab">
+                            Parameters
+                        </div>
+                        <div class="card">
+                            <div class="object-container" ng-repeat="parameter in vm.requestRunnerModel.parameters">
+                                <div object-visualizer
+                                     model="parameter"
+                                     name="parameter.name"
+                                     display-name="parameter.displayName"
+                                     visualization-type="parameter.visualizationType"
+                                     type="parameter.type"
+                                     validators="parameter.validators"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-tab">
+                        File upload (optional)
+                    </div>
+                    <div class="card">
+                        <div class="object-container">
+                            <div class="object-container-header">
+                                Choose file(s)
+                            </div>
+                            <div class="object-container-body">
+                                <div class="upload-field" file-upload model="vm.requestRunnerModel" ng-if="vm.requestRunnerModel">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-tab">
+                        Run
+                    </div>
+                    <div class="card">
+
+                        <div ng-if="vm.requestRunnerModel.requiresAuthorization">
+                            <div class="credential-field">
+                                <input type="text" class="input" placeholder="username" ng-model="vm.requestRunnerModel.username" />
+                            </div>
+                            <div class="credential-field">
+                                <input type="password" class="input" placeholder="password" ng-model="vm.requestRunnerModel.password" />
+                            </div>
+                        </div>
+                        <div ng-if="!vm.requestRunnerModel.requiresAuthorization">
+                            <div class="credential-field">
+                                <input type="text" class="input" placeholder="username" disabled />
+                            </div>
+                            <div class="credential-field">
+                                <input type="text" class="input" placeholder="password" disabled />
+                            </div>
+                        </div>
+                        <div class="credential-field">
+                            <button type="submit" class="button clickable"><span ng-bind="vm.requestRunnerModel.httpMethod"></span></button>
+                        </div>
+                        <div class="spinner" ng-show="vm.requestInProgress">
+                            <div class="throbber-loader">
+                                Loading…
+                            </div>
+                        </div>
+                        <br class="clear-fix" />
+                    </div>
+
+                    <div class="card-tab" ng-class="{ 'response-tab': vm.response.ok, 'response-tab-error': vm.response && !vm.response.ok }">
+                        Response <span ng-bind="vm.response.status"></span> <span ng-bind="vm.response.statusText"></span>
+                    </div>
+                    <div class="card">
+
+                        <div object-visualizer
+                             model="vm.requestRunnerModel.response"
+                             name="vm.requestRunnerModel.response.name"
+                             display-name="vm.requestRunnerModel.response.displayName"
+                             type="vm.requestRunnerModel.response.type"
+                             visualization-type="vm.requestRunnerModel.response.visualizationType"
+                             validators="vm.requestRunnerModel.response.validators"
+                             class="object-container"
+                             ng-if="vm.requestRunnerModel.response.value && !vm.requestInProgress && !vm.response"></div>
+
+                        <div object-visualizer
+                             model="vm.response"
+                             name="'live-response-content'"
+                             display-name="vm.response.contentType"
+                             type="vm.requestRunnerModel.response.type"
+                             visualization-type="vm.response.visualizationType"
+                             validators="vm.requestRunnerModel.response.validators"
+                             class="object-container"
+                             ng-if="vm.response.contentType"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- angular -->
+    <script src="apinterest/content/js/lib/angular-1.4.6/angular.js"></script>
+
+    <!-- aes/rijndael -->
+    <script src="apinterest/content/js/lib/aes-2014.11.05/aes.js"></script>
+    <script src="apinterest/content/js/lib/aes-2014.11.05/aes-ctr.js"></script>
+
+    <!-- hljs -->
+    <script src="apinterest/content/js/lib/highlight-8.7/highlight.pack.js"></script>
+
+    <script src="apinterest/content/js/app/app.module.js"></script>
+
+    <!-- explorer module -->
+    <script src="apinterest/content/js/app/explorer.controller.js"></script>
+    <script src="apinterest/content/js/app/explorer.service.js"></script>
+
+    <!-- common module -->
+    <script src="apinterest/content/js/app/common/common.module.js"></script>
+    <script src="apinterest/content/js/app/common/file-upload.directive.js"></script>
+    <script src="apinterest/content/js/app/common/storage.service.js"></script>
+    <script src="apinterest/content/js/app/common/view-container.directive.js"></script>
+
+    <!-- request module -->
+    <script src="apinterest/content/js/app/request/request.module.js"></script>
+    <script src="apinterest/content/js/app/request/request-runner.service.js"></script>
+    <script src="apinterest/content/js/app/request/request.service.js"></script>
+
+    <!-- visualization module -->
+    <script src="apinterest/content/js/app/visualization/visualization.module.js"></script>
+    <script src="apinterest/content/js/app/visualization/object-visualizer.directive.js"></script>
+    <script src="apinterest/content/js/app/visualization/prettify.filter.js"></script>
+    <script src="apinterest/content/js/app/visualization/value-validator.directive.js"></script>
+
+    <!-- json-editor module -->
+    <script src="apinterest/content/js/app/visualization/json/json-editor.module.js"></script>
+    <script src="apinterest/content/js/app/visualization/json/json-editor.directive.js"></script>
+    <script src="apinterest/content/js/app/visualization/json/document/json-raw-document.directive.js"></script>
+    <script src="apinterest/content/js/app/visualization/json/document/json-document.directive.js"></script>
+    <script src="apinterest/content/js/app/visualization/json/document/json-document.service.js"></script>
+    <script src="apinterest/content/js/app/visualization/json/document/value/json-value-editor.directive.js"></script>
+
+    <!-- path module -->
+    <script src="apinterest/content/js/app/visualization/path/path.module.js"></script>
+    <script src="apinterest/content/js/app/visualization/path/path-viewer.directive.js"></script>
+    <script src="apinterest/content/js/app/visualization/path/path.service.js"></script>
+
+    <!-- single-value module -->
+    <script src="apinterest/content/js/app/visualization/single-value/single-value.module.js"></script>
+    <script src="apinterest/content/js/app/visualization/single-value/single-value-editor.directive.js"></script>
+
+</body>
+</html>

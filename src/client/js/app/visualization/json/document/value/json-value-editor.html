@@ -1,0 +1,36 @@
+<!--
+    Please don't format this file, even if the lines look long and funny.
+    Some elements need to be on the same line, or the line breaks will render as extra whitespace.
+    You have been warned. Thank you.
+-->
+
+<div ng-show="validator.category === 'string' || validator.category === 'numeric'"
+     ng-class="{ 'json-string': validator.category === 'string', 'json-numeric': validator.category === 'numeric' }">
+
+    <!-- Text -->
+    <span ng-click="togglePopup();"><span ng-bind="getLeftQuote(model)"></span><span ng-bind="model"></span><span ng-bind="getPlaceholder(model)"></span><span ng-bind="getRightQuote(model)"></span></span>
+    <div class="popup editor-container" ng-show="popupVisible">
+        <div class="editor">
+            <div class="input-container">
+                <input type="text" name="{{name}}" ng-model="model" value-validator="validator" class="input popup-editor" spellcheck="false" autocomplete="off" />
+            </div><div class="button-container tool-button" ng-click="setModel(null);">
+                Clear
+            </div><div class="button-container tool-button" ng-click="closePopup();">
+                Close
+            </div>
+        </div>
+        <div ng-show="form[name].$error.invalidPattern" ng-bind="validator.friendlyPattern" class="popup validation-message"></div>
+        <div ng-show="form[name].$error.invalidNumeric" ng-bind="validator.friendlyPattern" class="popup validation-message"></div>
+    </div>
+
+</div><div ng-show="validator.category === 'array' || validator.category === 'boolean'" class="json-list">
+
+    <!-- List -->
+    <span ng-bind="model === null ? 'null' : model" ng-click="popupVisible = !popupVisible" class="dropdown-trigger"></span>
+
+    <ul class="dropdown popup" ng-show="popupVisible">
+        <li ng-click="setModel(null); closePopup();">null</li>
+        <li ng-repeat="value in dropdownValues" ng-bind="value" ng-click="setModel(value); closePopup();"></li>
+    </ul>
+
+</div>

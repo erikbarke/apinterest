@@ -1,0 +1,47 @@
+<div class="path-container">
+
+    <div ng-repeat="chunk in model.absolutePathChunks">
+        <span ng-if="!chunk.parameter" ng-bind="chunk.text"></span>
+        <span class="path-value" ng-if="chunk.parameter" ng-bind="chunk.parameter.value"></span>
+    </div>
+
+    <div ng-if="model.queryStringChunks.length > 0">?</div>
+    
+    <div ng-repeat="chunk in model.queryStringChunks">
+
+        <div ng-if="$index > 0">&amp;</div>
+
+        <div ng-if="chunk.parameter.category === 'simple'">
+            <span class="path-key" ng-bind="chunk.text"></span>=<span class="path-value" ng-bind="chunk.parameter.value"></span>
+        </div>
+
+        <div ng-if="chunk.parameter.category === 'array'">
+            <div ng-repeat="value in chunk.parameter.value">
+                <span class="path-key"><span ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>]</span>=<span class="path-value" ng-bind="value"></span>
+                <div ng-if="$index > 0">&amp;</div>
+            </div>
+        </div>
+
+        <div ng-if="chunk.parameter.category === 'hashtable'">
+            <div ng-repeat="(key, value) in chunk.parameter.value">
+                <span class="path-key" ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>].key=<span class="path-value" ng-bind="key"></span>&amp;<span class="path-key" ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>].value=<span class="path-value" ng-bind="value"></span>
+                <div ng-if="$index > 0">&amp;</div>
+            </div>
+        </div>
+
+        <div ng-if="chunk.parameter.category === 'object' && model.useFullyQualifiedNotation">
+            <div ng-repeat="(key, value) in chunk.parameter.value">
+                <div ng-if="$index > 0">&amp;</div>
+                <span class="path-qualified-key" ng-bind="chunk.text"></span>.<span class="path-key" ng-bind="key"></span>=<span class="path-value" ng-bind="value"></span>
+            </div>
+        </div>
+
+        <div ng-if="chunk.parameter.category === 'object' && !model.useFullyQualifiedNotation">
+            <div ng-repeat="(key, value) in chunk.parameter.value">
+                <div ng-if="$index > 0">&amp;</div>
+                <span class="path-key" ng-bind="key"></span>=<span class="path-value" ng-bind="value"></span>
+            </div>
+        </div>
+
+    </div>
+</div>

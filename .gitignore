@@ -1,0 +1,13 @@
+**/coverage/
+**/bin/
+**/obj/
+**/packages/
+**/node_modules/
+*.bat
+*.dll
+*.DotSettings
+*.cache
+*.log
+*.pdb
+*.user
+*.suo

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E660E833-249C-46E0-8778-B82667FFF313}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Apinterest</RootNamespace>
+    <AssemblyName>Apinterest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContentController.cs" />
+    <Compile Include="IRouteExplorerService.cs" />
+    <Compile Include="Time\ITimeMachine.cs" />
+    <Compile Include="LocalhostOnlyAttribute.cs" />
+    <Compile Include="Contracts\ParameterContract.cs" />
+    <Compile Include="Contracts\ResponseContract.cs" />
+    <Compile Include="Contracts\ValidatorContract.cs" />
+    <Compile Include="Contracts\RouteDescriptionContract.cs" />
+    <Compile Include="Contracts\RouteDetailContract.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\IResourceLookup.cs" />
+    <Compile Include="Resources\ResourceLookup.cs" />
+    <Compile Include="RouteExplorerService.cs" />
+    <Compile Include="Samples\ISampleFactory.cs" />
+    <Compile Include="Samples\Sample.cs" />
+    <Compile Include="Samples\SampleFactory.cs" />
+    <Compile Include="Time\TimeMachine.cs" />
+    <Compile Include="Validation\IValidatorFactory.cs" />
+    <Compile Include="Validation\Validator.cs" />
+    <Compile Include="Validation\ValidatorFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\index.html">
+      <Link>EmbeddedWebClient\index.html</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\style\app.css">
+      <Link>EmbeddedWebClient\style\app.css</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\style\highlight-8.7\googlecode.css">
+      <Link>EmbeddedWebClient\style\highlight-8.7\googlecode.css</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\lib\aes-2014.11.05\aes-ctr.js">
+      <Link>EmbeddedWebClient\js\lib\aes-2014.11.05\aes-ctr.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\lib\aes-2014.11.05\aes.js">
+      <Link>EmbeddedWebClient\js\lib\aes-2014.11.05\aes.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\lib\highlight-8.7\highlight.pack.js">
+      <Link>EmbeddedWebClient\js\lib\highlight-8.7\highlight.pack.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\app.module.js">
+      <Link>EmbeddedWebClient\js\app\app.module.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\explorer.controller.js">
+      <Link>EmbeddedWebClient\js\app\explorer.controller.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\explorer.service.js">
+      <Link>EmbeddedWebClient\js\app\explorer.service.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\common\common.module.js">
+      <Link>EmbeddedWebClient\js\app\common\common.module.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\common\storage.service.js">
+      <Link>EmbeddedWebClient\js\app\common\storage.service.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\common\view-container.directive.js">
+      <Link>EmbeddedWebClient\js\app\common\view-container.directive.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\request\request-runner.service.js">
+      <Link>EmbeddedWebClient\js\app\request\request-runner.service.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\request\request.module.js">
+      <Link>EmbeddedWebClient\js\app\request\request.module.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\request\request.service.js">
+      <Link>EmbeddedWebClient\js\app\request\request.service.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\object-visualizer.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\object-visualizer.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\object-visualizer.html">
+      <Link>EmbeddedWebClient\js\app\visualization\object-visualizer.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\prettify.filter.js">
+      <Link>EmbeddedWebClient\js\app\visualization\prettify.filter.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\value-validator.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\value-validator.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\visualization.module.js">
+      <Link>EmbeddedWebClient\js\app\visualization\visualization.module.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\common\file-upload.directive.js">
+      <Link>EmbeddedWebClient\js\app\common\file-upload.directive.js</Link>
+    </EmbeddedResource>
+    <Content Include="..\..\..\client\js\app\common\storage.service.spec.js">
+      <Link>EmbeddedWebClient\js\app\common\storage.service.spec.js</Link>
+    </Content>
+    <Content Include="..\..\..\client\js\app\common\view-container.directive.spec.js">
+      <Link>EmbeddedWebClient\js\app\common\view-container.directive.spec.js</Link>
+    </Content>
+    <Content Include="..\..\..\client\js\app\request\request-runner.service.spec.js">
+      <Link>EmbeddedWebClient\js\app\request\request-runner.service.spec.js</Link>
+    </Content>
+    <Content Include="..\..\..\client\js\app\request\request.service.spec.js">
+      <Link>EmbeddedWebClient\js\app\request\request.service.spec.js</Link>
+    </Content>
+    <EmbeddedResource Include="..\..\..\client\style\gh-fork-ribbon.css">
+      <Link>EmbeddedWebClient\style\gh-fork-ribbon.css</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\lib\angular-1.4.6\angular-mocks.js">
+      <Link>EmbeddedWebClient\js\lib\angular-1.4.6\angular-mocks.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\lib\angular-1.4.6\angular.js">
+      <Link>EmbeddedWebClient\js\lib\angular-1.4.6\angular.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\json-document.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json\document\json-document.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\json-document.service.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json\document\json-document.service.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\json-raw-document.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json\document\json-raw-document.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\value\json-value-editor.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json\document\value\json-value-editor.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\value\json-value-editor.directive.spec.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json\document\value\json-value-editor.directive.spec.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\value\json-value-editor.html">
+      <Link>EmbeddedWebClient\js\app\visualization\json\document\value\json-value-editor.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\json-editor.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json\json-editor.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\json-editor.html">
+      <Link>EmbeddedWebClient\js\app\visualization\json\json-editor.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\json-editor.module.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json\json-editor.module.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path-viewer.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\path\path-viewer.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path-viewer.html">
+      <Link>EmbeddedWebClient\js\app\visualization\path\path-viewer.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path.module.js">
+      <Link>EmbeddedWebClient\js\app\visualization\path\path.module.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path.service.js">
+      <Link>EmbeddedWebClient\js\app\visualization\path\path.service.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\single-value\single-value-editor.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\single-value\single-value-editor.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\single-value\single-value-editor.html">
+      <Link>EmbeddedWebClient\js\app\visualization\single-value\single-value-editor.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\single-value\single-value.module.js">
+      <Link>EmbeddedWebClient\js\app\visualization\single-value\single-value.module.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -43,6 +43,7 @@
                 lowerCaseHttpMethod = vm.routeDescriptions[i].httpMethod.toLowerCase();
                 lowerCaseFilter = vm.filterText.toLowerCase();
 
+                /* istanbul ignore else */
                 if (vm.filterText === '' ||
                     lowerCasePath.indexOf(lowerCaseFilter) >= 0 ||
                     lowerCaseHttpMethod.indexOf(lowerCaseFilter) >= 0) {
@@ -69,8 +70,8 @@
 
             $timeout(function() {
 
-                var apiDescription = getRouteDescriptionById(vm, id);
-                vm.requestRunnerModel = requestService.createRequestRunnerModel(apiDescription);
+                var routeDescription = getRouteDescriptionById(vm, id);
+                vm.requestRunnerModel = requestService.createRequestRunnerModel(routeDescription);
             });
         }
 
@@ -80,6 +81,7 @@
 
             for (i = 0; i < vm.filteredRouteDescriptions.length; i++) {
 
+                /* istanbul ignore else */
                 if (vm.filteredRouteDescriptions[i].id === id) {
 
                     return vm.filteredRouteDescriptions[i];

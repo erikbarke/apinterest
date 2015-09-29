@@ -24,9 +24,9 @@
             explorerService.filterRouteDescriptions(vm);
         }
 
-        function showDetailsView(relativePath) {
+        function showDetailsView(id) {
 
-            explorerService.setDetailsModel(vm, relativePath);
+            explorerService.setDetailsModel(vm, id);
         }
 
         function showRequestRunnerView(id) {

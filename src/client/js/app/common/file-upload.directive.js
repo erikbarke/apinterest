@@ -11,6 +11,7 @@
         return {
             restrict: 'A',
             link: link,
+            replace: true,
             scope: {
                 model: '=model'
             },
@@ -19,11 +20,9 @@
 
         function link(scope, element) {
 
-            var input = angular.element(element[0].firstElementChild);
+            element.bind('change', function(event) {
 
-            input.bind('change', function() {
-
-                scope.model.files = input[0].files;
+                scope.model.files = event.target.files;
             });
         }
     }

@@ -17,15 +17,15 @@
 
         <div ng-if="chunk.parameter.category === 'array'">
             <div ng-repeat="value in chunk.parameter.value">
-                <span class="path-key"><span ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>]</span>=<span class="path-value" ng-bind="value"></span>
                 <div ng-if="$index > 0">&amp;</div>
+                <span class="path-key"><span ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>]</span>=<span class="path-value" ng-bind="value"></span>
             </div>
         </div>
 
         <div ng-if="chunk.parameter.category === 'hashtable'">
             <div ng-repeat="(key, value) in chunk.parameter.value">
-                <span class="path-key" ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>].key=<span class="path-value" ng-bind="key"></span>&amp;<span class="path-key" ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>].value=<span class="path-value" ng-bind="value"></span>
                 <div ng-if="$index > 0">&amp;</div>
+                <span class="path-key" ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>].key=<span class="path-value" ng-bind="key"></span>&amp;<span class="path-key" ng-bind="chunk.text"></span>[<span ng-bind="$index"></span>].value=<span class="path-value" ng-bind="value"></span>
             </div>
         </div>
 

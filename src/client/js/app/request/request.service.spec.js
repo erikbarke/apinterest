@@ -4,7 +4,7 @@ describe('request-service', function() {
 
     var requestService,
         mockPathModel,
-        mockPathService,
+        mockPathModelService,
         mockCredentials,
         mockStorageService,
         mockRouteDescription;
@@ -19,7 +19,7 @@ describe('request-service', function() {
             useFullyQualifiedNotation: true
         };
 
-        mockPathService = {
+        mockPathModelService = {
             getModel: function() {
                 return mockPathModel;
             }
@@ -38,7 +38,7 @@ describe('request-service', function() {
 
         module(function($provide) {
 
-            $provide.value('PathService', mockPathService);
+            $provide.value('PathModelService', mockPathModelService);
             $provide.value('StorageService', mockStorageService);
         });
 

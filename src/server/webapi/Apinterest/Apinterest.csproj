@@ -172,6 +172,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path-model.service.js">
+      <Link>EmbeddedWebClient\js\app\visualization\path\path-model.service.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path-render.service.js">
+      <Link>EmbeddedWebClient\js\app\visualization\path\path-render.service.js</Link>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\common\file-upload.directive.js">
       <Link>EmbeddedWebClient\js\app\common\file-upload.directive.js</Link>
     </EmbeddedResource>
@@ -231,9 +237,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path.module.js">
       <Link>EmbeddedWebClient\js\app\visualization\path\path.module.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path.service.js">
-      <Link>EmbeddedWebClient\js\app\visualization\path\path.service.js</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\visualization\single-value\single-value-editor.directive.js">
       <Link>EmbeddedWebClient\js\app\visualization\single-value\single-value-editor.directive.js</Link>

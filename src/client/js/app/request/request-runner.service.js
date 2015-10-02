@@ -6,9 +6,9 @@
         .module('apinterest.request')
         .factory('RequestRunner', RequestRunner);
 
-    RequestRunner.$inject = ['$http', 'PathService', 'StorageService'];
+    RequestRunner.$inject = ['$http', 'PathRenderService', 'StorageService'];
 
-    function RequestRunner($http, pathService, storageService) {
+    function RequestRunner($http, pathRenderService, storageService) {
 
         return {
             run: function(vm) {
@@ -57,7 +57,7 @@
             var request = {
                     headers: {},
                     method: vm.requestRunnerModel.httpMethod,
-                    url: pathService.renderUrlString(vm.requestRunnerModel.pathModel)
+                    url: pathRenderService.renderUrlString(vm.requestRunnerModel.pathModel)
                 };
 
             addTokenToHeader(request, vm);

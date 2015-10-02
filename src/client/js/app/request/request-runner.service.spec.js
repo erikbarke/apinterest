@@ -4,7 +4,7 @@ describe('request-runner', function() {
 
     var requestRunner,
         $httpBackend,
-        mockPathService,
+        mockPathRenderService,
         mockStorageService,
         mockVm,
         mockHttpStatusOk,
@@ -20,7 +20,7 @@ describe('request-runner', function() {
 
         module('apinterest.request');
 
-        mockPathService = {
+        mockPathRenderService = {
             renderUrlString: function(value) {
                 return value;
             }
@@ -33,7 +33,7 @@ describe('request-runner', function() {
 
         module(function($provide) {
 
-            $provide.value('PathService', mockPathService);
+            $provide.value('PathRenderService', mockPathRenderService);
             $provide.value('StorageService', mockStorageService);
         });
 
@@ -84,7 +84,7 @@ describe('request-runner', function() {
             .respond(200, mockGetResponseJsonValue, mockContentTypeJson, mockHttpStatusOk);
 
         spyOn(mockStorageService, 'setUserCredentials').and.callThrough();
-        spyOn(mockPathService, 'renderUrlString').and.callThrough();
+        spyOn(mockPathRenderService, 'renderUrlString').and.callThrough();
     });
 
     afterEach(function() {
@@ -165,7 +165,7 @@ describe('request-runner', function() {
 
         $httpBackend.flush();
 
-        expect(mockPathService.renderUrlString).toHaveBeenCalledWith(mockVm.requestRunnerModel.pathModel);
+        expect(mockPathRenderService.renderUrlString).toHaveBeenCalledWith(mockVm.requestRunnerModel.pathModel);
     });
 
     it('should format response 200, value', function() {

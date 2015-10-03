@@ -130,6 +130,7 @@
 
             for (i = 0; i < validators.length; i++) {
 
+                /* istanbul ignore else */
                 if (validators[i].path === path) {
 
                     return validators[i];

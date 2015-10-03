@@ -133,7 +133,7 @@ describe('JsonDocumentService', function() {
         expect(html).toEqual(expected);
     });
 
-    it('should render value and handle HAL formatter _links', function() {
+    it('should render value and handle HAL formatter _embedded', function() {
 
         var value = { _embedded : '_embedded ' },
             name = 'name',

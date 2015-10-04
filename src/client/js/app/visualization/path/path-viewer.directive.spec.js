@@ -1,4 +1,4 @@
-describe('path-viewer directive', function() {
+describe('pathViewer', function() {
 
     'use strict';
 
@@ -8,7 +8,7 @@ describe('path-viewer directive', function() {
 
     beforeEach(function() {
 
-        module('html2js.unittest.templates');
+        module('apinterest/content/js/app/visualization/path/path-viewer.html');
         module('apinterest.path');
 
         inject(function($injector) {
@@ -150,6 +150,7 @@ describe('path-viewer directive', function() {
     function compile() {
 
         element = $compile('<div path-viewer model="model"></div>')($rootScope);
+
         $rootScope.$digest();
     }
 

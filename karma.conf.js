@@ -47,9 +47,6 @@ module.exports = function(config) {
 
             stripPrefix: 'src/client/',
             prependPrefix: 'apinterest/content/',
-
-            // the name of the Angular module to create
-            moduleName: 'html2js.unittest.templates'
         },
 
         // test results reporter to use

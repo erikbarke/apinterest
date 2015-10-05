@@ -51,7 +51,7 @@ describe('singleValueEditor', function() {
         var formElement = $compile('<form name="testform"><div single-value-editor model="model" name="name" validator="validators[0]"></div><form>')($rootScope);
         $rootScope.$digest();
 
-        element = angular.element(formElement.find('div')[0]);
+        element = formElement.find('div');
         scope = element.isolateScope();
     }
 });

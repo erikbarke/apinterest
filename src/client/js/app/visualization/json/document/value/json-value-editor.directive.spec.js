@@ -238,7 +238,7 @@ describe('jsonValueEditor', function() {
         var formElement = $compile('<form name="testform"><div json-value-editor name="name" model="model" validator="validator"></div><form>')($rootScope);
         $rootScope.$digest();
 
-        element = angular.element(formElement.find('div')[0]);
+        element = formElement.find('div');
         scope = element.isolateScope();
     }
 });

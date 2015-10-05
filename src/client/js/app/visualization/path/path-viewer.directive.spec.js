@@ -18,12 +18,6 @@ describe('pathViewer', function() {
         });
 
         $rootScope.model = {
-            value: {
-                location: 'abc123'
-            }
-        };
-
-        $rootScope.model = {
             absolutePathChunks: [
                 {
                     text: 'path/'

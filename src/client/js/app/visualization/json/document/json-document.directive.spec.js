@@ -33,8 +33,6 @@ describe('jsonDocument', function() {
             value: 'abc123'
         };
         $rootScope.validators = [];
-
-        compile();
     });
 
     it('should handle undefined model', function() {

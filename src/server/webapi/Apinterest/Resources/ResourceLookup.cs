@@ -24,18 +24,21 @@ namespace Apinterest.Resources
         {
             var resourceName = FindByName(name);
 
-            using (var stream = _assembly.GetManifestResourceStream(resourceName))
+            if (resourceName != null)
             {
-                if (stream != null)
+                using (var stream = _assembly.GetManifestResourceStream(resourceName))
                 {
-                    using (var reader = new StreamReader(stream))
+                    if (stream != null)
                     {
-                        return reader.ReadToEnd();
+                        using (var reader = new StreamReader(stream))
+                        {
+                            return reader.ReadToEnd();
+                        }
                     }
-                }
+                }   
             }
 
-            return "";
+            throw new ArgumentException("Resource " + resourceName + " does not exist in assembly " + _assembly + ". Parameter value: " + name);
         }
 
         private string FindByName(string name)
@@ -50,7 +53,7 @@ namespace Apinterest.Resources
                 }
             }
 
-            throw new ArgumentException("Resource " + resourceName + " does not exist in assembly " + _assembly + ". Parameter value: " + name);
+            return null;
         }
 
         private static string FormatUrlAsResourceName(string name)

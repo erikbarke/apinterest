@@ -10,7 +10,6 @@ for documenting the api manually and keeping track of changes.
 
 The project comprises a Javascript/AngularJS browser client and a C#/Microsoft Web Api RESTFul server.
 
----
 
 ### Features
 
@@ -40,15 +39,15 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
    * The server only serves requests from localhost.
    * Stored user credentials are encrypted with AES/Rijndael.
 
----
+###Requirements
+
+* .Net 4.5 or higher
 
 ###Try it out
 
 1. Download or clone this repository.
 2. Open src/server/webapi/Apinterest.sln in Visual Studio and hit F5.
 3. For routes that require authentication, use test/test.
-
----
 
 ###Try it out in your own project:
 
@@ -87,8 +86,6 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
 7. Set the WebApplication1 project as startup project and hit F5. Your default browser should
    open with the address http://localhost:portnumber/apinterest, and you should now see the
    Apinterest client, with a list of the routes in the WebApplication1 project.
-   
----
 
 ###Licensing
 

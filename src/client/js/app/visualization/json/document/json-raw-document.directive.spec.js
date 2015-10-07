@@ -32,20 +32,6 @@ describe('jsonRawDocument', function() {
                                        '}');
     });
 
-    it('should parse valid json text document on keydown event', function() {
-
-        compile();
-
-        createInvalidJsonInput();
-
-        element.text('{ "a": "b" }');
-
-        element.triggerHandler('keydown');
-        $rootScope.$digest();
-
-        expect($rootScope.testform.testdocument.$valid).toBeTruthy();
-    });
-
     it('should parse and validate json text document on keydown event', function() {
 
         compile();

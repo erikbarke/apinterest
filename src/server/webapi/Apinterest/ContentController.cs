@@ -72,11 +72,9 @@ namespace Apinterest
 
         private HttpResponseMessage CreateStringResponse(string file)
         {
-            var mediaType = MimeMapping.GetMimeMapping(file);
-
             return new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(_resourceLookup.GetString(file), Encoding.UTF8, mediaType)
+                Content = new StringContent(_resourceLookup.GetString(file), Encoding.UTF8, MimeMapping.GetMimeMapping(file))
             };
         }
     }

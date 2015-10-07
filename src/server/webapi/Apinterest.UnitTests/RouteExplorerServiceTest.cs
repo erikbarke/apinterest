@@ -48,36 +48,38 @@ namespace Apinterest.UnitTests
         [Test]
         public void Should_Sort_List_Of_Route_Description_Models_Alphabetically()
         {
-            Assert.That(_routeDescriptionContracts.ElementAt(0).RelativePath == "apinterest/a");
-            Assert.That(_routeDescriptionContracts.ElementAt(1).RelativePath == "apinterest/b");
+            Assert.That(_routeDescriptionContracts.ElementAt(0).RelativePath == "apinterest/a/GET/with/return/type");
+            Assert.That(_routeDescriptionContracts.ElementAt(1).RelativePath == "apinterest/b/POST/with/return/type");
+            Assert.That(_routeDescriptionContracts.ElementAt(2).RelativePath == "apinterest/c/DELETE/with/void/return");
+            Assert.That(_routeDescriptionContracts.ElementAt(3).RelativePath == "apinterest/d/PUT/with/return/type");
         }
 
         [Test]
-        public void Should_Set_Http_Method_For_Path_A()
+        public void Should_Set_Http_Method_For_GET_Route()
         {
             Assert.That(_routeDescriptionContracts.ElementAt(0).HttpMethod, Is.EqualTo("GET"));
         }
 
         [Test]
-        public void Should_Set_Http_Method_For_Path_B()
+        public void Should_Set_Http_Method_For_POST_Route()
         {
             Assert.That(_routeDescriptionContracts.ElementAt(1).HttpMethod, Is.EqualTo("POST"));
         }
 
         [Test]
-        public void Should_Set_Requires_Authorization_For_Path_A()
+        public void Should_Set_Requires_Authorization_For_GET_Route()
         {
             Assert.That(_routeDescriptionContracts.ElementAt(0).RequiresAuthorization, Is.True);
         }
 
         [Test]
-        public void Should_Set_Requires_Authorization_For_Path_B()
+        public void Should_Set_Requires_Authorization_For_POST_Route()
         {
             Assert.That(_routeDescriptionContracts.ElementAt(1).RequiresAuthorization, Is.False);
         }
 
         [Test]
-        public void Should_Set_Assembly_For_Path_A()
+        public void Should_Set_Assembly_For_GET_Route()
         {
             var routeDescription = _routeDescriptionContracts.ElementAt(0);
             var detail = routeDescription.Details.Single(d => d.Header == "Assembly");
@@ -86,7 +88,7 @@ namespace Apinterest.UnitTests
         }
 
         [Test]
-        public void Should_Set_Assembly_For_Path_B()
+        public void Should_Set_Assembly_For_POST_Route()
         {
             var routeDescription = _routeDescriptionContracts.ElementAt(1);
             var detail = routeDescription.Details.Single(d => d.Header == "Assembly");
@@ -95,7 +97,7 @@ namespace Apinterest.UnitTests
         }
 
         [Test]
-        public void Should_Set_Controller_For_Path_A()
+        public void Should_Set_Controller_For_GET_Route()
         {
             var routeDescription = _routeDescriptionContracts.ElementAt(0);
             var detail = routeDescription.Details.Single(d => d.Header == "Controller");
@@ -104,7 +106,7 @@ namespace Apinterest.UnitTests
         }
 
         [Test]
-        public void Should_Set_Controller_For_Path_B()
+        public void Should_Set_Controller_For_POST_Route()
         {
             var routeDescription = _routeDescriptionContracts.ElementAt(1);
             var detail = routeDescription.Details.Single(d => d.Header == "Controller");
@@ -113,7 +115,7 @@ namespace Apinterest.UnitTests
         }
 
         [Test]
-        public void Should_Set_Method_For_Path_A()
+        public void Should_Set_Method_For_GET_Route()
         {
             var routeDescription = _routeDescriptionContracts.ElementAt(0);
             var detail = routeDescription.Details.Single(d => d.Header == "Code method");
@@ -122,7 +124,7 @@ namespace Apinterest.UnitTests
         }
 
         [Test]
-        public void Should_Set_Method_For_Path_B()
+        public void Should_Set_Method_For_POST_Route()
         {
             var routeDescription = _routeDescriptionContracts.ElementAt(1);
             var detail = routeDescription.Details.Single(d => d.Header == "Code method");
@@ -134,32 +136,18 @@ namespace Apinterest.UnitTests
         {
             return new Collection<ApiDescription>
             {
-                CreateApiDescriptionB(),
-                CreateApiDescriptionA()
+                CreateApiDescriptionWithPOSTAndReturnType(),
+                CreateApiDescriptionWithDELETEAndVoidReturn(),
+                CreateApiDescriptionWithGETAndReturnType(),
+                CreateApiDescriptionWithPUTAndReturnType()
             };
         }
 
-        private static ApiDescription CreateApiDescriptionA()
+        private static ApiDescription CreateApiDescriptionWithGETAndReturnType()
         {
-            var mockApiControllerType = typeof(MockApiController);
-            var methodInfo = mockApiControllerType.GetMethod("Get");
-            var parameters = methodInfo.GetParameters();
+            var mockApiDescription = CreateApiDescription("apinterest/a/GET/with/return/type", HttpMethod.Get, "Get", typeof(string));
 
-            var mockApiDescription = new ApiDescription
-            {
-                RelativePath = "apinterest/a",
-                HttpMethod = HttpMethod.Get,
-                ActionDescriptor = new ReflectedHttpActionDescriptor
-                {
-                    ControllerDescriptor = new HttpControllerDescriptor
-                    {
-                        Configuration = new HttpConfiguration(),
-                        ControllerName = "MockApiController",
-                        ControllerType = typeof (MockApiController)
-                    },
-                    MethodInfo = methodInfo
-                }
-            };
+            var parameters = ((ReflectedHttpActionDescriptor)mockApiDescription.ActionDescriptor).MethodInfo.GetParameters();
 
             mockApiDescription.ParameterDescriptions.Add(new ApiParameterDescription
             {
@@ -172,24 +160,32 @@ namespace Apinterest.UnitTests
                 
             });
 
-            var responseDescription = new ResponseDescription
-            {
-                DeclaredType = typeof(string)
-            };
-
-            SetInternalProperty(mockApiDescription, responseDescription);
-
             return mockApiDescription;
         }
 
-        private static ApiDescription CreateApiDescriptionB()
+        private static ApiDescription CreateApiDescriptionWithPOSTAndReturnType()
+        {
+            return CreateApiDescription("apinterest/b/POST/with/return/type", HttpMethod.Post, "Post", typeof(string));
+        }
+
+        private static ApiDescription CreateApiDescriptionWithDELETEAndVoidReturn()
+        {
+            return CreateApiDescription("apinterest/c/DELETE/with/void/return", HttpMethod.Delete, "Delete", null);
+        }
+
+        private static ApiDescription CreateApiDescriptionWithPUTAndReturnType()
+        {
+            return CreateApiDescription("apinterest/d/PUT/with/return/type", HttpMethod.Put, "Put", typeof(HttpResponseMessage));
+        }
+
+        private static ApiDescription CreateApiDescription(string relativePath, HttpMethod httpMethod, string codeMethod, Type responseType)
         {
             var mockApiControllerType = typeof(MockApiController);
 
             var mockApiDescription = new ApiDescription
             {
-                RelativePath = "apinterest/b",
-                HttpMethod = HttpMethod.Post,
+                RelativePath = relativePath,
+                HttpMethod = httpMethod,
                 ActionDescriptor = new ReflectedHttpActionDescriptor
                 {
                     ControllerDescriptor = new HttpControllerDescriptor
@@ -198,13 +194,13 @@ namespace Apinterest.UnitTests
                         ControllerName = "MockApiController",
                         ControllerType = typeof(MockApiController)
                     },
-                    MethodInfo = mockApiControllerType.GetMethod("Post")
+                    MethodInfo = mockApiControllerType.GetMethod(codeMethod)
                 }
             };
 
             var responseDescription = new ResponseDescription
             {
-                DeclaredType = typeof(string)
+                DeclaredType = responseType
             };
 
             SetInternalProperty(mockApiDescription, responseDescription);

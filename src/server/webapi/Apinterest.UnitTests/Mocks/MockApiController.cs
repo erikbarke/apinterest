@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http;
+using System.Web.Http;
 
 namespace Apinterest.UnitTests.Mocks
 {
@@ -13,6 +14,15 @@ namespace Apinterest.UnitTests.Mocks
         public string Post(string id, [FromUri] string body)
         {
             return id;
+        }
+
+        public void Delete(int id)
+        {
+        }
+
+        public HttpResponseMessage Put()
+        {
+            return new HttpResponseMessage();
         }
     }
 }

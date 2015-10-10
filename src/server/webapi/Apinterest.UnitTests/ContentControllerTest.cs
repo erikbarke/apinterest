@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Apinterest.Contracts;
 using Apinterest.Resources;
 using Moq;
@@ -42,7 +43,12 @@ namespace Apinterest.UnitTests
                 .Setup(r => r.GetString("app.js"))
                 .Returns("var x = 'y';");
 
-            _contentController = new ContentController(_mockRouteExplorerService.Object, _mockResourceLookup.Object);
+            _contentController = new ContentController();
+
+            // The ContentController class has only a default constructor to prevent IoC containers from
+            // instantiating the class using a greedy strategy, ie picking the constructor with the most parameters.
+            Inject(_contentController, "_routeExplorerService", _mockRouteExplorerService.Object);
+            Inject(_contentController, "_resourceLookup", _mockResourceLookup.Object);
         }
 
         [Test]
@@ -121,6 +127,17 @@ namespace Apinterest.UnitTests
             var response = _contentController.GetRouteDescriptions();
 
             Assert.That(response.SerializerSettings.Converters[0], Is.InstanceOf(typeof(StringEnumConverter)));
+        }
+
+        private static void Inject(object obj, string fieldName, object value)
+        {
+            var type = obj.GetType();
+            var field = type.GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+
+            if (field != null)
+            {
+                field.SetValue(obj, value);
+            }
         }
     }
 }

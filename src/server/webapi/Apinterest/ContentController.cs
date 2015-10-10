@@ -43,12 +43,6 @@ namespace Apinterest
             _resourceLookup = new ResourceLookup(Assembly.GetExecutingAssembly());
         }
 
-        public ContentController(IRouteExplorerService routeExplorerService, IResourceLookup resourceLookup)
-        {
-            _routeExplorerService = routeExplorerService;
-            _resourceLookup = resourceLookup;
-        }
-
         [HttpGet]
         [Route("apinterest")]
         public HttpResponseMessage GetIndex()

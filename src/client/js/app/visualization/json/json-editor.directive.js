@@ -20,6 +20,7 @@
             link: function(scope, element, attributes, ngForm) {
 
                 scope.form = ngForm;
+                scope.activeTab = 'editor';
             }
         };
     }

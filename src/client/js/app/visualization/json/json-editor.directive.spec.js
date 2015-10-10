@@ -30,4 +30,9 @@ describe('jsonEditor', function() {
 
         expect(element.isolateScope().form.$name).toEqual('testform');
     });
+
+    it('should set editor as default active tab', function() {
+
+        expect(element.isolateScope().activeTab).toEqual('editor');
+    });
 });

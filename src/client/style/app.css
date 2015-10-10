@@ -311,7 +311,7 @@ th {
     color: #000;
 }
 
-.json-editor, .text-viewer, .upload-field{
+.json-editor, .text-viewer, .upload-field {
     padding: 6px;
     background-color: #fff;
     overflow: auto;
@@ -381,7 +381,7 @@ th {
     font-size: 14px;
 }
 
-.json-editor, .dropdown, .popup.editor-container .editor, .validation-message, .text-viewer {
+.json-editor, .dropdown, .popup.editor-container .editor, .validation-message, .text-viewer, .upload-field {
     border: 1px solid #ddd;
     -ms-border-radius: 3px;
     border-radius: 3px;

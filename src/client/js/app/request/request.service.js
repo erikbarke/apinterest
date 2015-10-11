@@ -16,18 +16,17 @@
 
         function createRequestRunnerModel(routeDescription) {
 
-            var parameters = createParameters(routeDescription),
-                credentials = storageService.getUserCredentials(routeDescription.relativePath);
+            var parameters = createParameters(routeDescription);
 
             return {
+                id: routeDescription.id,
                 path: routeDescription.relativePath,
                 pathModel: pathModelService.getModel(routeDescription.relativePath, parameters),
                 httpMethod: routeDescription.httpMethod,
                 requiresAuthorization: routeDescription.requiresAuthorization,
-                username: credentials.username,
-                password: credentials.password,
                 parameters: parameters,
-                response: getResponse(routeDescription)
+                response: getResponse(routeDescription),
+                recentHistoryList: storageService.get(routeDescription.id)
             };
         }
 

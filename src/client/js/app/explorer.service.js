@@ -14,7 +14,8 @@
             setupViewModel: setupViewModel,
             filterRouteDescriptions: filterRouteDescriptions,
             setDetailsModel: setDetailsModel,
-            setRequestRunnerModel: setRequestRunnerModel
+            createRequestRunnerModel: createRequestRunnerModel,
+            useRecentHistoryItem: useRecentHistoryItem
         };
 
         function setupViewModel(vm) {
@@ -56,12 +57,14 @@
         function setDetailsModel(vm, id) {
 
             vm.detailsModel = getRouteDescriptionById(vm, id);
-
             vm.runnerViewVisible = false;
             vm.detailsViewVisible = true;
         }
 
-        function setRequestRunnerModel(vm, id) {
+        function createRequestRunnerModel(vm, id) {
+
+            var routeDescription = getRouteDescriptionById(vm, id),
+                requestRunnerModel = requestService.createRequestRunnerModel(routeDescription);
 
             vm.detailsViewVisible = false;
             vm.runnerViewVisible = true;
@@ -70,9 +73,19 @@
 
             $timeout(function() {
 
-                var routeDescription = getRouteDescriptionById(vm, id);
-                vm.requestRunnerModel = requestService.createRequestRunnerModel(routeDescription);
+                vm.requestRunnerModel = requestRunnerModel;
             });
+        }
+
+        function useRecentHistoryItem(vm) {
+
+            if (vm.requestRunnerModel && vm.requestRunnerModel.recentHistoryItem) {
+
+                vm.requestRunnerModel.pathModel = vm.requestRunnerModel.recentHistoryItem.pathModel;
+                vm.requestRunnerModel.parameters = vm.requestRunnerModel.recentHistoryItem.parameters;
+                vm.requestRunnerModel.username = vm.requestRunnerModel.recentHistoryItem.username;
+                vm.requestRunnerModel.password = vm.requestRunnerModel.recentHistoryItem.password;
+            }
         }
 
         function getRouteDescriptionById(vm, id) {

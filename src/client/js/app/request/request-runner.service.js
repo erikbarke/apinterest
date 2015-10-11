@@ -6,9 +6,9 @@
         .module('apinterest.request')
         .factory('RequestRunner', RequestRunner);
 
-    RequestRunner.$inject = ['$http', 'PathRenderService', 'StorageService'];
+    RequestRunner.$inject = ['$http', 'PathRenderService'];
 
-    function RequestRunner($http, pathRenderService, storageService) {
+    function RequestRunner($http, pathRenderService) {
 
         return {
             run: function(vm) {
@@ -29,8 +29,6 @@
         };
 
         function sendRequestWithToken(vm) {
-
-            storageService.setUserCredentials(vm.requestRunnerModel.username, vm.requestRunnerModel.password, vm.requestRunnerModel.path);
 
             return fetchToken(vm.requestRunnerModel.username, vm.requestRunnerModel.password)
                 .then(function(response) {

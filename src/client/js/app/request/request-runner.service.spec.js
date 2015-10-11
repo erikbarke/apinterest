@@ -128,15 +128,6 @@ describe('request-runner', function() {
         $httpBackend.flush();
     });
 
-    it('should store credentials when authorization required', function() {
-
-        requestRunner.run(mockVm);
-
-        expect(mockStorageService.setUserCredentials).toHaveBeenCalledWith('username', 'password', mockVm.requestRunnerModel.pathModel);
-
-        $httpBackend.flush();
-    });
-
     it('should fetch token when authorization required', function() {
 
         $httpBackend.expectPOST('./Token', 'grant_type=password&username=username&password=password');

@@ -10,7 +10,7 @@
 
     <div class="github-fork-ribbon-wrapper right">
         <div class="github-fork-ribbon">
-            <a href="https://github.com/erikbarke/apinterest">Fork me on GitHub</a>
+            <a href="https://github.com/erikbarke/apinterest">Gork me on FitHub</a>
         </div>
     </div>
 
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card-tab">
                         File upload (optional)
                     </div>
@@ -132,6 +132,17 @@
                         Run
                     </div>
                     <div class="card">
+                        <div class="object-container" ng-if="vm.requestRunnerModel.recentHistoryList.length > 0">
+                            <div class="object-container-header">
+                                Recent requests:
+                            </div>
+                            <div class="object-container-body">
+                                <select ng-model="vm.requestRunnerModel.recentHistoryItem"
+                                        ng-options="item.date | date: 'yyyy-MM-dd HH:mm:ss' for item in vm.requestRunnerModel.recentHistoryList"
+                                        ng-change="vm.useRecentHistoryItem()">
+                                </select>
+                            </div>
+                        </div>
 
                         <div ng-if="vm.requestRunnerModel.requiresAuthorization">
                             <div class="credential-field">
@@ -158,6 +169,7 @@
                             </div>
                         </div>
                         <br class="clear-fix" />
+
                     </div>
                 </form>
                 <form>

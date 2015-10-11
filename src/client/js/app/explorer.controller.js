@@ -6,15 +6,16 @@
         .module('apinterest')
         .controller('Explorer', Explorer);
 
-    Explorer.$inject = ['ExplorerService', 'RequestRunner'];
+    Explorer.$inject = ['ExplorerService', 'RequestRunner', 'StorageService'];
 
-    function Explorer(explorerService, requestRunner) {
+    function Explorer(explorerService, requestRunner, storageService) {
 
         var vm = this;
 
         vm.filterRouteDescriptions = filterRouteDescriptions;
         vm.showDetailsView = showDetailsView;
         vm.showRequestRunnerView = showRequestRunnerView;
+        vm.useRecentHistoryItem = useRecentHistoryItem;
         vm.runRequest = runRequest;
 
         explorerService.setupViewModel(vm);
@@ -31,12 +32,18 @@
 
         function showRequestRunnerView(id) {
 
-            explorerService.setRequestRunnerModel(vm, id);
+            explorerService.createRequestRunnerModel(vm, id);
+        }
+
+        function useRecentHistoryItem() {
+
+            explorerService.useRecentHistoryItem(vm);
         }
 
         function runRequest() {
 
             requestRunner.run(vm);
+            storageService.save(vm.requestRunnerModel);
         }
     }
 })();

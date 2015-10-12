@@ -5,7 +5,7 @@ describe('request-service', function() {
     var requestService,
         mockPathModel,
         mockPathModelService,
-        mockCredentials,
+        mockRecentHistoryList,
         mockStorageService,
         mockRouteDescription;
 
@@ -25,14 +25,14 @@ describe('request-service', function() {
             }
         };
 
-        mockCredentials = {
+        mockRecentHistoryList = {
             username: 'username',
             password: 'password'
         };
 
         mockStorageService = {
             get: function() {
-                return mockCredentials;
+                return mockRecentHistoryList;
             }
         };
 
@@ -124,21 +124,14 @@ describe('request-service', function() {
 
         expect(model.requiresAuthorization).toBeTruthy();
     });
-    /*
-    it('should create request runner model with username', function() {
+
+    it('should create request runner model with recent history list', function() {
 
         var model = requestService.createRequestRunnerModel(mockRouteDescription);
 
-        expect(model.username).toEqual('username');
+        expect(model.recentHistoryList).toEqual(mockRecentHistoryList);
     });
 
-    it('should create request runner model with password', function() {
-
-        var model = requestService.createRequestRunnerModel(mockRouteDescription);
-
-        expect(model.password).toEqual('password');
-    });
-    */
     it('should create request runner model with parameters', function() {
 
         var model = requestService.createRequestRunnerModel(mockRouteDescription);

@@ -6,7 +6,7 @@ describe('request-service', function() {
         mockPathModel,
         mockPathModelService,
         mockRecentHistoryList,
-        mockStorageService,
+        mockRecentHistory,
         mockRouteDescription;
 
     beforeEach(function() {
@@ -30,7 +30,7 @@ describe('request-service', function() {
             password: 'password'
         };
 
-        mockStorageService = {
+        mockRecentHistory = {
             get: function() {
                 return mockRecentHistoryList;
             }
@@ -39,7 +39,7 @@ describe('request-service', function() {
         module(function($provide) {
 
             $provide.value('PathModelService', mockPathModelService);
-            $provide.value('StorageService', mockStorageService);
+            $provide.value('RecentHistory', mockRecentHistory);
         });
 
         inject(function($injector) {

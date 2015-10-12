@@ -3,12 +3,12 @@
     'use strict';
 
     angular
-        .module('apinterest.common')
-        .factory('StorageService', StorageService);
+        .module('apinterest.recent-history')
+        .factory('RecentHistory', RecentHistory);
 
-    StorageService.$inject = ['$window', 'PathModelService'];
+    RecentHistory.$inject = ['$window', 'PathModelService'];
 
-    function StorageService($window, pathModelService) {
+    function RecentHistory($window, pathModelService) {
 
         var storagePassPhrase = 'self-righteous cheese wheel banjo',
             keybits = 256,

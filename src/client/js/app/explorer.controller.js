@@ -6,9 +6,9 @@
         .module('apinterest')
         .controller('Explorer', Explorer);
 
-    Explorer.$inject = ['ExplorerService', 'RequestRunner', 'StorageService'];
+    Explorer.$inject = ['ExplorerService', 'RequestRunner', 'RecentHistory'];
 
-    function Explorer(explorerService, requestRunner, storageService) {
+    function Explorer(explorerService, requestRunner, recentHistory) {
 
         var vm = this;
 
@@ -43,7 +43,7 @@
         function runRequest() {
 
             requestRunner.run(vm);
-            storageService.save(vm.requestRunnerModel);
+            recentHistory.save(vm.requestRunnerModel);
         }
     }
 })();

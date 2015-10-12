@@ -1,8 +1,8 @@
-describe('storage-service', function() {
+describe('recent-history', function() {
 
     'use strict';
 
-    var storageService,
+    var recentHistory,
         mockPathModelService,
         mockAesCtr,
         mockLocalStorage,
@@ -10,7 +10,7 @@ describe('storage-service', function() {
 
     beforeEach(function() {
 
-        module('apinterest.common');
+        module('apinterest.recent-history');
 
         mockPathModelService = {
             getModel: function() {}
@@ -53,7 +53,7 @@ describe('storage-service', function() {
 
         inject(function($injector) {
 
-            storageService = $injector.get('StorageService');
+            recentHistory = $injector.get('RecentHistory');
         });
 
         spyOn(mockAesCtr, 'encrypt').and.callThrough();

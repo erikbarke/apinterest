@@ -6,9 +6,9 @@
         .module('apinterest.request')
         .factory('RequestService', RequestService);
 
-    RequestService.$inject = ['PathModelService', 'StorageService'];
+    RequestService.$inject = ['PathModelService', 'RecentHistory'];
 
-    function RequestService(pathModelService, storageService) {
+    function RequestService(pathModelService, recentHistory) {
 
         return {
             createRequestRunnerModel: createRequestRunnerModel
@@ -26,7 +26,7 @@
                 requiresAuthorization: routeDescription.requiresAuthorization,
                 parameters: parameters,
                 response: getResponse(routeDescription),
-                recentHistoryList: storageService.get(routeDescription.id)
+                recentHistoryList: recentHistory.get(routeDescription.id)
             };
         }
 

@@ -93,7 +93,14 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\recent-history\recent-history.module.js">
+      <Link>EmbeddedWebClient\js\app\recent-history\recent-history.module.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\recent-history\recent-history.service.js">
+      <Link>EmbeddedWebClient\js\app\recent-history\recent-history.service.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\..\client\index.html">
       <Link>EmbeddedWebClient\index.html</Link>
@@ -137,9 +144,6 @@
     <EmbeddedResource Include="..\..\..\client\js\app\common\common.module.js">
       <Link>EmbeddedWebClient\js\app\common\common.module.js</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\common\storage.service.js">
-      <Link>EmbeddedWebClient\js\app\common\storage.service.js</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\common\view-container.directive.js">
       <Link>EmbeddedWebClient\js\app\common\view-container.directive.js</Link>
     </EmbeddedResource>
@@ -182,18 +186,6 @@
     <EmbeddedResource Include="..\..\..\client\js\app\common\file-upload.directive.js">
       <Link>EmbeddedWebClient\js\app\common\file-upload.directive.js</Link>
     </EmbeddedResource>
-    <Content Include="..\..\..\client\js\app\common\storage.service.spec.js">
-      <Link>EmbeddedWebClient\js\app\common\storage.service.spec.js</Link>
-    </Content>
-    <Content Include="..\..\..\client\js\app\common\view-container.directive.spec.js">
-      <Link>EmbeddedWebClient\js\app\common\view-container.directive.spec.js</Link>
-    </Content>
-    <Content Include="..\..\..\client\js\app\request\request-runner.service.spec.js">
-      <Link>EmbeddedWebClient\js\app\request\request-runner.service.spec.js</Link>
-    </Content>
-    <Content Include="..\..\..\client\js\app\request\request.service.spec.js">
-      <Link>EmbeddedWebClient\js\app\request\request.service.spec.js</Link>
-    </Content>
     <EmbeddedResource Include="..\..\..\client\style\gh-fork-ribbon.css">
       <Link>EmbeddedWebClient\style\gh-fork-ribbon.css</Link>
     </EmbeddedResource>

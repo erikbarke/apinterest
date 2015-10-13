@@ -6,8 +6,7 @@ describe('explorer-service', function() {
         mockRequestService,
         mockRouteDescriptions,
         mockRequestRunnerModel,
-        $httpBackend,
-        $timeout;
+        $httpBackend;
 
     beforeEach(function() {
 
@@ -38,7 +37,6 @@ describe('explorer-service', function() {
 
             explorerService = $injector.get('ExplorerService');
             $httpBackend = $injector.get('$httpBackend');
-            $timeout = $injector.get('$timeout');
         });
 
         $httpBackend
@@ -114,116 +112,101 @@ describe('explorer-service', function() {
         expect(mockVm.filteredRouteDescriptions[0].relativePath).toEqual('some/path');
     });
 
-    it('should set the details model', function() {
+    it('should initialize the details view', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.setDetailsModel(mockVm, 'GETsome/path');
+        explorerService.initializeDetailsView(mockVm, 'GETsome/path');
 
         expect(mockVm.detailsModel.relativePath).toEqual('some/path');
     });
 
-    it('should set details model and show the details view', function() {
+    it('should initialize the details view and show the view', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.setDetailsModel(mockVm, 'GETsome/path');
+        explorerService.initializeDetailsView(mockVm, 'GETsome/path');
 
         expect(mockVm.detailsViewVisible).toBeTruthy();
     });
 
-    it('should set details model and hide the request runner view', function() {
+    it('should initialize the details view and hide the request runner view', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.setDetailsModel(mockVm, 'GETsome/path');
+        explorerService.initializeDetailsView(mockVm, 'GETsome/path');
 
         expect(mockVm.runnerViewVisible).toBeFalsy();
     });
 
-    it('should set details model and handle path not found', function() {
+    it('should initialize the details view and handle path not found', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.setDetailsModel(mockVm, 'does not exist');
+        explorerService.initializeDetailsView(mockVm, 'does not exist');
 
         expect(mockVm.detailsModel).toBeUndefined();
     });
 
-    it('should create request runner model and show the request runner view', function() {
+    it('should initialize the request runner view and show the view', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.createRequestRunnerModel(mockVm, 'GETsome/path');
+        explorerService.initializeRequestRunnerView(mockVm, 'GETsome/path');
 
         expect(mockVm.runnerViewVisible).toBeTruthy();
     });
 
-    it('should create request runner model and hide the details view', function() {
+    it('should initialize the request runner view and hide the details view', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.createRequestRunnerModel(mockVm, 'GETsome/path');
+        explorerService.initializeRequestRunnerView(mockVm, 'GETsome/path');
 
         expect(mockVm.detailsViewVisible).toBeFalsy();
     });
 
-    it('should create request runner model and reset the request runner model', function() {
+    it('should initialize the request runner view and reset the response model', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.createRequestRunnerModel(mockVm, 'GETsome/path');
-
-        expect(mockVm.requestRunnerModel).toBeNull();
-    });
-
-    it('should create request runner model and reset the response model', function() {
-
-        var mockVm = {
-            filteredRouteDescriptions: mockRouteDescriptions
-        };
-
-        explorerService.createRequestRunnerModel(mockVm, 'GETsome/path');
+        explorerService.initializeRequestRunnerView(mockVm, 'GETsome/path');
 
         expect(mockVm.response).toBeNull();
     });
 
-    it('should create request runner model and call the RequestService', function() {
+    it('should initialize the request runner view and call the RequestService', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.createRequestRunnerModel(mockVm, 'GETsome/path');
-
-        $timeout.flush();
+        explorerService.initializeRequestRunnerView(mockVm, 'GETsome/path');
 
         expect(mockRequestService.createRequestRunnerModel).toHaveBeenCalledWith(mockRouteDescriptions[0]);
     });
 
-    it('should create request runner model and set the request runner model', function() {
+    it('should initialize the request runner view and set the request runner model', function() {
 
         var mockVm = {
             filteredRouteDescriptions: mockRouteDescriptions
         };
 
-        explorerService.createRequestRunnerModel(mockVm, 'GETsome/path');
-
-        $timeout.flush();
+        explorerService.initializeRequestRunnerView(mockVm, 'GETsome/path');
 
         expect(mockVm.requestRunnerModel).toEqual(mockRequestRunnerModel);
     });

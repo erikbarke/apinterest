@@ -14,7 +14,7 @@
 
         return {
             restrict: 'A',
-            require: '^form',
+            require: '^?form',
             scope: {
                 model: '=model',
                 name: '@name',

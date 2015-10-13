@@ -13,8 +13,8 @@ describe('ExplorerController', function() {
         mockExplorerService = {
             setupViewModel: function() {},
             filterRouteDescriptions: function() {},
-            setDetailsModel: function() {},
-            createRequestRunnerModel: function() {}
+            initializeDetailsView: function() {},
+            initializeRequestRunnerView: function() {}
         };
 
         mockRequestRunner = {
@@ -23,8 +23,8 @@ describe('ExplorerController', function() {
 
         spyOn(mockExplorerService, 'setupViewModel');
         spyOn(mockExplorerService, 'filterRouteDescriptions');
-        spyOn(mockExplorerService, 'setDetailsModel');
-        spyOn(mockExplorerService, 'createRequestRunnerModel');
+        spyOn(mockExplorerService, 'initializeDetailsView');
+        spyOn(mockExplorerService, 'initializeRequestRunnerView');
         spyOn(mockRequestRunner, 'run');
 
         inject(function($controller) {
@@ -52,14 +52,14 @@ describe('ExplorerController', function() {
 
         explorerController.showDetailsView('GETsome/path');
 
-        expect(mockExplorerService.setDetailsModel).toHaveBeenCalledWith(explorerController, 'GETsome/path');
+        expect(mockExplorerService.initializeDetailsView).toHaveBeenCalledWith(explorerController, 'GETsome/path');
     });
 
     it('should show request runner view', function() {
 
         explorerController.showRequestRunnerView('GETsome/path');
 
-        expect(mockExplorerService.createRequestRunnerModel).toHaveBeenCalledWith(explorerController, 'GETsome/path');
+        expect(mockExplorerService.initializeRequestRunnerView).toHaveBeenCalledWith(explorerController, 'GETsome/path');
     });
 
     it('should run request', function() {

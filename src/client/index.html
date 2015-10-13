@@ -172,7 +172,7 @@
 
                     </div>
                 </form>
-                <form>
+                <form name="responseForm">
                     <div class="card-tab" ng-class="{ 'response-tab': vm.response.ok, 'response-tab-error': vm.response && !vm.response.ok }">
                         Response <span ng-bind="vm.response.status"></span> <span ng-bind="vm.response.statusText"></span>
                     </div>
@@ -186,7 +186,7 @@
                              visualization-type="vm.requestRunnerModel.response.visualizationType"
                              validators="vm.requestRunnerModel.response.validators"
                              class="object-container"
-                             ng-if="vm.requestRunnerModel.response.value && !vm.requestInProgress && !vm.response"></div>
+                             ng-if="!vm.response"></div>
 
                         <div object-visualizer
                              model="vm.response"

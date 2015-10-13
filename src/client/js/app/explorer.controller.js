@@ -27,12 +27,12 @@
 
         function showDetailsView(id) {
 
-            explorerService.setDetailsModel(vm, id);
+            explorerService.initializeDetailsView(vm, id);
         }
 
         function showRequestRunnerView(id) {
 
-            explorerService.createRequestRunnerModel(vm, id);
+            explorerService.initializeRequestRunnerView(vm, id);
         }
 
         function useRecentHistoryItem() {

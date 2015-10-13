@@ -22,11 +22,19 @@
 
         function link(scope, element) {
 
-            var html;
+            scope.$watch('model', function() {
+
+                createDocument(scope, element);
+            });
+
+            createDocument(scope, element);
+        }
+
+        function createDocument(scope, element) {
 
             if (scope.model.value !== undefined && scope.model.value !== null) {
 
-                html = jsonDocumentService.createHtml(scope.model.value, scope.name, scope.validators);
+                var html = jsonDocumentService.createHtml(scope.model.value, scope.name, scope.validators);
                 element.html(html);
                 $compile(element.contents())(scope);
             }

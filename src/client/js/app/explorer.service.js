@@ -13,8 +13,8 @@
         return {
             setupViewModel: setupViewModel,
             filterRouteDescriptions: filterRouteDescriptions,
-            setDetailsModel: setDetailsModel,
-            createRequestRunnerModel: createRequestRunnerModel,
+            initializeDetailsView: initializeDetailsView,
+            initializeRequestRunnerView: initializeRequestRunnerView,
             useRecentHistoryItem: useRecentHistoryItem
         };
 
@@ -54,27 +54,21 @@
             }
         }
 
-        function setDetailsModel(vm, id) {
+        function initializeDetailsView(vm, id) {
 
             vm.detailsModel = getRouteDescriptionById(vm, id);
             vm.runnerViewVisible = false;
             vm.detailsViewVisible = true;
         }
 
-        function createRequestRunnerModel(vm, id) {
+        function initializeRequestRunnerView(vm, id) {
 
-            var routeDescription = getRouteDescriptionById(vm, id),
-                requestRunnerModel = requestService.createRequestRunnerModel(routeDescription);
+            var routeDescription = getRouteDescriptionById(vm, id);
 
             vm.detailsViewVisible = false;
             vm.runnerViewVisible = true;
-            vm.requestRunnerModel = null;
             vm.response = null;
-
-            $timeout(function() {
-
-                vm.requestRunnerModel = requestRunnerModel;
-            });
+            vm.requestRunnerModel = requestService.createRequestRunnerModel(routeDescription);
         }
 
         function useRecentHistoryItem(vm) {

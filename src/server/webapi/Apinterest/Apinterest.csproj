@@ -178,33 +178,6 @@
     <EmbeddedResource Include="..\..\..\client\js\lib\angular-1.4.6\angular.js">
       <Link>EmbeddedWebClient\js\lib\angular-1.4.6\angular.js</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\json-document.directive.js">
-      <Link>EmbeddedWebClient\js\app\visualization\json\document\json-document.directive.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\json-document.service.js">
-      <Link>EmbeddedWebClient\js\app\visualization\json\document\json-document.service.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\json-raw-document.directive.js">
-      <Link>EmbeddedWebClient\js\app\visualization\json\document\json-raw-document.directive.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\value\json-value-editor.directive.js">
-      <Link>EmbeddedWebClient\js\app\visualization\json\document\value\json-value-editor.directive.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\value\json-value-editor.directive.spec.js">
-      <Link>EmbeddedWebClient\js\app\visualization\json\document\value\json-value-editor.directive.spec.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\document\value\json-value-editor.html">
-      <Link>EmbeddedWebClient\js\app\visualization\json\document\value\json-value-editor.html</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\json-editor.directive.js">
-      <Link>EmbeddedWebClient\js\app\visualization\json\json-editor.directive.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\json-editor.html">
-      <Link>EmbeddedWebClient\js\app\visualization\json\json-editor.html</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json\json-editor.module.js">
-      <Link>EmbeddedWebClient\js\app\visualization\json\json-editor.module.js</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path-viewer.directive.js">
       <Link>EmbeddedWebClient\js\app\visualization\path\path-viewer.directive.js</Link>
     </EmbeddedResource>
@@ -246,6 +219,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\explorer\explorer.service.js">
       <Link>EmbeddedWebClient\js\app\explorer\explorer.service.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\json-editor.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json-editor\json-editor.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\json-editor.html">
+      <Link>EmbeddedWebClient\js\app\visualization\json-editor\json-editor.html</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\json-editor.module.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json-editor\json-editor.module.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\document\json-document.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json-editor\document\json-document.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\document\json-document.service.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json-editor\document\json-document.service.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\document\json-raw-document.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json-editor\document\json-raw-document.directive.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\document\value\json-value-editor.directive.js">
+      <Link>EmbeddedWebClient\js\app\visualization\json-editor\document\value\json-value-editor.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\document\value\json-value-editor.html">
+      <Link>EmbeddedWebClient\js\app\visualization\json-editor\document\value\json-value-editor.html</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

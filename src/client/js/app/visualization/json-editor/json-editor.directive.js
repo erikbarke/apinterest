@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest.json-editor')
+        .module('apinterest.visualization.json-editor')
         .directive('jsonEditor', JsonEditor);
 
     function JsonEditor() {
@@ -16,7 +16,7 @@
                 name: '=name',
                 validators: '=validators'
             },
-            templateUrl: 'apinterest/content/js/app/visualization/json/json-editor.html',
+            templateUrl: 'apinterest/content/js/app/visualization/json-editor/json-editor.html',
             link: function(scope, element, attributes, ngForm) {
 
                 scope.form = ngForm;

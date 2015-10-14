@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest.json-editor')
+        .module('apinterest.visualization.json-editor')
         .directive('jsonDocument', JsonDocument);
 
     JsonDocument.$inject = ['$compile', 'JsonDocumentService'];

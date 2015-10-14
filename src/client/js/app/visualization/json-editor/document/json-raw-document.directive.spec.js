@@ -8,7 +8,7 @@ describe('jsonRawDocument', function() {
 
     beforeEach(function() {
 
-        module('apinterest.json-editor');
+        module('apinterest.visualization.json-editor');
 
         inject(function($injector) {
 

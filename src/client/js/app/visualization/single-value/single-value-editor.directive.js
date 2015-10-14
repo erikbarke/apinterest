@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest.single-value')
+        .module('apinterest.visualization.single-value')
         .directive('singleValueEditor', SingleValueEditor);
 
     function SingleValueEditor() {

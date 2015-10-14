@@ -1,1 +1,1 @@
-angular.module('apinterest.single-value', []);
+angular.module('apinterest.visualization.single-value', []);

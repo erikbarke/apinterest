@@ -10,8 +10,8 @@ describe('jsonValueEditor', function() {
 
     beforeEach(function() {
 
-        module('apinterest/content/js/app/visualization/json/document/value/json-value-editor.html');
-        module('apinterest.json-editor');
+        module('apinterest/content/js/app/visualization/json-editor/document/value/json-value-editor.html');
+        module('apinterest.visualization.json-editor');
 
         inject(function($injector) {
 

@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest.json-editor')
+        .module('apinterest.visualization.json-editor')
         .directive('jsonRawDocument', JsonRawDocument);
 
     function JsonRawDocument() {

@@ -8,8 +8,8 @@ describe('jsonEditor', function() {
 
     beforeEach(function() {
 
-        module('apinterest/content/js/app/visualization/json/json-editor.html');
-        module('apinterest.json-editor');
+        module('apinterest/content/js/app/visualization/json-editor/json-editor.html');
+        module('apinterest.visualization.json-editor');
 
         inject(function($injector) {
 

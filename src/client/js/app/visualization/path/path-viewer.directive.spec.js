@@ -9,7 +9,7 @@ describe('pathViewer', function() {
     beforeEach(function() {
 
         module('apinterest/content/js/app/visualization/path/path-viewer.html');
-        module('apinterest.path');
+        module('apinterest.visualization.path');
 
         inject(function($injector) {
 

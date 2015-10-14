@@ -1,1 +1,1 @@
-angular.module('apinterest.path', []);
+angular.module('apinterest.visualization.path', []);

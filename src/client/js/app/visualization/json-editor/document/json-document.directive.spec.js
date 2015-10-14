@@ -9,7 +9,7 @@ describe('jsonDocument', function() {
 
     beforeEach(function() {
 
-        module('apinterest.json-editor');
+        module('apinterest.visualization.json-editor');
 
         mockJsonDocumentService = {
             createHtml: function() {

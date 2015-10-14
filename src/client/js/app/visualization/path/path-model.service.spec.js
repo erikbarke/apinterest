@@ -6,7 +6,7 @@ describe('path-model-service', function() {
 
     beforeEach(function() {
 
-        module('apinterest.path');
+        module('apinterest.visualization.path');
 
         inject(function($injector) {
 

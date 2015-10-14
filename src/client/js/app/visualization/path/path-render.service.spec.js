@@ -7,7 +7,7 @@ describe('path-render-service', function() {
 
     beforeEach(function() {
 
-        module('apinterest.path');
+        module('apinterest.visualization.path');
 
         mockPathModel = {
 

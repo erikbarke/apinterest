@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest.json-editor')
+        .module('apinterest.visualization.json-editor')
         .directive('jsonValueEditor', JsonValueEditor);
 
     JsonValueEditor.$inject = ['$timeout'];
@@ -20,7 +20,7 @@
                 name: '@name',
                 validator: '=validator'
             },
-            templateUrl: 'apinterest/content/js/app/visualization/json/document/value/json-value-editor.html',
+            templateUrl: 'apinterest/content/js/app/visualization/json-editor/document/value/json-value-editor.html',
             link: link
         };
 

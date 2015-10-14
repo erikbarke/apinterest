@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest.path')
+        .module('apinterest.visualization.path')
         .factory('PathModelService', PathModelService);
 
     function PathModelService() {

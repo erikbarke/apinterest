@@ -10,7 +10,7 @@ describe('singleValueEditor', function() {
     beforeEach(function() {
 
         module('apinterest/content/js/app/visualization/single-value/single-value-editor.html');
-        module('apinterest.single-value');
+        module('apinterest.visualization.single-value');
 
         inject(function($injector) {
 

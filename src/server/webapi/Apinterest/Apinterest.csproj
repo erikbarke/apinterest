@@ -183,9 +183,6 @@
     <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path-render.service.js">
       <Link>EmbeddedWebClient\js\app\visualization\path\path-render.service.js</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\common\file-upload.directive.js">
-      <Link>EmbeddedWebClient\js\app\common\file-upload.directive.js</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\style\gh-fork-ribbon.css">
       <Link>EmbeddedWebClient\style\gh-fork-ribbon.css</Link>
     </EmbeddedResource>
@@ -239,6 +236,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\visualization\single-value\single-value.module.js">
       <Link>EmbeddedWebClient\js\app\visualization\single-value\single-value.module.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\file\file-upload.directive.js">
+      <Link>EmbeddedWebClient\js\app\file\file-upload.directive.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\file\file.module.js">
+      <Link>EmbeddedWebClient\js\app\file\file.module.js</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,7 +9,7 @@ describe('file-upload', function() {
 
     beforeEach(function() {
 
-        module('apinterest.common');
+        module('apinterest.file');
 
         mockFiles = [
             { name: 'file1' },

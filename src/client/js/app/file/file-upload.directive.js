@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest.common')
+        .module('apinterest.file')
         .directive('fileUpload', FileUpload);
 
     function FileUpload() {

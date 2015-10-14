@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-    .module('apinterest.common')
+    .module('apinterest')
     .directive('viewContainer', ViewContainer);
 
     ViewContainer.$inject = ['$window'];

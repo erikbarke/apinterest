@@ -10,7 +10,7 @@ describe('view-container.directive', function() {
 
     beforeEach(function() {
 
-        module('apinterest.common');
+        module('apinterest');
 
         inject(function($injector) {
 

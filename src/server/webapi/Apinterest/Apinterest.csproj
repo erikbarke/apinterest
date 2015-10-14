@@ -141,14 +141,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\..\client\js\app\common\common.module.js">
-      <Link>EmbeddedWebClient\js\app\common\common.module.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\common\view-container.directive.js">
-      <Link>EmbeddedWebClient\js\app\common\view-container.directive.js</Link>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="..\..\..\client\js\app\request\request-runner.service.js">
       <Link>EmbeddedWebClient\js\app\request\request-runner.service.js</Link>
     </EmbeddedResource>
@@ -244,6 +236,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\file\file.module.js">
       <Link>EmbeddedWebClient\js\app\file\file.module.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\view-container.directive.js">
+      <Link>EmbeddedWebClient\js\app\view-container.directive.js</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

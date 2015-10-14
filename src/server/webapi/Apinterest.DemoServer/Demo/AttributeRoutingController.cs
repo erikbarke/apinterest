@@ -8,25 +8,7 @@ namespace Apinterest.DemoServer.Demo
     [RoutePrefix("api/AttributeRouting")]
     public class AttributeRoutingController : ApiController
     {
-        /*
-        [HttpGet]
-        [Route("movies/{id}")]
-        public Movie Get(
-            decimal id,
-            [FromUri] Lobby lobby,
-            [FromUri] int[] seats,
-            [FromUri] IEnumerable<string> customers,
-            [FromUri] IDictionary<int, string> keyStore,
-            [FromBody] Theater theater,
-            bool hasLobby,
-            char rating,
-            DateTime movieDate,
-            TimeSpan movieLength)
-        {
-            return CreateMovie();
-        }*/
-
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
         [Route("movies/{id}")]
         public Movie Get(
@@ -143,8 +125,8 @@ namespace Apinterest.DemoServer.Demo
 
     public class Lobby
     {
-        public string Location;
-        public bool PopcornVendingMachine;
+        public string Location { get; set; }
+        public bool PopcornVendingMachine { get; set; }
     }
 
     public class Comment
@@ -154,7 +136,7 @@ namespace Apinterest.DemoServer.Demo
 
     public class Movie
     {
-        public int? Id { get; set; }
+        public int? Id;
         public MovieType? Type { get; set; }
         public IDictionary<string, MovieGoer> MovieGoers { get; set; }
     }

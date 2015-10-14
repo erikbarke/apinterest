@@ -5,7 +5,7 @@ describe('request-runner', function() {
     var requestRunner,
         $httpBackend,
         mockPathRenderService,
-        mockVm,
+        mockRequestRunnerModel,
         mockHttpStatusOk,
         mockContentTypeJson,
         mockContentTypeText,
@@ -36,15 +36,14 @@ describe('request-runner', function() {
             $httpBackend = $injector.get('$httpBackend');
         });
 
-        mockVm = {
-            requestRunnerModel: {
-                requiresAuthorization: true,
-                httpMethod: 'GET',
-                path: 'default/happy/test/path',
-                pathModel: 'default/happy/test/path',
-                username: 'username',
-                password: 'password'
-            }
+        mockRequestRunnerModel = {
+            requiresAuthorization: true,
+            httpMethod: 'GET',
+            path: 'default/happy/test/path',
+            pathModel: 'default/happy/test/path',
+            username: 'username',
+            password: 'password',
+            response: {}
         };
 
         mockHttpStatusOk = 'HTTP/1.1 200 OK';
@@ -73,7 +72,7 @@ describe('request-runner', function() {
         $httpBackend.when('POST', './Token', 'grant_type=password&username=username&password=password')
             .respond(200, mockTokenResponse);
 
-        $httpBackend.when('GET', mockVm.requestRunnerModel.pathModel)
+        $httpBackend.when('GET', mockRequestRunnerModel.pathModel)
             .respond(200, mockGetResponseJsonValue, mockContentTypeJson, mockHttpStatusOk);
 
         spyOn(mockPathRenderService, 'renderUrlString').and.callThrough();
@@ -83,167 +82,149 @@ describe('request-runner', function() {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
     });
-    /*
-    it('should run and reset response', function() {
-
-        requestRunner.run(mockVm);
-
-        expect(mockVm.response).toBeNull();
-
-        $httpBackend.flush();
-    });
-
-    it('should start and flag request in progress', function() {
-
-        requestRunner.run(mockVm);
-
-        expect(mockVm.requestInProgress).toBeTruthy();
-
-        $httpBackend.flush();
-    });
-
-    it('should stop and flag request in progress', function() {
-
-        requestRunner.run(mockVm);
-
-        $httpBackend.flush();
-
-        expect(mockVm.requestInProgress).toBeFalsy();
-    });
-
-    it('should run and clear token', function() {
-
-        requestRunner.run(mockVm);
-
-        expect(mockVm.token).toBeUndefined();
-
-        $httpBackend.flush();
-    });
 
     it('should fetch token when authorization required', function() {
 
         $httpBackend.expectPOST('./Token', 'grant_type=password&username=username&password=password');
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.token).toEqual(mockTokenResponse.access_token);
+        expect(mockRequestRunnerModel.token).toEqual(mockTokenResponse.access_token);
     });
 
     it('should not fetch token when authorization not required', function() {
 
-        mockVm.requestRunnerModel.requiresAuthorization = false;
+        mockRequestRunnerModel.requiresAuthorization = false;
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.token).toBeUndefined();
+        expect(mockRequestRunnerModel.token).toBeUndefined();
     });
 
     it('should call path service to transform path model to url string', function() {
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockPathRenderService.renderUrlString).toHaveBeenCalledWith(mockVm.requestRunnerModel.pathModel);
+        expect(mockPathRenderService.renderUrlString).toHaveBeenCalledWith(mockRequestRunnerModel.pathModel);
     });
 
-    it('should format response 200, value', function() {
+    it('should format response 200, name', function() {
 
-        requestRunner.run(mockVm);
-
-        $httpBackend.flush();
-
-        expect(mockVm.response.value).toEqual(mockGetResponseJsonValue);
-    });
-
-    it('should format response 200, visualization type', function() {
-
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.response.visualizationType).toEqual('json');
-    });
-
-    it('should format response 200, status', function() {
-
-        requestRunner.run(mockVm);
-
-        $httpBackend.flush();
-
-        expect(mockVm.response.status).toEqual(200);
+        expect(mockRequestRunnerModel.response.name).toEqual('live-response-content');
     });
 
     it('should format response 200, content type', function() {
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.response.contentType).toEqual('application/json');
+        expect(mockRequestRunnerModel.response.contentType).toEqual('application/json');
     });
 
-    it('should format response 200, ok', function() {
+    it('should format response 200, display name', function() {
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.response.ok).toBeTruthy();
+        expect(mockRequestRunnerModel.response.displayName).toEqual('application/json');
+    });
+
+    it('should format response 200, visualization type', function() {
+
+        requestRunner.run(mockRequestRunnerModel);
+
+        $httpBackend.flush();
+
+        expect(mockRequestRunnerModel.response.visualizationType).toEqual('json');
+    });
+
+    it('should format response 200, status', function() {
+
+        requestRunner.run(mockRequestRunnerModel);
+
+        $httpBackend.flush();
+
+        expect(mockRequestRunnerModel.response.status).toEqual(200);
     });
 
     it('should format response 200, status text', function() {
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.response.statusText).toEqual(mockHttpStatusOk);
+        expect(mockRequestRunnerModel.response.statusText).toEqual(mockHttpStatusOk);
+    });
+
+    it('should format response 200, value', function() {
+
+        requestRunner.run(mockRequestRunnerModel);
+
+        $httpBackend.flush();
+
+        expect(mockRequestRunnerModel.response.value).toEqual(mockGetResponseJsonValue);
+    });
+
+    it('should format response 200, ok', function() {
+
+        requestRunner.run(mockRequestRunnerModel);
+
+        $httpBackend.flush();
+
+        expect(mockRequestRunnerModel.response.ok).toBeTruthy();
     });
 
     it('should format response 200, visualization type single-value', function() {
 
-        mockVm.requestRunnerModel.pathModel = 'path/that/returns/single/value';
+        mockRequestRunnerModel.pathModel = 'path/that/returns/single/value';
 
-        $httpBackend.when('GET', mockVm.requestRunnerModel.pathModel)
+        $httpBackend.when('GET', mockRequestRunnerModel.pathModel)
             .respond(200, mockGetResponseSingleValue, mockContentTypeJson, mockHttpStatusOk);
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.response.visualizationType).toEqual('single-value');
+        expect(mockRequestRunnerModel.response.visualizationType).toEqual('single-value');
     });
 
     it('should format response 200, visualization type text', function() {
 
-        mockVm.requestRunnerModel.pathModel = 'path/that/returns/text/plain';
+        mockRequestRunnerModel.pathModel = 'path/that/returns/text/plain';
 
-        $httpBackend.when('GET', mockVm.requestRunnerModel.pathModel)
+        $httpBackend.when('GET', mockRequestRunnerModel.pathModel)
             .respond(200, mockGetResponseSingleValue, mockContentTypeText, mockHttpStatusOk);
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.response.visualizationType).toEqual('text');
+        expect(mockRequestRunnerModel.response.visualizationType).toEqual('text');
     });
 
     it('should add body parameter', function() {
 
         var expectedHeaders = {
             Authorization: 'Bearer xyz',
-            Accept: 'application/json, text/plain, **', // add / between stars, jscs throws a fit here
+            Accept: 'application/json, text/plain, */*',
             'Content-Type': 'application/json;charset=utf-8'
         };
 
-        mockVm.requestRunnerModel.pathModel = 'post/path';
-        mockVm.requestRunnerModel.httpMethod = 'POST';
-        mockVm.requestRunnerModel.parameters = [
+        mockRequestRunnerModel.pathModel = 'post/path';
+        mockRequestRunnerModel.httpMethod = 'POST';
+        mockRequestRunnerModel.parameters = [
             {
                 source: 'FromUri',
                 value: 'uri value'
@@ -254,12 +235,12 @@ describe('request-runner', function() {
             }
         ];
 
-        $httpBackend.when('POST', mockVm.requestRunnerModel.pathModel)
+        $httpBackend.when('POST', mockRequestRunnerModel.pathModel)
             .respond(200, mockGetResponseJsonValue);
 
-        $httpBackend.expectPOST(mockVm.requestRunnerModel.pathModel, mockVm.requestRunnerModel.parameters[1].value, expectedHeaders);
+        $httpBackend.expectPOST(mockRequestRunnerModel.pathModel, mockRequestRunnerModel.parameters[1].value, expectedHeaders);
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
     });
@@ -268,12 +249,12 @@ describe('request-runner', function() {
 
         var expectedHeaders = {
             Authorization: 'Bearer xyz',
-            Accept: 'application/json, text/plain, **', // add / between stars, jscs throws a fit here
+            Accept: 'application/json, text/plain, */*',
         };
 
-        mockVm.requestRunnerModel.pathModel = 'post/path';
-        mockVm.requestRunnerModel.httpMethod = 'POST';
-        mockVm.requestRunnerModel.files = [
+        mockRequestRunnerModel.pathModel = 'post/path';
+        mockRequestRunnerModel.httpMethod = 'POST';
+        mockRequestRunnerModel.files = [
             {
                 name: 'file1'
             },
@@ -282,71 +263,42 @@ describe('request-runner', function() {
             }
         ];
 
-        $httpBackend.when('POST', mockVm.requestRunnerModel.pathModel, function(formData) {
+        $httpBackend.when('POST', mockRequestRunnerModel.pathModel, function(formData) {
             expect(formData).toEqual(new FormData());
             return true;
         }, expectedHeaders).respond(200, mockGetResponseJsonValue);
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
     });
 
-    it('should handle response error after fetch token, response value', function() {
+    it('should handle response error after fetch token', function() {
 
-        mockVm.requestRunnerModel.username = 'invalidusername';
-        mockVm.requestRunnerModel.password = 'invalidpassword';
+        mockRequestRunnerModel.username = 'invalidusername';
+        mockRequestRunnerModel.password = 'invalidpassword';
 
         $httpBackend.when('POST', './Token', 'grant_type=password&username=invalidusername&password=invalidpassword')
             .respond(400, mockTokenErrorResponse);
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.response.value).toEqual(mockTokenErrorResponse);
+        expect(mockRequestRunnerModel.response.value).toEqual(mockTokenErrorResponse);
     });
 
-    it('should handle response error after fetch token, request in progress flag', function() {
+    it('should handle response error after fetch data', function() {
 
-        mockVm.requestRunnerModel.username = 'invalidusername';
-        mockVm.requestRunnerModel.password = 'invalidpassword';
+        mockRequestRunnerModel.pathModel = 'path/that/returns/server/error';
 
-        $httpBackend.when('POST', './Token', 'grant_type=password&username=invalidusername&password=invalidpassword')
-            .respond(400, mockTokenErrorResponse);
-
-        requestRunner.run(mockVm);
-
-        $httpBackend.flush();
-
-        expect(mockVm.requestInProgress).toBeFalsy();
-    });
-
-    it('should handle response error after fetch data, response value', function() {
-
-        mockVm.requestRunnerModel.pathModel = 'path/that/returns/server/error';
-
-        $httpBackend.when('GET', mockVm.requestRunnerModel.pathModel)
+        $httpBackend.when('GET', mockRequestRunnerModel.pathModel)
             .respond(500, mockGetResponseErrorValue);
 
-        requestRunner.run(mockVm);
+        requestRunner.run(mockRequestRunnerModel);
 
         $httpBackend.flush();
 
-        expect(mockVm.response.value).toEqual(mockGetResponseErrorValue);
+        expect(mockRequestRunnerModel.response.value).toEqual(mockGetResponseErrorValue);
     });
-
-    it('should handle response error after fetch data, request in progress flag', function() {
-
-        mockVm.requestRunnerModel.pathModel = 'path/that/returns/server/error';
-
-        $httpBackend.when('GET', mockVm.requestRunnerModel.pathModel)
-            .respond(500, mockGetResponseErrorValue);
-
-        requestRunner.run(mockVm);
-
-        $httpBackend.flush();
-
-        expect(mockVm.requestInProgress).toBeFalsy();
-    });*/
 });

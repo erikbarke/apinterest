@@ -11,35 +11,30 @@
     function RequestRunner($http, pathRenderService) {
 
         return {
-            run: function(vm) {
+            run: function(requestRunnerModel) {
 
-                vm.requestInProgress = true;
-                vm.token = undefined;
-                vm.response = null;
+                if (requestRunnerModel.requiresAuthorization) {
 
-                if (vm.requestRunnerModel.requiresAuthorization) {
-
-                    return sendRequestWithToken(vm);
+                    return sendRequestWithToken(requestRunnerModel);
                 }
                 else {
 
-                    return sendRequest(vm);
+                    return sendRequest(requestRunnerModel);
                 }
             }
         };
 
-        function sendRequestWithToken(vm) {
+        function sendRequestWithToken(requestRunnerModel) {
 
-            return fetchToken(vm.requestRunnerModel.username, vm.requestRunnerModel.password)
+            return fetchToken(requestRunnerModel.username, requestRunnerModel.password)
                 .then(function(response) {
 
-                    vm.token = response.data.access_token;
-                    return sendRequest(vm);
+                    requestRunnerModel.token = response.data.access_token;
+                    return sendRequest(requestRunnerModel);
                 })
                 .catch(function(error) {
 
-                    vm.response = format(error);
-                    vm.requestInProgress = false;
+                    format(error, requestRunnerModel);
                 });
         }
 
@@ -50,55 +45,53 @@
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
         }
 
-        function sendRequest(vm) {
+        function sendRequest(requestRunnerModel) {
 
             var request = {
                     headers: {},
-                    method: vm.requestRunnerModel.httpMethod,
-                    url: pathRenderService.renderUrlString(vm.requestRunnerModel.pathModel)
+                    method: requestRunnerModel.httpMethod,
+                    url: pathRenderService.renderUrlString(requestRunnerModel.pathModel)
                 };
 
-            addTokenToHeader(request, vm);
-            addPostData(request, vm);
+            addTokenToHeader(request, requestRunnerModel);
+            addPostData(request, requestRunnerModel);
 
             return $http(request)
                 .then(function(response) {
 
-                    vm.response = format(response);
-                    vm.requestInProgress = false;
+                    format(response, requestRunnerModel);
                 })
                 .catch(function(error) {
 
-                    vm.response = format(error);
-                    vm.requestInProgress = false;
+                    format(error, requestRunnerModel);
                 });
         }
 
-        function addTokenToHeader(request, vm) {
+        function addTokenToHeader(request, requestRunnerModel) {
 
             /* istanbul ignore else */
-            if (vm.requestRunnerModel.requiresAuthorization) {
+            if (requestRunnerModel.requiresAuthorization) {
 
-                request.headers.Authorization = 'Bearer ' + vm.token;
+                request.headers.Authorization = 'Bearer ' + requestRunnerModel.token;
             }
         }
 
-        function addPostData(request, vm) {
+        function addPostData(request, requestRunnerModel) {
 
             if (request.method === 'POST') {
 
-                if (vm.requestRunnerModel.files) {
+                if (requestRunnerModel.files) {
 
-                    addUploadFiles(request, vm);
+                    addUploadFiles(request, requestRunnerModel);
                 }
                 else {
 
-                    addPostBody(request, vm);
+                    addPostBody(request, requestRunnerModel);
                 }
             }
         }
 
-        function addUploadFiles(request, vm) {
+        function addUploadFiles(request, requestRunnerModel) {
 
             var formData,
                 file,
@@ -106,9 +99,9 @@
 
             formData = new FormData();
 
-            for (i = 0; i < vm.requestRunnerModel.files.length; i++) {
+            for (i = 0; i < requestRunnerModel.files.length; i++) {
 
-                file = vm.requestRunnerModel.files[i];
+                file = requestRunnerModel.files[i];
 
                 formData.append('file' + i, file, file.name);
             }
@@ -118,21 +111,21 @@
             request.data = formData;
         }
 
-        function addPostBody(request, vm) {
+        function addPostBody(request, requestRunnerModel) {
 
             var i;
 
-            for (i = 0; i < vm.requestRunnerModel.parameters.length; i++) {
+            for (i = 0; i < requestRunnerModel.parameters.length; i++) {
 
                 /* istanbul ignore else */
-                if (vm.requestRunnerModel.parameters[i].source === 'FromBody') {
+                if (requestRunnerModel.parameters[i].source === 'FromBody') {
 
-                    request.data = vm.requestRunnerModel.parameters[i].value;
+                    request.data = requestRunnerModel.parameters[i].value;
                 }
             }
         }
 
-        function format(response) {
+        function format(response, requestRunnerModel) {
 
             var ok = response.status >= 200 && response.status <= 207,
                 contentType = response.headers('Content-Type'),
@@ -148,15 +141,14 @@
                 visualizationType = 'text';
             }
 
-            return {
-
-                value: response.data,
-                visualizationType: visualizationType,
-                status: response.status,
-                contentType: contentType,
-                statusText: response.statusText,
-                ok: ok
-            };
+            requestRunnerModel.response.name = 'live-response-content';
+            requestRunnerModel.response.contentType = contentType;
+            requestRunnerModel.response.displayName = contentType;
+            requestRunnerModel.response.visualizationType = visualizationType;
+            requestRunnerModel.response.status = response.status;
+            requestRunnerModel.response.statusText = response.statusText;
+            requestRunnerModel.response.value = response.data;
+            requestRunnerModel.response.ok = ok;
         }
     }
 })();

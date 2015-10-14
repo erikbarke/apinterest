@@ -6,16 +6,17 @@
         .module('apinterest.explorer')
         .factory('ExplorerService', ExplorerService);
 
-    ExplorerService.$inject = ['$http', '$timeout', 'RequestService'];
+    ExplorerService.$inject = ['$http', 'RecentHistory', 'RequestRunner', 'RequestService'];
 
-    function ExplorerService($http, $timeout, requestService) {
+    function ExplorerService($http, recentHistory, requestRunner, requestService) {
 
         return {
             setupViewModel: setupViewModel,
             filterRouteDescriptions: filterRouteDescriptions,
             initializeDetailsView: initializeDetailsView,
             initializeRequestRunnerView: initializeRequestRunnerView,
-            useRecentHistoryItem: useRecentHistoryItem
+            useRecentHistoryItem: useRecentHistoryItem,
+            runRequest: runRequest
         };
 
         function setupViewModel(vm) {
@@ -73,13 +74,24 @@
 
         function useRecentHistoryItem(vm) {
 
-            if (vm.requestRunnerModel && vm.requestRunnerModel.recentHistoryItem) {
+            vm.requestRunnerModel.username = vm.requestRunnerModel.recentHistoryItem.username;
+            vm.requestRunnerModel.password = vm.requestRunnerModel.recentHistoryItem.password;
 
-                vm.requestRunnerModel.pathModel = vm.requestRunnerModel.recentHistoryItem.pathModel;
-                vm.requestRunnerModel.parameters = vm.requestRunnerModel.recentHistoryItem.parameters;
-                vm.requestRunnerModel.username = vm.requestRunnerModel.recentHistoryItem.username;
-                vm.requestRunnerModel.password = vm.requestRunnerModel.recentHistoryItem.password;
-            }
+            requestService.updateParameters(vm.requestRunnerModel, vm.requestRunnerModel.recentHistoryItem.parameters);
+        }
+
+        function runRequest(vm) {
+
+            vm.requestInProgress = true;
+
+            requestRunner.run(vm.requestRunnerModel)
+                .then(function() {
+
+                    recentHistory.save(vm.requestRunnerModel);
+                    vm.requestRunnerModel.recentHistoryList = recentHistory.get(vm.requestRunnerModel.id);
+
+                    vm.requestInProgress = false;
+                });
         }
 
         function getRouteDescriptionById(vm, id) {

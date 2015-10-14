@@ -22,7 +22,7 @@
 
         function link(scope, element) {
 
-            scope.$watch('model', function() {
+            scope.$watch('model.value', function() {
 
                 createDocument(scope, element);
             });

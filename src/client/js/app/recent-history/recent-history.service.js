@@ -6,9 +6,9 @@
         .module('apinterest.recent-history')
         .factory('RecentHistory', RecentHistory);
 
-    RecentHistory.$inject = ['$window', 'PathModelService'];
+    RecentHistory.$inject = ['$window'];
 
-    function RecentHistory($window, pathModelService) {
+    function RecentHistory($window) {
 
         var storagePassPhrase = 'self-righteous cheese wheel banjo',
             keybits = 256,
@@ -32,20 +32,54 @@
             }
 
             saveToStorage(requestRunnerModel.id, recentHistoryList);
-            requestRunnerModel.recentHistoryList = get(requestRunnerModel.id);
         }
 
         function get(id) {
 
             var recentHistoryList = [],
-                storedHistory = getFromStorage(id);
+                recentHistoryItem,
+                storedHistory = getFromStorage(id),
+                i;
 
-            angular.forEach(storedHistory, function(historyItem) {
+            for (i = 0; i < storedHistory.length; i++) {
 
-                recentHistoryList.push(unpack(historyItem));
-            });
+                recentHistoryItem = unpack(storedHistory[i]);
+                recentHistoryList.push(recentHistoryItem);
+            }
 
             return recentHistoryList;
+        }
+
+        function pack(requestRunnerModel) {
+
+            var parameters = [],
+                i;
+
+            for (i = 0; i < requestRunnerModel.parameters.length; i++) {
+
+                parameters.push({
+
+                    name: requestRunnerModel.parameters[i].name,
+                    value: requestRunnerModel.parameters[i].value,
+                });
+            }
+
+            return {
+                date: new Date(),
+                parameters: parameters,
+                username: requestRunnerModel.username,
+                password: $window.Aes.Ctr.encrypt(requestRunnerModel.password, storagePassPhrase, keybits)
+            };
+        }
+
+        function unpack(recentHistoryItem) {
+
+            return {
+                date: new Date(recentHistoryItem.date),
+                parameters: recentHistoryItem.parameters,
+                username: recentHistoryItem.username,
+                password: $window.Aes.Ctr.decrypt(recentHistoryItem.password, storagePassPhrase, keybits)
+            };
         }
 
         function getFromStorage(id) {
@@ -66,54 +100,6 @@
         function createStorageKey(id) {
 
             return 'recent@' + id;
-        }
-
-        function pack(requestRunnerModel) {
-
-            var parameters = angular.copy(requestRunnerModel.parameters);
-
-            angular.forEach(parameters, function(parameter) {
-
-                angular.forEach(parameter.validators, function(validator) {
-
-                    if (validator.pattern) {
-
-                        validator.patternString = validator.pattern.source;
-                        delete validator.pattern;
-                    }
-                });
-            });
-
-            return {
-                date: new Date(),
-                path: requestRunnerModel.path,
-                parameters: parameters,
-                username: requestRunnerModel.username,
-                password: $window.Aes.Ctr.encrypt(requestRunnerModel.password, storagePassPhrase, keybits)
-            };
-        }
-
-        function unpack(recentHistoryItem) {
-
-            angular.forEach(recentHistoryItem.parameters, function(parameter) {
-
-                angular.forEach(parameter.validators, function(validator) {
-
-                    if (validator.patternString) {
-
-                        validator.pattern = new RegExp(validator.patternString);
-                        delete validator.patternString;
-                    }
-                });
-            });
-
-            return {
-                date: new Date(recentHistoryItem.date),
-                pathModel: pathModelService.getModel(recentHistoryItem.path, recentHistoryItem.parameters),
-                parameters: recentHistoryItem.parameters,
-                username: recentHistoryItem.username,
-                password: $window.Aes.Ctr.decrypt(recentHistoryItem.password, storagePassPhrase, keybits)
-            };
         }
     }
 })();

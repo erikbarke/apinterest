@@ -11,7 +11,8 @@
     function RequestService(pathModelService, recentHistory) {
 
         return {
-            createRequestRunnerModel: createRequestRunnerModel
+            createRequestRunnerModel: createRequestRunnerModel,
+            updateParameters: updateParameters
         };
 
         function createRequestRunnerModel(routeDescription) {
@@ -28,6 +29,40 @@
                 response: getResponse(routeDescription),
                 recentHistoryList: recentHistory.get(routeDescription.id)
             };
+        }
+
+        function updateParameters(requestRunnerModel, parameters) {
+
+            var i,
+                targetParameter,
+                sourceParameter;
+
+            for (i = 0; i < requestRunnerModel.parameters.length; i++) {
+
+                targetParameter = requestRunnerModel.parameters[i];
+                sourceParameter = getParameterByName(parameters, targetParameter.name);
+
+                if (sourceParameter) {
+                    targetParameter.value = sourceParameter.value;
+                }
+            }
+
+            requestRunnerModel.pathModel = pathModelService.getModel(requestRunnerModel.path, requestRunnerModel.parameters);
+        }
+
+        function getParameterByName(parameters, name) {
+
+            var i;
+
+            for (i = 0; i < parameters.length; i++) {
+
+                if (parameters[i].name === name) {
+
+                    return parameters[i];
+                }
+            }
+
+            return null;
         }
 
         function createParameters(routeDescription) {

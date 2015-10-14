@@ -3,9 +3,7 @@ describe('ExplorerController', function() {
     'use strict';
 
     var explorerController,
-        mockExplorerService,
-        mockRequestRunner,
-        mockRecentHistory;
+        mockExplorerService;
 
     beforeEach(function() {
 
@@ -15,29 +13,22 @@ describe('ExplorerController', function() {
             setupViewModel: function() {},
             filterRouteDescriptions: function() {},
             initializeDetailsView: function() {},
-            initializeRequestRunnerView: function() {}
-        };
-
-        mockRequestRunner = {
-            run: function() {}
-        };
-
-        mockRecentHistory = {
-            save: function() {}
+            initializeRequestRunnerView: function() {},
+            useRecentHistoryItem: function() {},
+            runRequest: function() {}
         };
 
         spyOn(mockExplorerService, 'setupViewModel');
         spyOn(mockExplorerService, 'filterRouteDescriptions');
         spyOn(mockExplorerService, 'initializeDetailsView');
         spyOn(mockExplorerService, 'initializeRequestRunnerView');
-        spyOn(mockRequestRunner, 'run');
+        spyOn(mockExplorerService, 'useRecentHistoryItem');
+        spyOn(mockExplorerService, 'runRequest');
 
         inject(function($controller) {
 
             explorerController = $controller('Explorer', {
-                ExplorerService: mockExplorerService,
-                RequestRunner: mockRequestRunner,
-                RecentHistory: mockRecentHistory
+                ExplorerService: mockExplorerService
             });
         });
     });
@@ -68,10 +59,17 @@ describe('ExplorerController', function() {
         expect(mockExplorerService.initializeRequestRunnerView).toHaveBeenCalledWith(explorerController, 'GETsome/path');
     });
 
+    it('should use recent history item', function() {
+
+        explorerController.useRecentHistoryItem();
+
+        expect(mockExplorerService.useRecentHistoryItem).toHaveBeenCalledWith(explorerController);
+    });
+
     it('should run request', function() {
 
-        //explorerController.runRequest();
+        explorerController.runRequest();
 
-        //expect(mockRequestRunner.run).toHaveBeenCalledWith(explorerController);
+        expect(mockExplorerService.runRequest).toHaveBeenCalledWith(explorerController);
     });
 });

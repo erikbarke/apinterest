@@ -3,10 +3,15 @@ describe('explorer-service', function() {
     'use strict';
 
     var explorerService,
+        mockRecentHistory,
+        mockRequestRunner,
         mockRequestService,
         mockRouteDescriptions,
         mockRequestRunnerModel,
-        $httpBackend;
+        runRequestPromise,
+        $httpBackend,
+        $q,
+        $rootScope;
 
     beforeEach(function() {
 
@@ -22,14 +27,26 @@ describe('explorer-service', function() {
 
         mockRequestRunnerModel = {};
 
+        mockRecentHistory = {
+            save: function() {},
+            get: function() {}
+        };
+
+        mockRequestRunner = {
+            run: function() {}
+        };
+
         mockRequestService = {
             createRequestRunnerModel: function() {
                 return mockRequestRunnerModel;
-            }
+            },
+            updateParameters: function() {}
         };
 
         module(function($provide) {
 
+            $provide.value('RecentHistory', mockRecentHistory);
+            $provide.value('RequestRunner', mockRequestRunner);
             $provide.value('RequestService', mockRequestService);
         });
 
@@ -37,6 +54,8 @@ describe('explorer-service', function() {
 
             explorerService = $injector.get('ExplorerService');
             $httpBackend = $injector.get('$httpBackend');
+            $q = $injector.get('$q');
+            $rootScope = $injector.get('$rootScope');
         });
 
         $httpBackend
@@ -44,6 +63,12 @@ describe('explorer-service', function() {
             .respond(200, mockRouteDescriptions);
 
         spyOn(mockRequestService, 'createRequestRunnerModel').and.callThrough();
+        spyOn(mockRequestService, 'updateParameters');
+
+        spyOn(mockRequestRunner, 'run').and.callFake(function() {
+            runRequestPromise = $q.defer();
+            return runRequestPromise.promise;
+        });
     });
 
     afterEach(function() {
@@ -209,5 +234,80 @@ describe('explorer-service', function() {
         explorerService.initializeRequestRunnerView(mockVm, 'GETsome/path');
 
         expect(mockVm.requestRunnerModel).toEqual(mockRequestRunnerModel);
+    });
+
+    it('should use recent history item and set username', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                recentHistoryItem: {
+                    username: 'abc123'
+                }
+            }
+        };
+
+        explorerService.useRecentHistoryItem(mockVm);
+
+        expect(mockVm.requestRunnerModel.username).toEqual('abc123');
+    });
+
+    it('should use recent history item and set password', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                recentHistoryItem: {
+                    password: 'abc123'
+                }
+            }
+        };
+
+        explorerService.useRecentHistoryItem(mockVm);
+
+        expect(mockVm.requestRunnerModel.password).toEqual('abc123');
+    });
+
+    it('should use recent history item and update parameters', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                recentHistoryItem: {
+                    parameters: [{ name: 'id', value: 42 }]
+                }
+            }
+        };
+
+        explorerService.useRecentHistoryItem(mockVm);
+
+        expect(mockRequestService.updateParameters)
+            .toHaveBeenCalledWith(mockVm.requestRunnerModel, mockVm.requestRunnerModel.recentHistoryItem.parameters);
+    });
+
+    it('should run request and and flag request in progress', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                id: 42
+            }
+        };
+
+        explorerService.runRequest(mockVm);
+
+        expect(mockVm.requestInProgress).toBeTruthy();
+    });
+
+    it('should run request and and reset request in progress flag when done', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                id: 42
+            }
+        };
+
+        explorerService.runRequest(mockVm);
+
+        runRequestPromise.resolve();
+        $rootScope.$digest();
+
+        expect(mockVm.requestInProgress).toBeFalsy();
     });
 });

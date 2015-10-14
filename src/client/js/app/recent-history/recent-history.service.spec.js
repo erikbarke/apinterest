@@ -3,7 +3,6 @@ describe('recent-history', function() {
     'use strict';
 
     var recentHistory,
-        mockPathModelService,
         mockAesCtr,
         mockLocalStorage,
         mockWindow;
@@ -11,10 +10,6 @@ describe('recent-history', function() {
     beforeEach(function() {
 
         module('apinterest.recent-history');
-
-        mockPathModelService = {
-            getModel: function() {}
-        };
 
         mockAesCtr = {
             encrypt: function() {
@@ -48,7 +43,6 @@ describe('recent-history', function() {
         module(function($provide) {
 
             $provide.value('$window', mockWindow);
-            $provide.value('PathModelService', mockPathModelService);
         });
 
         inject(function($injector) {

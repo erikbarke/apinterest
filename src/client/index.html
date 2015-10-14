@@ -132,6 +132,7 @@
                         Run
                     </div>
                     <div class="card">
+
                         <div class="object-container" ng-if="vm.requestRunnerModel.recentHistoryList.length > 0">
                             <div class="object-container-header">
                                 Recent requests:
@@ -173,8 +174,9 @@
                     </div>
                 </form>
                 <form name="responseForm">
-                    <div class="card-tab" ng-class="{ 'response-tab': vm.response.ok, 'response-tab-error': vm.response && !vm.response.ok }">
-                        Response <span ng-bind="vm.response.status"></span> <span ng-bind="vm.response.statusText"></span>
+
+                    <div class="card-tab" ng-class="{'response-tab': vm.requestRunnerModel.response.ok === true, 'response-tab-error' : vm.requestRunnerModel.response.ok === false}">
+                        Response <span ng-bind="vm.requestRunnerModel.response.status"></span> <span ng-bind="vm.requestRunnerModel.response.statusText"></span>
                     </div>
                     <div class="card">
 
@@ -186,17 +188,7 @@
                              visualization-type="vm.requestRunnerModel.response.visualizationType"
                              validators="vm.requestRunnerModel.response.validators"
                              class="object-container"
-                             ng-if="!vm.response"></div>
-
-                        <div object-visualizer
-                             model="vm.response"
-                             name="'live-response-content'"
-                             display-name="vm.response.contentType"
-                             type="vm.requestRunnerModel.response.type"
-                             visualization-type="vm.response.visualizationType"
-                             validators="vm.requestRunnerModel.response.validators"
-                             class="object-container"
-                             ng-if="vm.response.contentType"></div>
+                             ng-if="vm.requestRunnerModel.response.type !== null"></div>
                     </div>
                 </form>
             </div>

@@ -296,4 +296,30 @@ describe('request-service', function() {
 
         expect(model.response.visualizationType).toEqual('text');
     });
+
+    it('should update pararmeters', function() {
+
+        var model = requestService.createRequestRunnerModel(mockRouteDescription),
+            mockHistoryParameters = [
+                { name: 'customer', value: 'abc123' },
+                { name: 'type', value: 42 }
+            ];
+
+        requestService.updateParameters(model, mockHistoryParameters);
+
+        expect(model.parameters[0].value).toEqual('abc123');
+        expect(model.parameters[1].value).toEqual(42);
+    });
+
+    it('should update pararmeters and handle parameters name mismatch', function() {
+
+        var model = requestService.createRequestRunnerModel(mockRouteDescription),
+            mockHistoryParameters = [
+                { name: 'doesnotexist', value: 'abc123' }
+            ];
+
+        requestService.updateParameters(model, mockHistoryParameters);
+
+        expect(model.parameters[0].value.name).toEqual('Acme');
+    });
 });

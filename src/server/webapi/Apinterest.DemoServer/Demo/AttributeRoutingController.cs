@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Apinterest.DemoServer.Demo
 {
     [Authorize]
-    [RoutePrefix("api/AttributeRouting")]
+    [RoutePrefix("api/attribute-routing")]
     public class AttributeRoutingController : ApiController
     {
         [HttpPost]
@@ -77,7 +80,7 @@ namespace Apinterest.DemoServer.Demo
         }
 
         [HttpGet]
-        [Route("movies/really/big/document/which/might/hang/the/browser")]
+        [Route("movies/really-big-document-which-might-hang-the-browser")]
         public IEnumerable<Movie> GetReallyBigDocument()
         {
             var movies = new List<Movie>();
@@ -88,6 +91,31 @@ namespace Apinterest.DemoServer.Demo
             }
 
             return movies;
+        }
+
+        [HttpPost]
+        [Route("movies/file-upload")]
+        public async Task<IEnumerable<string>> UploadFile(int id)
+        {
+            var result = new List<string>();
+
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            var provider = new MultipartMemoryStreamProvider();
+            await Request.Content.ReadAsMultipartAsync(provider);
+
+            foreach (var content in provider.Contents)
+            {
+                var name = content.Headers.ContentDisposition.FileName;
+                var bytes = content.ReadAsByteArrayAsync().Result;
+
+                result.Add("id " + id + ", file name " + name.Replace("\"", "'") + ", size " + bytes.Length + " byte(s)");
+            }
+
+            return result;
         }
     }
 

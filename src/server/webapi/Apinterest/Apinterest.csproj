@@ -133,12 +133,6 @@
     <EmbeddedResource Include="..\..\..\client\js\app\app.module.js">
       <Link>EmbeddedWebClient\js\app\app.module.js</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\explorer.controller.js">
-      <Link>EmbeddedWebClient\js\app\explorer.controller.js</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\app\explorer.service.js">
-      <Link>EmbeddedWebClient\js\app\explorer.service.js</Link>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\..\client\js\app\request\request-runner.service.js">
@@ -241,6 +235,17 @@
   <ItemGroup>
     <EmbeddedResource Include="..\..\..\client\js\app\view-container.directive.js">
       <Link>EmbeddedWebClient\js\app\view-container.directive.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\explorer\explorer.controller.js">
+      <Link>EmbeddedWebClient\js\app\explorer\explorer.controller.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\explorer\explorer.module.js">
+      <Link>EmbeddedWebClient\js\app\explorer\explorer.module.js</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\client\js\app\explorer\explorer.service.js">
+      <Link>EmbeddedWebClient\js\app\explorer\explorer.service.js</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

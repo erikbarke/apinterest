@@ -4,11 +4,12 @@ describe('ExplorerController', function() {
 
     var explorerController,
         mockExplorerService,
-        mockRequestRunner;
+        mockRequestRunner,
+        mockRecentHistory;
 
     beforeEach(function() {
 
-        module('apinterest');
+        module('apinterest.explorer');
 
         mockExplorerService = {
             setupViewModel: function() {},
@@ -21,6 +22,10 @@ describe('ExplorerController', function() {
             run: function() {}
         };
 
+        mockRecentHistory = {
+            save: function() {}
+        };
+
         spyOn(mockExplorerService, 'setupViewModel');
         spyOn(mockExplorerService, 'filterRouteDescriptions');
         spyOn(mockExplorerService, 'initializeDetailsView');
@@ -31,7 +36,8 @@ describe('ExplorerController', function() {
 
             explorerController = $controller('Explorer', {
                 ExplorerService: mockExplorerService,
-                RequestRunner: mockRequestRunner
+                RequestRunner: mockRequestRunner,
+                RecentHistory: mockRecentHistory
             });
         });
     });

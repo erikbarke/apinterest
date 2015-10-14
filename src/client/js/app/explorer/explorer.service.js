@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest')
+        .module('apinterest.explorer')
         .factory('ExplorerService', ExplorerService);
 
     ExplorerService.$inject = ['$http', '$timeout', 'RequestService'];

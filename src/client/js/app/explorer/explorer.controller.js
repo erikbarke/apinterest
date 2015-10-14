@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('apinterest')
+        .module('apinterest.explorer')
         .controller('Explorer', Explorer);
 
     Explorer.$inject = ['ExplorerService', 'RequestRunner', 'RecentHistory'];

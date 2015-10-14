@@ -10,7 +10,7 @@ describe('explorer-service', function() {
 
     beforeEach(function() {
 
-        module('apinterest');
+        module('apinterest.explorer');
 
         mockRouteDescriptions = [
             {

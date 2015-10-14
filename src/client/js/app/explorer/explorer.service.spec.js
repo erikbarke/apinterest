@@ -29,7 +29,9 @@ describe('explorer-service', function() {
 
         mockRecentHistory = {
             save: function() {},
-            get: function() {}
+            get: function(value) {
+                return [value];
+            }
         };
 
         mockRequestRunner = {
@@ -61,6 +63,9 @@ describe('explorer-service', function() {
         $httpBackend
             .when('GET', 'apinterest/route-descriptions')
             .respond(200, mockRouteDescriptions);
+
+        spyOn(mockRecentHistory, 'save');
+        spyOn(mockRecentHistory, 'get').and.callThrough();
 
         spyOn(mockRequestService, 'createRequestRunnerModel').and.callThrough();
         spyOn(mockRequestService, 'updateParameters');
@@ -282,7 +287,7 @@ describe('explorer-service', function() {
             .toHaveBeenCalledWith(mockVm.requestRunnerModel, mockVm.requestRunnerModel.recentHistoryItem.parameters);
     });
 
-    it('should run request and and flag request in progress', function() {
+    it('should run request and set request in progress flag', function() {
 
         var mockVm = {
             requestRunnerModel: {
@@ -295,7 +300,7 @@ describe('explorer-service', function() {
         expect(mockVm.requestInProgress).toBeTruthy();
     });
 
-    it('should run request and and reset request in progress flag when done', function() {
+    it('should run request and reset request in progress flag when done', function() {
 
         var mockVm = {
             requestRunnerModel: {
@@ -309,5 +314,53 @@ describe('explorer-service', function() {
         $rootScope.$digest();
 
         expect(mockVm.requestInProgress).toBeFalsy();
+    });
+
+    it('should run request and save recent history through RecentHistory service', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                id: 42
+            }
+        };
+
+        explorerService.runRequest(mockVm);
+
+        runRequestPromise.resolve();
+        $rootScope.$digest();
+
+        expect(mockRecentHistory.save).toHaveBeenCalledWith(mockVm.requestRunnerModel);
+    });
+
+    it('should run request and set recent history list', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                id: 42
+            }
+        };
+
+        explorerService.runRequest(mockVm);
+
+        runRequestPromise.resolve();
+        $rootScope.$digest();
+
+        expect(mockVm.requestRunnerModel.recentHistoryList).toEqual([42]);
+    });
+
+    it('should run request and get recent history list from RecentHistory service', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                id: 42
+            }
+        };
+
+        explorerService.runRequest(mockVm);
+
+        runRequestPromise.resolve();
+        $rootScope.$digest();
+
+        expect(mockRecentHistory.get).toHaveBeenCalledWith(mockVm.requestRunnerModel.id);
     });
 });

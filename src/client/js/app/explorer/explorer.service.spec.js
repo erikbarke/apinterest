@@ -287,6 +287,19 @@ describe('explorer-service', function() {
             .toHaveBeenCalledWith(mockVm.requestRunnerModel, mockVm.requestRunnerModel.recentHistoryItem.parameters);
     });
 
+    it('should use recent history item and handle undefined item', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                recentHistoryItem: undefined
+            }
+        };
+
+        explorerService.useRecentHistoryItem(mockVm);
+
+        expect(mockVm.requestRunnerModel.username).toBeUndefined();
+    });
+
     it('should run request and set request in progress flag', function() {
 
         var mockVm = {

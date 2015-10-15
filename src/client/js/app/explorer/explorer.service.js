@@ -74,10 +74,13 @@
 
         function useRecentHistoryItem(vm) {
 
-            vm.requestRunnerModel.username = vm.requestRunnerModel.recentHistoryItem.username;
-            vm.requestRunnerModel.password = vm.requestRunnerModel.recentHistoryItem.password;
+            if (vm.requestRunnerModel.recentHistoryItem) {
 
-            requestService.updateParameters(vm.requestRunnerModel, vm.requestRunnerModel.recentHistoryItem.parameters);
+                vm.requestRunnerModel.username = vm.requestRunnerModel.recentHistoryItem.username;
+                vm.requestRunnerModel.password = vm.requestRunnerModel.recentHistoryItem.password;
+
+                requestService.updateParameters(vm.requestRunnerModel, vm.requestRunnerModel.recentHistoryItem.parameters);
+            }
         }
 
         function runRequest(vm) {

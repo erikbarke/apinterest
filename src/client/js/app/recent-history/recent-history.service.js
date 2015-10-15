@@ -68,7 +68,9 @@
                 date: new Date(),
                 parameters: parameters,
                 username: requestRunnerModel.username,
-                password: $window.Aes.Ctr.encrypt(requestRunnerModel.password, storagePassPhrase, keybits)
+                password: requestRunnerModel.password ?
+                    $window.Aes.Ctr.encrypt(requestRunnerModel.password, storagePassPhrase, keybits) :
+                    ''
             };
         }
 

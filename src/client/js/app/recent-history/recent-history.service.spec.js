@@ -112,11 +112,22 @@ describe('recent-history', function() {
         expect(stored[0].password).toEqual('encrypted value');
     });
 
-    it('should save request runner model and save to local storage, password', function() {
+    it('should save request runner model and save to local storage and AES encrypt password', function() {
 
         recentHistory.save(mockRequestRunnerModel);
 
         expect(mockAesCtr.encrypt).toHaveBeenCalledWith('xyz', 'self-righteous cheese wheel banjo', 256);
+    });
+
+    it('should save request runner model and save to local storage and handle empty password', function() {
+
+        mockRequestRunnerModel.password = undefined;
+
+        recentHistory.save(mockRequestRunnerModel);
+
+        var stored = JSON.parse(mockLocalStorage.mockDatabase['recent@GETsome/path']);
+
+        expect(stored[0].password).toEqual('');
     });
 
     it('should save request runner model and save to local storage, parameters', function() {

@@ -139,6 +139,15 @@ describe('request-service', function() {
         expect(model.parameters.length).toEqual(2);
     });
 
+    it('should create request runner model with parameters and deep copy sample values', function() {
+
+        var model = requestService.createRequestRunnerModel(mockRouteDescription);
+
+        model.parameters[0].value.name = 'edited value';
+
+        expect(mockRouteDescription.parameters[0].sample.name).toEqual('Acme');
+    });
+
     it('should create request runner model with parameters, source (json)', function() {
 
         var model = requestService.createRequestRunnerModel(mockRouteDescription);

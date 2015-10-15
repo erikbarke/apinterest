@@ -74,7 +74,7 @@
 
             for (i = 0; i < routeDescription.parameters.length; i++) {
 
-                value = routeDescription.parameters[i].sample;
+                value = angular.copy(routeDescription.parameters[i].sample);
 
                 parameter = {
                     source: routeDescription.parameters[i].source,

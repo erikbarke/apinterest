@@ -248,19 +248,17 @@ describe('request-runner', function() {
     it('should add upload files', function() {
 
         var expectedHeaders = {
-            Authorization: 'Bearer xyz',
-            Accept: 'application/json, text/plain, */*',
-        };
+                Authorization: 'Bearer xyz',
+                Accept: 'application/json, text/plain, */*',
+            },
+            // new Blob() doesn't work in PhantomJS < 2.0
+            blob = window.WebKitBlobBuilder ? new window.WebKitBlobBuilder().getBlob() : new Blob();
 
         mockRequestRunnerModel.pathModel = 'post/path';
         mockRequestRunnerModel.httpMethod = 'POST';
         mockRequestRunnerModel.files = [
-            {
-                name: 'file1'
-            },
-            {
-                name: 'file2'
-            }
+            blob,
+            blob
         ];
 
         $httpBackend.when('POST', mockRequestRunnerModel.pathModel, function(formData) {

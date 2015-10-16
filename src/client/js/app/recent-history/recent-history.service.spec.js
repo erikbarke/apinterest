@@ -4,6 +4,7 @@ describe('recent-history', function() {
 
     var recentHistory,
         mockRequestRunnerModel,
+        mockDate,
         mockAesCtr,
         mockLocalStorage,
         mockWindow;
@@ -21,6 +22,8 @@ describe('recent-history', function() {
             ]
         };
 
+        mockDate = new Date('2015-05-27');
+
         mockAesCtr = {
             encrypt: function() {
 
@@ -37,20 +40,20 @@ describe('recent-history', function() {
             mockDatabase: {
                 'recent@GETsome/path': JSON.stringify([
                     {
-                        date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [
+                        date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [
                             { name: 'customer', value: 'Acme' },
                             { name: 'customer', value: 'BigCorp' }
                         ]
                     },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [] },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [] },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [] },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [] },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [] },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [] },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [] },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'encrypted value', parameters: [] },
-                    { date: '2015-09-01T23:59:59', username: 'abc', password: 'xencrypted value', parameters: [] }
+                    { date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [] },
+                    { date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [] },
+                    { date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [] },
+                    { date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [] },
+                    { date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [] },
+                    { date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [] },
+                    { date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [] },
+                    { date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [] },
+                    { date: mockDate.toISOString(), username: 'abc', password: 'xencrypted value', parameters: [] }
                 ])
             },
 
@@ -85,6 +88,8 @@ describe('recent-history', function() {
         spyOn(mockAesCtr, 'encrypt').and.callThrough();
         spyOn(mockAesCtr, 'decrypt').and.callThrough();
         spyOn(mockLocalStorage, 'getItem').and.callThrough();
+
+        jasmine.clock().mockDate(mockDate);
     });
 
     it('should save request runner model and get recent history list from local storage', function() {
@@ -92,6 +97,15 @@ describe('recent-history', function() {
         recentHistory.save(mockRequestRunnerModel);
 
         expect(mockLocalStorage.getItem).toHaveBeenCalledWith('recent@GETsome/path');
+    });
+
+    it('should save request runner model and save to local storage, date', function() {
+
+        recentHistory.save(mockRequestRunnerModel);
+
+        var stored = JSON.parse(mockLocalStorage.mockDatabase['recent@GETsome/path']);
+
+        expect(stored[0].date).toEqual(mockDate.toISOString());
     });
 
     it('should save request runner model and save to local storage, username', function() {
@@ -175,6 +189,13 @@ describe('recent-history', function() {
         var recentHistoryList = recentHistory.get('does-not-exist');
 
         expect(recentHistoryList.length).toEqual(0);
+    });
+
+    it('should get recent history list and set date', function() {
+
+        var recentHistoryList = recentHistory.get(mockRequestRunnerModel.id);
+
+        expect(recentHistoryList[0].date).toEqual(mockDate);
     });
 
     it('should get recent history list and set username', function() {

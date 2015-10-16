@@ -6,7 +6,9 @@
         .module('apinterest.file')
         .directive('fileUpload', FileUpload);
 
-    function FileUpload() {
+    FileUpload.$inject = ['$compile'];
+
+    function FileUpload($compile) {
 
         return {
             restrict: 'A',
@@ -14,15 +16,20 @@
             replace: true,
             scope: {
                 model: '=model'
-            },
-            template: '<input type="file" multiple />'
+            }
         };
 
         function link(scope, element) {
 
-            element.bind('change', function(event) {
+            scope.$watch('model', function() {
 
-                scope.model.files = event.target.files;
+                element.html('<input type="file" multiple />');
+                $compile(element.contents())(scope);
+
+                element.bind('change', function(event) {
+
+                    scope.model.files = event.target.files;
+                });
             });
         }
     }

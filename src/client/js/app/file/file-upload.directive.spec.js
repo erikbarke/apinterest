@@ -27,6 +27,11 @@ describe('file-upload', function() {
 
         element = $compile('<span file-upload model="model"></span>')($rootScope);
 
+        $rootScope.$digest();
+    });
+
+    it('should set model files on change', function() {
+
         element.triggerHandler({
             type: 'change',
             target: {
@@ -35,9 +40,6 @@ describe('file-upload', function() {
         });
 
         $rootScope.$digest();
-    });
-
-    it('should set model files on change', function() {
 
         expect($rootScope.model.files).toEqual(mockFiles);
     });

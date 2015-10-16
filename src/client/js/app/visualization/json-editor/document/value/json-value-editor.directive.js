@@ -71,7 +71,8 @@
                 var input = element.find('input'),
                     length = input.val().length;
 
-                input[0].setSelectionRange(length, length);
+                input[0].selectionStart = length;
+                input[0].selectionEnd = length;
                 input[0].focus();
             });
         }

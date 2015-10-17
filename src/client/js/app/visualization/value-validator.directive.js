@@ -75,7 +75,8 @@
 
         function assert(viewValue, scope) {
 
-            return viewValue !== null &&
+            return viewValue !== undefined &&
+                viewValue !== null &&
                 viewValue !== '' &&
                 scope.validator.pattern !== undefined;
         }

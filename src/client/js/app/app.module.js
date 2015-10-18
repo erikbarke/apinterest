@@ -1,4 +1,5 @@
 angular.module('apinterest', [
+    'ngAnimate',
     'apinterest.explorer',
     'apinterest.file',
     'apinterest.recent-history',

@@ -6,9 +6,9 @@
         .module('apinterest.explorer')
         .factory('ExplorerService', ExplorerService);
 
-    ExplorerService.$inject = ['$http', 'RecentHistory', 'RequestRunner', 'RequestService'];
+    ExplorerService.$inject = ['$http', '$timeout', 'RecentHistory', 'RequestRunner', 'RequestService'];
 
-    function ExplorerService($http, recentHistory, requestRunner, requestService) {
+    function ExplorerService($http, $timeout, recentHistory, requestRunner, requestService) {
 
         return {
             setupViewModel: setupViewModel,
@@ -93,8 +93,16 @@
                     recentHistory.save(vm.requestRunnerModel);
                     vm.requestRunnerModel.recentHistoryList = recentHistory.get(vm.requestRunnerModel.id);
 
-                    vm.requestInProgress = false;
+                    resetUserNotificationWithDelay(vm);
                 });
+        }
+
+        function resetUserNotificationWithDelay(vm) {
+
+            $timeout(function() {
+
+                vm.requestInProgress = false;
+            }, 700);
         }
 
         function getRouteDescriptionById(vm, id) {

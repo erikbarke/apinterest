@@ -11,7 +11,8 @@ describe('explorer-service', function() {
         runRequestPromise,
         $httpBackend,
         $q,
-        $rootScope;
+        $rootScope,
+        $timeout;
 
     beforeEach(function() {
 
@@ -58,6 +59,7 @@ describe('explorer-service', function() {
             $httpBackend = $injector.get('$httpBackend');
             $q = $injector.get('$q');
             $rootScope = $injector.get('$rootScope');
+            $timeout = $injector.get('$timeout');
         });
 
         $httpBackend
@@ -325,6 +327,7 @@ describe('explorer-service', function() {
 
         runRequestPromise.resolve();
         $rootScope.$digest();
+        $timeout.flush();
 
         expect(mockVm.requestInProgress).toBeFalsy();
     });

@@ -172,9 +172,6 @@
     <EmbeddedResource Include="..\..\..\client\style\gh-fork-ribbon.css">
       <Link>EmbeddedWebClient\style\gh-fork-ribbon.css</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\js\lib\angular-1.4.6\angular-mocks.js">
-      <Link>EmbeddedWebClient\js\lib\angular-1.4.6\angular-mocks.js</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\lib\angular-1.4.6\angular.js">
       <Link>EmbeddedWebClient\js\lib\angular-1.4.6\angular.js</Link>
     </EmbeddedResource>
@@ -249,6 +246,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\app\visualization\json-editor\document\value\json-value-editor.html">
       <Link>EmbeddedWebClient\js\app\visualization\json-editor\document\value\json-value-editor.html</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\lib\angular-1.4.6\angular-animate.js">
+      <Link>EmbeddedWebClient\js\lib\angular-1.4.6\angular-animate.js</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

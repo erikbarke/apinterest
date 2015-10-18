@@ -223,7 +223,7 @@ th {
     border: 1px solid #ddd;
     margin-bottom: 12px;
 }
-        
+
 .view-body .card .relative-path {
     text-align: center;
     font-size: 14px;
@@ -248,7 +248,7 @@ th {
 .view-body .card .object-type {
     float: right;
     position: relative;
-} 
+}
 
 .view-body .card .object-container:not(:last-child) {
     margin-bottom: 12px;
@@ -319,7 +319,7 @@ th {
 
 .json-editor .indented{
     display: block;
-    margin-left: 15px;   
+    margin-left: 15px;
 }
 
 .json-editor-button{
@@ -337,7 +337,7 @@ th {
     color: #555;
     font-size: 12px;
     font-weight: bold;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .json-editor-button.first {
@@ -353,11 +353,11 @@ th {
 }
 
 .json-editor-button.inactive{
-    color: #aaa; 
+    color: #aaa;
 }
 
 .json-property {
-    color: #333;   
+    color: #333;
 }
 
 .json-numeric {
@@ -375,7 +375,7 @@ th {
 .json-value, .json-numeric, .json-string, .json-list {
     display: inline-block;
 }
-     
+
 .json-editor, .json-property .json-numeric, .json-string, .json-list, .text-viewer {
     font-family: Consolas, monospace;
     font-size: 14px;
@@ -405,7 +405,7 @@ th {
     list-style-type: none;
     max-height: 264px;
     overflow-y: auto;
-    overflow-x: hidden; 
+    overflow-x: hidden;
 }
 
 .dropdown li{
@@ -422,14 +422,14 @@ th {
 
 .popup.editor-container .input-container{
     display: inline-block;
-    padding: 0 6px;   
+    padding: 0 6px;
 }
 
 .popup.editor-container .button-container{
     display: inline-block;
     height: 24px;
     line-height: 24px;
-    padding-right: 6px;   
+    padding-right: 6px;
 }
 
 .validation-message{
@@ -437,6 +437,29 @@ th {
     height: 32px;
     line-height: 32px;
     border-color: #f00;
+}
+
+.wait-dialog {
+    position: fixed;
+    right: 21px;
+    bottom: 21px;
+    width: 252px;
+    height: 56px;
+    line-height: 56px;
+    border-radius: 7px;
+    text-align: center;
+    background: #555;
+    color: #FFF;
+    -webkit-box-shadow: 0 4px 8px #000000;
+    -ms-box-shadow: 0 4px 8px #000000;
+    box-shadow: 0 4px 8px #000000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    -webkit-transition:all linear 0.4s;
+    transition:all linear 0.4s;
+}
+
+.wait-dialog.ng-hide {
+    opacity: 0;
 }
 
 /*
@@ -542,74 +565,4 @@ div.icon div.plus:after {
     width: 4px;
     left: 6px;
     background: #444 none repeat scroll 0% 0%;
-}
-
-/* Spinner from http://www.css-spinners.com/spinner/throbber */
-
-@-moz-keyframes throbber-loader {
-  0% {
-    background: #ddd;
-  }
-  10% {
-    background: #0a0;
-  }
-  40% {
-    background: #ddd;
-  }
-}
-@-webkit-keyframes throbber-loader {
-  0% {
-    background: #ddd;
-  }
-  10% {
-    background: #0a0;
-  }
-  40% {
-    background: #ddd;
-  }
-}
-@keyframes throbber-loader {
-  0% {
-    background: #ddd;
-  }
-  10% {
-    background: #0a0;
-  }
-  40% {
-    background: #ddd;
-  }
-}
-/* :not(:required) hides these rules from IE9 and below */
-.throbber-loader:not(:required) {
-  -moz-animation: throbber-loader 2000ms 300ms infinite ease-out;
-  -webkit-animation: throbber-loader 2000ms 300ms infinite ease-out;
-  animation: throbber-loader 2000ms 300ms infinite ease-out;
-  background: #ddd;
-  display: inline-block;
-  position: relative;
-  text-indent: -9999px;
-  width: 0.9em;
-  height: 1.5em;
-  margin: 0 1.6em;
-}
-.throbber-loader:not(:required):before, .throbber-loader:not(:required):after {
-  background: #ddd;
-  content: '\x200B';
-  display: inline-block;
-  width: 0.9em;
-  height: 1.5em;
-  position: absolute;
-  top: 0;
-}
-.throbber-loader:not(:required):before {
-  -moz-animation: throbber-loader 2000ms 150ms infinite ease-out;
-  -webkit-animation: throbber-loader 2000ms 150ms infinite ease-out;
-  animation: throbber-loader 2000ms 150ms infinite ease-out;
-  left: -1.6em;
-}
-.throbber-loader:not(:required):after {
-  -moz-animation: throbber-loader 2000ms 450ms infinite ease-out;
-  -webkit-animation: throbber-loader 2000ms 450ms infinite ease-out;
-  animation: throbber-loader 2000ms 450ms infinite ease-out;
-  right: -1.6em;
 }

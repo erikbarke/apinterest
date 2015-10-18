@@ -164,11 +164,7 @@
                         <div class="credential-field">
                             <button type="submit" class="button clickable"><span ng-bind="vm.requestRunnerModel.httpMethod"></span></button>
                         </div>
-                        <div class="spinner" ng-show="vm.requestInProgress">
-                            <div class="throbber-loader">
-                                Loading…
-                            </div>
-                        </div>
+
                         <br class="clear-fix" />
 
                     </div>
@@ -193,10 +189,14 @@
                 </form>
             </div>
         </div>
-    </div>
+
+        <div class="wait-dialog" ng-show="vm.requestInProgress">
+            Executing request...
+        </div>
 
     <!-- angular -->
     <script src="apinterest/content/js/lib/angular-1.4.6/angular.js"></script>
+    <script src="apinterest/content/js/lib/angular-1.4.6/angular-animate.js"></script>
 
     <!-- aes/rijndael -->
     <script src="apinterest/content/js/lib/aes-2014.11.05/aes.js"></script>

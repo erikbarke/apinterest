@@ -17,6 +17,7 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             './src/client/js/lib/angular-1.4.6/angular.js',
+            './src/client/js/lib/angular-1.4.6/angular-animate.js',
             './src/client/js/lib/angular-1.4.6/angular-mocks.js',
             './src/client/js/app/**/*.module.js',
             './src/client/js/app/**/*.js',

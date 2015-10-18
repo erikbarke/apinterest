@@ -114,59 +114,61 @@
                     </div>
 
                     <div class="card-tab">
-                        File upload (optional)
-                    </div>
-                    <div class="card">
-                        <div class="object-container">
-                            <div class="object-container-header">
-                                Choose file(s)
-                            </div>
-                            <div class="object-container-body">
-                                <div class="upload-field" file-upload model="vm.requestRunnerModel" ng-if="vm.requestRunnerModel">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-tab">
                         Run
                     </div>
                     <div class="card">
 
                         <div class="object-container" ng-if="vm.requestRunnerModel.recentHistoryList.length > 0">
                             <div class="object-container-header">
-                                Recent requests:
+                                <div class="toolbox-item-header">Recent requests</div>
+                                <div class="toolbox-item-header">Upload file(s)</div>
+                                <div class="toolbox-item-header">Download response as file</div>
+                                <br class="clear-fix" />
                             </div>
                             <div class="object-container-body">
-                                <select ng-model="vm.requestRunnerModel.recentHistoryItem"
-                                        ng-options="item.date | date: 'yyyy-MM-dd HH:mm:ss' for item in vm.requestRunnerModel.recentHistoryList"
-                                        ng-change="vm.useRecentHistoryItem()">
-                                </select>
-                            </div>
-                        </div>
 
-                        <div ng-if="vm.requestRunnerModel.requiresAuthorization">
-                            <div class="credential-field">
-                                <input type="text" class="input" placeholder="username" ng-model="vm.requestRunnerModel.username" />
-                            </div>
-                            <div class="credential-field">
-                                <input type="password" class="input" placeholder="password" ng-model="vm.requestRunnerModel.password" />
-                            </div>
-                        </div>
-                        <div ng-if="!vm.requestRunnerModel.requiresAuthorization">
-                            <div class="credential-field">
-                                <input type="text" class="input" placeholder="username" disabled />
-                            </div>
-                            <div class="credential-field">
-                                <input type="text" class="input" placeholder="password" disabled />
-                            </div>
-                        </div>
-                        <div class="credential-field">
-                            <button type="submit" class="button clickable"><span ng-bind="vm.requestRunnerModel.httpMethod"></span></button>
-                        </div>
+                                <div class="row">
+                                    <div class="toolbox-item-container">
+                                        <select class="select editor"
+                                                ng-model="vm.requestRunnerModel.recentHistoryItem"
+                                                ng-options="item.date | date: 'yyyy-MM-dd HH:mm:ss' for item in vm.requestRunnerModel.recentHistoryList"
+                                                ng-change="vm.useRecentHistoryItem()">
+                                        </select>
+                                    </div>
+                                    <div class="toolbox-item-container">
+                                        <div class="toolbox-item">
+                                            <div file-upload model="vm.requestRunnerModel" ng-if="vm.requestRunnerModel"></div>
+                                        </div>
+                                    </div>
+                                    <div class="toolbox-item-container">
+                                        <div class="toolbox-item">
+                                            <input type="checkbox" class="checkbox"/>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <br class="clear-fix" />
+                                <div class="row">
+                                    <div class="toolbox-item-container">
+                                        <input type="text"
+                                               class="input"
+                                               placeholder="username"
+                                               ng-model="vm.requestRunnerModel.username"
+                                               ng-disabled="!vm.requestRunnerModel.requiresAuthorization"/>
+                                    </div>
+                                    <div class="toolbox-item-container">
+                                        <input type="password"
+                                               class="input"
+                                               placeholder="password"
+                                               ng-model="vm.requestRunnerModel.password"
+                                               ng-disabled="!vm.requestRunnerModel.requiresAuthorization"/>
+                                    </div>
+                                    <div class="toolbox-item-container">
+                                        <button type="submit" class="button clickable"><span ng-bind="vm.requestRunnerModel.httpMethod"></span></button>
+                                    </div>
+                                </div>
 
+                            </div>
+                        </div>
                     </div>
                 </form>
                 <form name="responseForm">

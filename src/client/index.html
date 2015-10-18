@@ -162,8 +162,10 @@
                                                ng-model="vm.requestRunnerModel.password"
                                                ng-disabled="!vm.requestRunnerModel.requiresAuthorization"/>
                                     </div>
-                                    <div class="toolbox-item-container">
-                                        <button type="submit" class="button clickable"><span ng-bind="vm.requestRunnerModel.httpMethod"></span></button>
+                                    <div class="toolbox-item-container submit">
+                                        <button type="submit" class="button clickable">
+                                            <span ng-bind="vm.requestRunnerModel.httpMethod"></span>
+                                        </button>
                                     </div>
                                 </div>
 

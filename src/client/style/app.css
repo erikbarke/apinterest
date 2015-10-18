@@ -57,6 +57,10 @@ th {
     clear: both;
 }
 
+.row:not(:last-child) {
+    margin-bottom: 7px;
+}
+
 .row:after {
     content:'';
     display:block;
@@ -286,6 +290,10 @@ th {
 
 .toolbox-item .checkbox {
     font-size: 12px;
+}
+
+.toolbox-item-container.submit {
+    text-align: right;
 }
 
 .response-header-key {

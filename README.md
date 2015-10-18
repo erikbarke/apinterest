@@ -19,7 +19,7 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
   * Quick search function: filter on relative paths and http verbs.
   * Route details such as controller names, controller method names and assembly names.
   * Samples of response and request json documents.
-  
+
 * **Route test runner**:
 
    * Syntax highlighting.
@@ -39,17 +39,23 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
    * The server only serves requests from localhost.
    * Stored user credentials are encrypted with AES/Rijndael.
 
-###Requirements
+### Requirements
 
-* .Net 4.5 or higher
+* .Net 4.5 or higher.
+* Visual Studio 2013 or newer.
 
-###Try it out
+### Try it out
 
 1. Download or clone this repository.
-2. Open src/server/webapi/Apinterest.sln in Visual Studio and hit F5.
-3. For routes that require authentication, use test/test.
+2. Open src/server/webapi/Apinterest.sln in Visual Studio.
+3. Go to "Tools", "NuGet Package Manager", choose "Manage NuGet Packages for Solution" and download
+   the packages needed for the application.
+4. In the Properties dialog for Apinterest.DemoServer, go to the tab "Web" and under "Start Action",
+   choose "Specific Page" and set it to 'apinterest', without the single quotes.
+5. Build the solution and hit F5.
+6. For routes that require authentication, use test/test.
 
-###Try it out in your own project:
+### Try it out in your own project:
 
 1. In the new project dialog in Visual Studio, choose the template "ASP.NET Web
    Application" and name it, for instance, WebApplication1. In the next dialog that opens,
@@ -64,19 +70,19 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
 4. Make sure the versions of the Microsoft.AspNet.WebApi* and Newtonsoft components in
    the package.config file for WebApplication1 match the versions in the Apinterest
    package.config file.
-   
+
    If they differ, use the Nuget Package Manager Console to get the right versions for the
-   WebApplication1 project: 
-   
+   WebApplication1 project:
+
    `Update-Package Microsoft.AspNet.WebApi.Client -ProjectName WebApplication1 -Version x.x.x`
-   
+
    The solution might build if the verions differ but the Apinterest assembly won't be loaded
    when running the application.
 
 5. In the Web.config file for WebApplication1, add
 
    `<modules runAllManagedModulesForAllRequests="true" />` in `<system.webServer>`.
-   
+
    Without this the Apinterest server component won't be able to serve the files for the client
    application.
 
@@ -87,7 +93,7 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
    open with the address http://localhost:portnumber/apinterest, and you should now see the
    Apinterest client, with a list of the routes in the WebApplication1 project.
 
-###Licensing
+### Licensing
 
 This software is licensed with the MIT license.
 

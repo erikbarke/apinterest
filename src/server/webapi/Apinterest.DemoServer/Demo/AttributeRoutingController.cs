@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -114,6 +116,20 @@ namespace Apinterest.DemoServer.Demo
 
                 result.Add("id " + id + ", file name " + name.Replace("\"", "'") + ", size " + bytes.Length + " byte(s)");
             }
+
+            return result;
+        }
+
+        [HttpPost]
+        [Route("movies/file-download")]
+        public HttpResponseMessage DownLoadFile(int id)
+        {
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(Encoding.UTF8.GetBytes("Hello :)")),
+            };
+
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
 
             return result;
         }

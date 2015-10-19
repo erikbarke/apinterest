@@ -6,9 +6,9 @@
         .module('apinterest.request')
         .factory('RequestRunner', RequestRunner);
 
-    RequestRunner.$inject = ['$http', 'PathRenderService'];
+    RequestRunner.$inject = ['$http', '$window', 'PathRenderService'];
 
-    function RequestRunner($http, pathRenderService) {
+    function RequestRunner($http, $window, pathRenderService) {
 
         return {
             run: function(requestRunnerModel) {
@@ -50,7 +50,8 @@
             var request = {
                     headers: {},
                     method: requestRunnerModel.httpMethod,
-                    url: pathRenderService.renderUrlString(requestRunnerModel.pathModel)
+                    url: pathRenderService.renderUrlString(requestRunnerModel.pathModel),
+                    responseType: requestRunnerModel.downloadResponseAsFile ? 'arraybuffer' : 'json'
                 };
 
             addTokenToHeader(request, requestRunnerModel);
@@ -131,6 +132,13 @@
                 contentType = response.headers('Content-Type'),
                 isEditableContent = ok && contentType && contentType.indexOf('application/json') > -1,
                 visualizationType;
+
+            if (requestRunnerModel.downloadResponseAsFile) {
+
+                var blob = new Blob([response.data], { type: contentType });
+
+                $window.saveAs(blob, 'apinterest-response');
+            }
 
             if (isEditableContent) {
 

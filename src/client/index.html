@@ -116,7 +116,7 @@
                     </div>
                     <div class="card">
 
-                        <div class="object-container" ng-if="vm.requestRunnerModel.recentHistoryList.length > 0">
+                        <div class="object-container">
                             <div class="object-container-header">
                                 <div class="toolbox-item-header">Recent requests</div>
                                 <div class="toolbox-item-header">Upload file(s)</div>
@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="toolbox-item-container">
                                         <div class="toolbox-item">
-                                            <input type="checkbox" class="checkbox"/>
+                                            <input type="checkbox" class="checkbox" ng-model="vm.requestRunnerModel.downloadResponseAsFile"/>
                                         </div>
                                     </div>
                                 </div>
@@ -202,6 +202,9 @@
     <!-- aes/rijndael -->
     <script src="apinterest/content/js/lib/aes-2014.11.05/aes.js"></script>
     <script src="apinterest/content/js/lib/aes-2014.11.05/aes-ctr.js"></script>
+
+    <!-- filesaver.js -->
+    <script src="apinterest/content/js/lib/filesaver.js-1.1.20151003/FileSaver.js"></script>
 
     <!-- hljs -->
     <script src="apinterest/content/js/lib/highlight-8.7/highlight.pack.js"></script>

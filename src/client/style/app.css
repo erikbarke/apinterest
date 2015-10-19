@@ -24,6 +24,10 @@ a {
     text-decoration: none;
 }
 
+input:disabled {
+    background-color: #efefef;
+}
+
 input::-ms-clear {
   width : 0;
   height: 0;
@@ -51,10 +55,6 @@ table {
 th {
     font-weight: bold;
     text-align: left;
-}
-
-.clear-fix {
-    clear: both;
 }
 
 .row:not(:last-child) {
@@ -115,7 +115,7 @@ th {
 }
 
 .filter-box {
-    float: left;
+    width: 224px;
     margin-left: 14px;
     height: 70px;
     line-height: 70px;

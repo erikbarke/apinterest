@@ -6,9 +6,9 @@
         .module('apinterest.request')
         .factory('RequestRunner', RequestRunner);
 
-    RequestRunner.$inject = ['$http', '$window', 'PathRenderService'];
+    RequestRunner.$inject = ['$http', '$window', 'MediaType', 'PathRenderService'];
 
-    function RequestRunner($http, $window, pathRenderService) {
+    function RequestRunner($http, $window, mediaType, pathRenderService) {
 
         return {
             run: function(requestRunnerModel) {
@@ -133,13 +133,6 @@
                 isEditableContent = ok && contentType && contentType.indexOf('application/json') > -1,
                 visualizationType;
 
-            if (requestRunnerModel.downloadResponseAsFile) {
-
-                var blob = new Blob([response.data], { type: contentType });
-
-                $window.saveAs(blob, 'apinterest-response');
-            }
-
             if (isEditableContent) {
 
                 visualizationType = angular.isObject(response.data) ? 'json' : 'single-value';
@@ -157,6 +150,36 @@
             requestRunnerModel.response.statusText = response.statusText;
             requestRunnerModel.response.value = response.data;
             requestRunnerModel.response.ok = ok;
+
+            saveAsFile(requestRunnerModel, response, contentType, ok);
+        }
+
+        function saveAsFile(requestRunnerModel, response, contentType, ok) {
+
+            if (requestRunnerModel.downloadResponseAsFile && ok) {
+
+                var blob = new Blob([response.data], { type: contentType });
+
+                $window.saveAs(blob, 'apinterest-response' + getFileExtension(contentType));
+            }
+        }
+
+        function getFileExtension(contentType) {
+
+            var fileExtensions;
+
+            if (contentType) {
+
+                contentType = contentType.replace(/"+/g, '');
+                fileExtensions = mediaType[contentType];
+
+                if (fileExtensions) {
+
+                    return fileExtensions[0];
+                }
+            }
+
+            return '';
         }
     }
 })();

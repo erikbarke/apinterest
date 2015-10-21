@@ -1,4 +1,4 @@
-describe('view-container.directive', function() {
+describe('ViewContainer', function() {
 
     'use strict';
 

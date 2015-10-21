@@ -1,4 +1,4 @@
-describe('objectVisualizer', function() {
+describe('ObjectVisualizer', function() {
 
     'use strict';
 

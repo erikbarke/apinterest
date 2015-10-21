@@ -1,4 +1,4 @@
-describe('jsonValueEditor', function() {
+describe('JsonValueEditor', function() {
 
     'use strict';
 

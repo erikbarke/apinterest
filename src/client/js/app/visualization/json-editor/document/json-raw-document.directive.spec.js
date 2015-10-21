@@ -1,4 +1,4 @@
-describe('jsonRawDocument', function() {
+describe('JsonRawDocument', function() {
 
     'use strict';
 

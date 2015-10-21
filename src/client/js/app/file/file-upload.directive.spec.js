@@ -1,4 +1,4 @@
-describe('file-upload', function() {
+describe('FileUpload', function() {
 
     'use strict';
 

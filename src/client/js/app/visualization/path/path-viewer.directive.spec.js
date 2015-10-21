@@ -1,4 +1,4 @@
-describe('pathViewer', function() {
+describe('PathViewer', function() {
 
     'use strict';
 

@@ -1,4 +1,4 @@
-describe('request-runner', function() {
+describe('FileService', function() {
 
     'use strict';
 

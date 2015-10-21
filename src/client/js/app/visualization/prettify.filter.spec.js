@@ -1,4 +1,4 @@
-describe('prettify filter', function() {
+describe('Prettify', function() {
 
     'use strict';
 

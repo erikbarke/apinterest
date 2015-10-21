@@ -1,4 +1,4 @@
-describe('path-model-service', function() {
+describe('PathModelService', function() {
 
     'use strict';
 

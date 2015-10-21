@@ -1,4 +1,4 @@
-describe('valueValidator', function() {
+describe('ValueValidator', function() {
 
     'use strict';
 

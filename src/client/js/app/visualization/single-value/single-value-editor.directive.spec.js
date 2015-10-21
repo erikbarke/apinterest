@@ -1,4 +1,4 @@
-describe('singleValueEditor', function() {
+describe('SingleValueEditor', function() {
 
     'use strict';
 

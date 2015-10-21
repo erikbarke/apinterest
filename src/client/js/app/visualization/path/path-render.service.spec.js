@@ -1,4 +1,4 @@
-describe('path-render-service', function() {
+describe('PathRenderService', function() {
 
     'use strict';
 

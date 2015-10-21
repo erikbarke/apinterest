@@ -1,4 +1,4 @@
-describe('request-runner', function() {
+describe('RequestRunner', function() {
 
     'use strict';
 

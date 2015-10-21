@@ -1,4 +1,4 @@
-describe('request-service', function() {
+describe('RequestService', function() {
 
     'use strict';
 

@@ -1,4 +1,4 @@
-describe('recent-history', function() {
+describe('RecentHistory', function() {
 
     'use strict';
 

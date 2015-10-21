@@ -1,4 +1,4 @@
-describe('jsonEditor', function() {
+describe('JsonEditor', function() {
 
     'use strict';
 

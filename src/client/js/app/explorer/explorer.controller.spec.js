@@ -1,4 +1,4 @@
-describe('ExplorerController', function() {
+describe('Explorer', function() {
 
     'use strict';
 

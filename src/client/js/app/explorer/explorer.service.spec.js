@@ -1,4 +1,4 @@
-describe('explorer-service', function() {
+describe('ExplorerService', function() {
 
     'use strict';
 

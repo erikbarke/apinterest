@@ -32,6 +32,11 @@ describe('file-upload', function() {
 
     it('should set model files on change', function() {
 
+        var expectedFiles = [
+            { data: { name: 'file1' }, name: 'file1' },
+            { data: { name: 'file2' }, name: 'file2' },
+        ];
+
         element.triggerHandler({
             type: 'change',
             target: {
@@ -41,6 +46,6 @@ describe('file-upload', function() {
 
         $rootScope.$digest();
 
-        expect($rootScope.model.files).toEqual(mockFiles);
+        expect($rootScope.model.files).toEqual(expectedFiles);
     });
 });

@@ -6,23 +6,20 @@
         .module('apinterest.request')
         .factory('RequestRunner', RequestRunner);
 
-    RequestRunner.$inject = ['$http', '$window', 'MediaType', 'PathRenderService'];
+    RequestRunner.$inject = ['$http', '$window', 'FileService', 'PathRenderService'];
 
-    function RequestRunner($http, $window, mediaType, pathRenderService) {
+    function RequestRunner($http, $window, fileService, pathRenderService) {
 
         return {
-            run: function(requestRunnerModel) {
-
-                if (requestRunnerModel.requiresAuthorization) {
-
-                    return sendRequestWithToken(requestRunnerModel);
-                }
-                else {
-
-                    return sendRequest(requestRunnerModel);
-                }
-            }
+            run: run
         };
+
+        function run (requestRunnerModel) {
+
+            return requestRunnerModel.requiresAuthorization ?
+                sendRequestWithToken(requestRunnerModel) :
+                sendRequest(requestRunnerModel);
+        }
 
         function sendRequestWithToken(requestRunnerModel) {
 
@@ -61,6 +58,7 @@
                 .then(function(response) {
 
                     format(response, requestRunnerModel);
+                    download(response, requestRunnerModel);
                 })
                 .catch(function(error) {
 
@@ -83,33 +81,13 @@
 
                 if (requestRunnerModel.files) {
 
-                    addUploadFiles(request, requestRunnerModel);
+                    fileService.initializeUploadRequest(request, requestRunnerModel.files);
                 }
                 else {
 
                     addPostBody(request, requestRunnerModel);
                 }
             }
-        }
-
-        function addUploadFiles(request, requestRunnerModel) {
-
-            var formData,
-                file,
-                i;
-
-            formData = new FormData();
-
-            for (i = 0; i < requestRunnerModel.files.length; i++) {
-
-                file = requestRunnerModel.files[i];
-
-                formData.append('file' + i, file, file.name);
-            }
-
-            request.headers['Content-Type'] = undefined;
-            request.transformRequest = angular.identity;
-            request.data = formData;
         }
 
         function addPostBody(request, requestRunnerModel) {
@@ -150,36 +128,14 @@
             requestRunnerModel.response.statusText = response.statusText;
             requestRunnerModel.response.value = response.data;
             requestRunnerModel.response.ok = ok;
-
-            saveAsFile(requestRunnerModel, response, contentType, ok);
         }
 
-        function saveAsFile(requestRunnerModel, response, contentType, ok) {
+        function download(response, requestRunnerModel) {
 
-            if (requestRunnerModel.downloadResponseAsFile && ok) {
+            if (requestRunnerModel.response.ok && requestRunnerModel.downloadResponseAsFile) {
 
-                var blob = new Blob([response.data], { type: contentType });
-
-                $window.saveAs(blob, 'apinterest-response' + getFileExtension(contentType));
+                fileService.saveResponseAsFile(response.data, requestRunnerModel.response.contentType);
             }
-        }
-
-        function getFileExtension(contentType) {
-
-            var fileExtensions;
-
-            if (contentType) {
-
-                contentType = contentType.replace(/"+/g, '');
-                fileExtensions = mediaType[contentType];
-
-                if (fileExtensions) {
-
-                    return fileExtensions[0];
-                }
-            }
-
-            return '';
         }
     }
 })();

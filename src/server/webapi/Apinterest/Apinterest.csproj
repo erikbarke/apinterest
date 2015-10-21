@@ -263,6 +263,11 @@
       <Link>EmbeddedWebClient\js\app\file\media-type.service.js</Link>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\client\js\app\file\file.service.js">
+      <Link>EmbeddedWebClient\js\app\file\file.service.js</Link>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

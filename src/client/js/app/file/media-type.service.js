@@ -349,7 +349,6 @@
             'application/vnd.stardivision.impress' : ['.sdd'],
             'application/vnd.stardivision.math' : ['.smf'],
             'application/vnd.stardivision.writer' : ['.sdw'],
-            'application/vnd.stardivision.writer' : ['.vor'],
             'application/vnd.stardivision.writer-global' : ['.sgl'],
             'application/vnd.sun.xml.calc' : ['.sxc'],
             'application/vnd.sun.xml.calc.template' : ['.stc'],

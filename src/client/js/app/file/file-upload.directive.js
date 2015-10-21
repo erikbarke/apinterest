@@ -28,9 +28,24 @@
 
                 element.bind('change', function(event) {
 
-                    scope.model.files = event.target.files;
+                    addFiles(scope.model, event.target.files);
                 });
             });
+
+            function addFiles(model, files) {
+
+                var i;
+
+                model.files = [];
+
+                for (i = 0; i < files.length; i++) {
+
+                    scope.model.files.push({
+                        data: files[i],
+                        name: files[i].name
+                    });
+                }
+            }
         }
     }
 })();

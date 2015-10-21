@@ -4,6 +4,8 @@ describe('request-runner', function() {
 
     var requestRunner,
         $httpBackend,
+        $window,
+        mockFileService,
         mockPathRenderService,
         mockRequestRunnerModel,
         mockHttpStatusOk,
@@ -19,14 +21,24 @@ describe('request-runner', function() {
 
         module('apinterest.request');
 
+        mockFileService = {
+            initializeUploadRequest: function() {},
+            saveResponseAsFile: function() {}
+        };
+
         mockPathRenderService = {
             renderUrlString: function(value) {
                 return value;
             }
         };
 
+        spyOn(mockFileService, 'initializeUploadRequest').and.callThrough();
+        spyOn(mockFileService, 'saveResponseAsFile').and.callThrough();
+        spyOn(mockPathRenderService, 'renderUrlString').and.callThrough();
+
         module(function($provide) {
 
+            $provide.value('FileService', mockFileService);
             $provide.value('PathRenderService', mockPathRenderService);
         });
 
@@ -34,6 +46,7 @@ describe('request-runner', function() {
 
             requestRunner = $injector.get('RequestRunner');
             $httpBackend = $injector.get('$httpBackend');
+            $window = $injector.get('$window');
         });
 
         mockRequestRunnerModel = {
@@ -69,13 +82,13 @@ describe('request-runner', function() {
             message: 'Out of cheese error'
         };
 
+        $window.saveAs = function() {};
+
         $httpBackend.when('POST', './Token', 'grant_type=password&username=username&password=password')
             .respond(200, mockTokenResponse);
 
         $httpBackend.when('GET', mockRequestRunnerModel.pathModel)
             .respond(200, mockGetResponseJsonValue, mockContentTypeJson, mockHttpStatusOk);
-
-        spyOn(mockPathRenderService, 'renderUrlString').and.callThrough();
     });
 
     afterEach(function() {
@@ -241,34 +254,28 @@ describe('request-runner', function() {
         $httpBackend.expectPOST(mockRequestRunnerModel.pathModel, mockRequestRunnerModel.parameters[1].value, expectedHeaders);
 
         requestRunner.run(mockRequestRunnerModel);
-
         $httpBackend.flush();
     });
 
     it('should add upload files', function() {
 
-        var expectedHeaders = {
-                Authorization: 'Bearer xyz',
-                Accept: 'application/json, text/plain, */*',
-            },
-            // new Blob() doesn't work in PhantomJS < 2.0
-            blob = window.WebKitBlobBuilder ? new window.WebKitBlobBuilder().getBlob() : new Blob();
+        var expectedRequest = {
+            headers: { Authorization: 'Bearer xyz' },
+            method: 'POST',
+            url: 'post/path',
+            responseType: 'json'
+        };
 
         mockRequestRunnerModel.pathModel = 'post/path';
         mockRequestRunnerModel.httpMethod = 'POST';
-        mockRequestRunnerModel.files = [
-            blob,
-            blob
-        ];
+        mockRequestRunnerModel.files = [{}, {}];
 
-        $httpBackend.when('POST', mockRequestRunnerModel.pathModel, function(formData) {
-            expect(formData).toEqual(new FormData());
-            return true;
-        }, expectedHeaders).respond(200, mockGetResponseJsonValue);
+        $httpBackend.when('POST', mockRequestRunnerModel.pathModel, expectedRequest.headers).respond(200);
 
         requestRunner.run(mockRequestRunnerModel);
-
         $httpBackend.flush();
+
+        expect(mockFileService.initializeUploadRequest).toHaveBeenCalledWith(expectedRequest, mockRequestRunnerModel.files);
     });
 
     it('should handle response error after fetch token', function() {
@@ -298,5 +305,16 @@ describe('request-runner', function() {
         $httpBackend.flush();
 
         expect(mockRequestRunnerModel.response.value).toEqual(mockGetResponseErrorValue);
+    });
+
+    it('should download response as file', function() {
+
+        mockRequestRunnerModel.downloadResponseAsFile = true;
+
+        requestRunner.run(mockRequestRunnerModel);
+
+        $httpBackend.flush();
+
+        expect(mockFileService.saveResponseAsFile).toHaveBeenCalledWith(mockGetResponseJsonValue, mockContentTypeJson['Content-Type']);
     });
 });

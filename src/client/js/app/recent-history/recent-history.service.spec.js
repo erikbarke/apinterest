@@ -41,7 +41,11 @@ describe('recent-history', function() {
             mockDatabase: {
                 'recent@GETsome/path': JSON.stringify([
                     {
-                        date: mockDate.toISOString(), username: 'abc', password: 'encrypted value', parameters: [
+                        date: mockDate.toISOString(),
+                        downloadResponseAsFile: true,
+                        username: 'abc',
+                        password: 'encrypted value',
+                        parameters: [
                             { name: 'customer', value: 'Acme' },
                             { name: 'customer', value: 'BigCorp' }
                         ]
@@ -206,6 +210,13 @@ describe('recent-history', function() {
         var recentHistoryList = recentHistory.get(mockRequestRunnerModel.id);
 
         expect(recentHistoryList[0].date).toEqual(mockDate);
+    });
+
+    it('should get recent history list and set username', function() {
+
+        var recentHistoryList = recentHistory.get(mockRequestRunnerModel.id);
+
+        expect(recentHistoryList[0].downloadResponseAsFile).toBeTruthy();
     });
 
     it('should get recent history list and set username', function() {

@@ -52,8 +52,10 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
    the packages needed for the application.
 4. In the Properties dialog for Apinterest.DemoServer, go to the tab "Web" and under "Start Action",
    choose "Specific Page" and set it to 'apinterest', without the single quotes.
-5. Build the solution and hit F5.
-6. For routes that require authentication, use test/test.
+5. Set the Apinterest.DemoServer project as startup project.
+6. Build the solution and hit F5.
+7. You should now see the Apinterest client in your default web browser, with a list of the routes in
+   the WebApplication1 project. For routes that require authentication, use test/test.
 
 ### Try it out in your own project:
 
@@ -92,6 +94,7 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
 7. Set the WebApplication1 project as startup project and hit F5. Your default browser should
    open with the address http://localhost:portnumber/apinterest, and you should now see the
    Apinterest client, with a list of the routes in the WebApplication1 project.
+   For routes that require authentication, use test/test.
 
 ### Licensing
 

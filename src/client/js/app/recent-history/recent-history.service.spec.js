@@ -17,6 +17,7 @@ describe('recent-history', function() {
             id: 'GETsome/path',
             username: 'abc',
             password: 'xyz',
+            downloadResponseAsFile: true,
             parameters: [
                 { name: 'customer', value: 'Acme' }
             ]
@@ -106,6 +107,15 @@ describe('recent-history', function() {
         var stored = JSON.parse(mockLocalStorage.mockDatabase['recent@GETsome/path']);
 
         expect(stored[0].date).toEqual(mockDate.toISOString());
+    });
+
+    it('should save request runner model and save to local storage, downloadResponseAsFile', function() {
+
+        recentHistory.save(mockRequestRunnerModel);
+
+        var stored = JSON.parse(mockLocalStorage.mockDatabase['recent@GETsome/path']);
+
+        expect(stored[0].downloadResponseAsFile).toBeTruthy();
     });
 
     it('should save request runner model and save to local storage, username', function() {

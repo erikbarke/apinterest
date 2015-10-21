@@ -67,6 +67,7 @@
             return {
                 date: new Date(),
                 parameters: parameters,
+                downloadResponseAsFile: requestRunnerModel.downloadResponseAsFile,
                 username: requestRunnerModel.username,
                 password: requestRunnerModel.password ?
                     $window.Aes.Ctr.encrypt(requestRunnerModel.password, storagePassPhrase, keybits) :
@@ -79,6 +80,7 @@
             return {
                 date: new Date(recentHistoryItem.date),
                 parameters: recentHistoryItem.parameters,
+                downloadResponseAsFile: recentHistoryItem.downloadResponseAsFile,
                 username: recentHistoryItem.username,
                 password: $window.Aes.Ctr.decrypt(recentHistoryItem.password, storagePassPhrase, keybits)
             };

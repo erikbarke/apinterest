@@ -243,6 +243,21 @@ describe('explorer-service', function() {
         expect(mockVm.requestRunnerModel).toEqual(mockRequestRunnerModel);
     });
 
+    it('should use recent history item and set downloadResponseAsFile', function() {
+
+        var mockVm = {
+            requestRunnerModel: {
+                recentHistoryItem: {
+                    downloadResponseAsFile: true
+                }
+            }
+        };
+
+        explorerService.useRecentHistoryItem(mockVm);
+
+        expect(mockVm.requestRunnerModel.downloadResponseAsFile).toBeTruthy();
+    });
+
     it('should use recent history item and set username', function() {
 
         var mockVm = {

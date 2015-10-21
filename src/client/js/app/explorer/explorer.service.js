@@ -76,6 +76,7 @@
 
             if (vm.requestRunnerModel.recentHistoryItem) {
 
+                vm.requestRunnerModel.downloadResponseAsFile = vm.requestRunnerModel.recentHistoryItem.downloadResponseAsFile;
                 vm.requestRunnerModel.username = vm.requestRunnerModel.recentHistoryItem.username;
                 vm.requestRunnerModel.password = vm.requestRunnerModel.recentHistoryItem.password;
 

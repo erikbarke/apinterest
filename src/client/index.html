@@ -46,8 +46,8 @@
 
         <div class="view-container" ng-style="vm.detailsViewVisible && {'display': 'block'}" view-container view-body="details-view-body">
 
-            <div class="view-header clickable" ng-click="vm.detailsViewVisible = false;">
-                Close
+            <div class="view-header">
+                <div class="close-button clickable" ng-click="vm.detailsViewVisible = false;"></div>
             </div>
 
             <div id="details-view-body" class="view-body">
@@ -72,8 +72,8 @@
 
         <div class="view-container" ng-style="vm.runnerViewVisible && {'display': 'block'}" view-container view-body="request-view-body">
 
-            <div class="view-header clickable" ng-click="vm.runnerViewVisible = false;">
-                Close
+            <div class="view-header">
+                <div class="close-button clickable" ng-click="vm.runnerViewVisible = false;"></div>
             </div>
 
             <div id="request-view-body" class="view-body">

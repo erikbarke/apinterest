@@ -176,7 +176,7 @@
                              visualization-type="vm.requestRunnerModel.response.visualizationType"
                              validators="vm.requestRunnerModel.response.validators"
                              class="object-container"
-                             ng-if="vm.requestRunnerModel.response.type !== null"></div>
+                             ng-if="vm.requestRunnerModel.response.type !== null || !vm.requestRunnerModel.response.ok"></div>
                     </div>
                 </form>
             </div>
@@ -185,6 +185,8 @@
         <div class="wait-dialog" ng-show="vm.requestInProgress">
             Executing request...
         </div>
+
+    </div>
 
     <!-- angular -->
     <script src="apinterest/content/js/lib/angular-1.4.6/angular.js"></script>

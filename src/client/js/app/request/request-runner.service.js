@@ -47,9 +47,13 @@
             var request = {
                     headers: {},
                     method: requestRunnerModel.httpMethod,
-                    url: pathRenderService.renderUrlString(requestRunnerModel.pathModel),
-                    responseType: requestRunnerModel.downloadResponseAsFile ? 'arraybuffer' : 'json'
+                    url: pathRenderService.renderUrlString(requestRunnerModel.pathModel)
                 };
+
+            if (requestRunnerModel.downloadResponseAsFile) {
+
+                request.responseType = 'arraybuffer';
+            }
 
             addTokenToHeader(request, requestRunnerModel);
             addPostData(request, requestRunnerModel);

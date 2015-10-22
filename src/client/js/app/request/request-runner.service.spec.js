@@ -262,8 +262,7 @@ describe('RequestRunner', function() {
         var expectedRequest = {
             headers: { Authorization: 'Bearer xyz' },
             method: 'POST',
-            url: 'post/path',
-            responseType: 'json'
+            url: 'post/path'
         };
 
         mockRequestRunnerModel.pathModel = 'post/path';

@@ -128,10 +128,16 @@ th {
     width: 35px;
     font-size: 24.5px;
     text-align: center;
+    color: #efefef;
 }
 
 .close-button:before {
     content: '\0000D7';
+}
+
+.close-button:hover {
+    color: #fff;
+    background-color: #555;
 }
 
 .route-list th, .route-list td {
@@ -216,7 +222,6 @@ th {
     width: 100%;
     height: 35px;
     background-color: #333;
-    color: #fff;
 }
 
 .view-body {

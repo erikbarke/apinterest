@@ -3,9 +3,8 @@
 <head>
     <title>apinterest</title>
     <link href="apinterest/content/style/app.css" rel="stylesheet"/>
-    <link href="apinterest/content/style/gh-fork-ribbon.css" rel="stylesheet" />
-    <link href="apinterest/content/highlight-8.7/googlecode.css" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
+    <link href="apinterest/content/style/gh-fork-ribbon.css" rel="stylesheet"/>
+    <link href="apinterest/content/style/highlight-8.7/googlecode.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -35,11 +34,15 @@
             <tr class="clickable" ng-repeat="routeDescription in vm.filteredRouteDescriptions">
                 <td ng-bind="routeDescription.httpMethod" ng-click="vm.showRequestRunnerView(routeDescription.id);"></td>
                 <td class="security" ng-click="vm.showRequestRunnerView(routeDescription.id);">
-                    <i class="fa fa-lock fa-2x" ng-if="routeDescription.requiresAuthorization"></i>
+                    <div class="icon" ng-if="routeDescription.requiresAuthorization">
+                        <i class="lock"></i>
+                    </div>
                 </td>
                 <td ng-bind="routeDescription.relativePath" ng-click="vm.showRequestRunnerView(routeDescription.id);"></td>
                 <td class="route-info" ng-click="vm.showDetailsView(routeDescription.id);">
-                    <i class="fa fa-info-circle fa-2x"></i>
+                    <div class="icon">
+                        <i class="info-circle"></i>
+                    </div>
                 </td>
             </tr>
         </table>

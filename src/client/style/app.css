@@ -509,3 +509,56 @@ th {
 .wait-dialog.ng-hide {
     opacity: 0;
 }
+
+.icon {
+    position: relative;
+    display: inline-block;
+    height: 24.5px;
+    width: 24.5px;
+}
+
+.lock {
+    position: absolute;
+    top: 13.3px;
+    left: 2.1px;
+    width: 18.2px;
+    height: 11.9px;
+    background-color: #DDD;
+    border-radius: 1.75px;
+}
+
+.lock::before {
+    content: "_";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: -9.8px;
+    left: 2.1px;
+    border-radius: 8.1px 8.1px 0 0;
+    border: 3.15px solid #ddd;
+    color: #ddd;
+}
+
+.info-circle {
+    position: absolute;
+    width: 24.5px;
+    height: 24.5px;
+    border-radius: 14px;
+    background-color: #066;
+    top: 1.05px;
+    left: 0;
+}
+
+.info-circle::before {
+    content: "i";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: 0.7px;
+    left: 5.6px;
+    color: #FFF;
+    font-style: normal;
+    font-size: 21px;
+    font-weight: bold;
+    font-family: Georgia,serif;
+}

@@ -100,4 +100,4 @@ The project comprises a Javascript/AngularJS browser client and a C#/Microsoft W
 
 This software is licensed with the MIT license.
 
-© 2015 Erik Barke
+© 2015-2019 Erik Barke

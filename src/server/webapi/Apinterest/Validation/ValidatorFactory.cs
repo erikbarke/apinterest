@@ -39,7 +39,7 @@ namespace Apinterest.Validation
 
             if (type == typeof(Guid))
             {
-                validator.Pattern = @"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$";
+                validator.Pattern = @"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000$";
                 validator.FriendlyPattern = "4fc7b22e-fcfd-498e-b44d-2a98b4040337";
             }
 

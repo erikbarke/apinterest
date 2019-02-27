@@ -107,6 +107,7 @@ namespace Apinterest.UnitTests.Validation
         [TestCase(typeof(TimeSpan), "1.23:58:00")]
         [TestCase(typeof(Guid), "2312CC30-52D7-491A-A0DB-F71262DA00A5")]
         [TestCase(typeof(Guid), "2312cc30-52d7-491a-a0db-F71262da00a5")]
+        [TestCase(typeof(Guid), "00000000-0000-0000-0000-000000000000")]
 
         [TestCase(typeof(Byte), "0")]
         [TestCase(typeof(Byte), "42")]

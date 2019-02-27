@@ -8,188 +8,181 @@
 </head>
 <body>
 
-    <div class="github-fork-ribbon-wrapper right">
-        <div class="github-fork-ribbon">
-            <a href="https://github.com/erikbarke/apinterest">Fork me on GitHub</a>
-        </div>
-    </div>
-
+<div ng-controller="Explorer as vm">
+    
     <div class="header">
         <div class="logo-name">apinterest</div>
+        <div class="filter-box">
+            <input class="input" type="text" placeholder="filter list" ng-model="vm.filterText" ng-change="vm.filterRouteDescriptions()"/>
+        </div>
     </div>
 
-    <div ng-controller="Explorer as vm">
+    <table class="route-list">
+        <tr>
+            <th class="http-method-header">Method</th>
+            <th class="security-header">Security</th>
+            <th class="relative-path-header">Relative path</th>
+            <th class="route-info-header">Info</th>
+        </tr>
+        <tr class="clickable" ng-repeat="routeDescription in vm.filteredRouteDescriptions">
+            <td ng-bind="routeDescription.httpMethod" ng-click="vm.showRequestRunnerView(routeDescription.id);"></td>
+            <td class="security" ng-click="vm.showRequestRunnerView(routeDescription.id);">
+                <div class="icon" ng-if="routeDescription.requiresAuthorization">
+                    <i class="lock"></i>
+                </div>
+            </td>
+            <td ng-bind="routeDescription.relativePath" ng-click="vm.showRequestRunnerView(routeDescription.id);"></td>
+            <td class="route-info" ng-click="vm.showDetailsView(routeDescription.id);">
+                <div class="icon">
+                    <i class="info-circle"></i>
+                </div>
+            </td>
+        </tr>
+    </table>
 
-        <div class="filter-box">
-            <input class="input" type="text" placeholder="filter list" ng-model="vm.filterText" ng-change="vm.filterRouteDescriptions()" />
+    <div class="view-container" ng-style="vm.detailsViewVisible && {'display': 'block'}" view-container view-body="details-view-body">
+
+        <div class="view-header">
+            <div class="close-button clickable" ng-click="vm.detailsViewVisible = false;"></div>
         </div>
 
-        <table class="route-list">
-            <tr>
-                <th class="http-method-header">Method</th>
-                <th class="security-header">Security</th>
-                <th class="relative-path-header">Relative path</th>
-                <th class="route-info-header">Info</th>
-            </tr>
-            <tr class="clickable" ng-repeat="routeDescription in vm.filteredRouteDescriptions">
-                <td ng-bind="routeDescription.httpMethod" ng-click="vm.showRequestRunnerView(routeDescription.id);"></td>
-                <td class="security" ng-click="vm.showRequestRunnerView(routeDescription.id);">
-                    <div class="icon" ng-if="routeDescription.requiresAuthorization">
-                        <i class="lock"></i>
-                    </div>
-                </td>
-                <td ng-bind="routeDescription.relativePath" ng-click="vm.showRequestRunnerView(routeDescription.id);"></td>
-                <td class="route-info" ng-click="vm.showDetailsView(routeDescription.id);">
-                    <div class="icon">
-                        <i class="info-circle"></i>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <div id="details-view-body" class="view-body">
 
-        <div class="view-container" ng-style="vm.detailsViewVisible && {'display': 'block'}" view-container view-body="details-view-body">
-
-            <div class="view-header">
-                <div class="close-button clickable" ng-click="vm.detailsViewVisible = false;"></div>
+            <div class="card-tab">
+                Relative path
+            </div>
+            <div class="card">
+                <span ng-bind="vm.detailsModel.relativePath"></span>
             </div>
 
-            <div id="details-view-body" class="view-body">
+            <div ng-repeat="detail in vm.detailsModel.details">
+                <div class="card-tab">
+                    <span ng-bind="detail.header"></span>
+                </div>
+                <div class="card">
+                    <span ng-bind="detail.description"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="view-container" ng-style="vm.runnerViewVisible && {'display': 'block'}" view-container view-body="request-view-body">
+
+        <div class="view-header">
+            <div class="close-button clickable" ng-click="vm.runnerViewVisible = false;"></div>
+        </div>
+
+        <div id="request-view-body" class="view-body">
+            <form name="requestForm" enctype="multipart/form-data" autocomplete="off" ng-submit="requestForm.$valid && vm.runRequest()">
                 <div class="card-tab">
                     Relative path
                 </div>
                 <div class="card">
-                    <span ng-bind="vm.detailsModel.relativePath"></span>
+                    <div ng-if="vm.requestRunnerModel.pathModel" path-viewer model="vm.requestRunnerModel.pathModel"></div>
                 </div>
 
-                <div ng-repeat="detail in vm.detailsModel.details">
+                <div ng-show="vm.requestRunnerModel.parameters.length > 0">
                     <div class="card-tab">
-                        <span ng-bind="detail.header"></span>
+                        Parameters
                     </div>
                     <div class="card">
-                        <span ng-bind="detail.description"></span>
+                        <div class="object-container" ng-repeat="parameter in vm.requestRunnerModel.parameters">
+                            <div object-visualizer
+                                 model="parameter"
+                                 name="parameter.name"
+                                 display-name="parameter.displayName"
+                                 visualization-type="parameter.visualizationType"
+                                 type="parameter.type"
+                                 validators="parameter.validators"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="view-container" ng-style="vm.runnerViewVisible && {'display': 'block'}" view-container view-body="request-view-body">
+                <div class="card-tab">
+                    Run
+                </div>
+                <div class="card">
 
-            <div class="view-header">
-                <div class="close-button clickable" ng-click="vm.runnerViewVisible = false;"></div>
-            </div>
-
-            <div id="request-view-body" class="view-body">
-                <form name="requestForm" enctype="multipart/form-data" autocomplete="off" ng-submit="requestForm.$valid && vm.runRequest()">
-                    <div class="card-tab">
-                        Relative path
-                    </div>
-                    <div class="card">
-                        <div ng-if="vm.requestRunnerModel.pathModel" path-viewer model="vm.requestRunnerModel.pathModel"></div>
-                    </div>
-
-                    <div ng-show="vm.requestRunnerModel.parameters.length > 0">
-                        <div class="card-tab">
-                            Parameters
+                    <div class="object-container">
+                        <div class="object-container-header">
+                            <div class="toolbox-item-header">Recent requests</div>
+                            <div class="toolbox-item-header">Upload file(s)</div>
+                            <div class="toolbox-item-header">Download response as file</div>
                         </div>
-                        <div class="card">
-                            <div class="object-container" ng-repeat="parameter in vm.requestRunnerModel.parameters">
-                                <div object-visualizer
-                                     model="parameter"
-                                     name="parameter.name"
-                                     display-name="parameter.displayName"
-                                     visualization-type="parameter.visualizationType"
-                                     type="parameter.type"
-                                     validators="parameter.validators"></div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="object-container-body">
 
-                    <div class="card-tab">
-                        Run
-                    </div>
-                    <div class="card">
-
-                        <div class="object-container">
-                            <div class="object-container-header">
-                                <div class="toolbox-item-header">Recent requests</div>
-                                <div class="toolbox-item-header">Upload file(s)</div>
-                                <div class="toolbox-item-header">Download response as file</div>
-                            </div>
-                            <div class="object-container-body">
-
-                                <div class="row">
-                                    <div class="toolbox-item-container">
-                                        <select class="select editor"
-                                                ng-model="vm.requestRunnerModel.recentHistoryItem"
-                                                ng-options="item.date | date: 'yyyy-MM-dd HH:mm:ss' for item in vm.requestRunnerModel.recentHistoryList"
-                                                ng-change="vm.useRecentHistoryItem()">
-                                        </select>
-                                    </div>
-                                    <div class="toolbox-item-container">
-                                        <div class="toolbox-item">
-                                            <div file-upload model="vm.requestRunnerModel" ng-if="vm.requestRunnerModel"></div>
-                                        </div>
-                                    </div>
-                                    <div class="toolbox-item-container">
-                                        <div class="toolbox-item">
-                                            <input type="checkbox" class="checkbox" ng-model="vm.requestRunnerModel.downloadResponseAsFile"/>
-                                        </div>
+                            <div class="row">
+                                <div class="toolbox-item-container">
+                                    <select class="select editor"
+                                            ng-model="vm.requestRunnerModel.recentHistoryItem"
+                                            ng-options="item.date | date: 'yyyy-MM-dd HH:mm:ss' for item in vm.requestRunnerModel.recentHistoryList"
+                                            ng-change="vm.useRecentHistoryItem()">
+                                    </select>
+                                </div>
+                                <div class="toolbox-item-container">
+                                    <div class="toolbox-item">
+                                        <div file-upload model="vm.requestRunnerModel" ng-if="vm.requestRunnerModel"></div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="toolbox-item-container">
-                                        <input type="text"
-                                               class="input"
-                                               placeholder="username"
-                                               ng-model="vm.requestRunnerModel.username"
-                                               ng-disabled="!vm.requestRunnerModel.requiresAuthorization"/>
-                                    </div>
-                                    <div class="toolbox-item-container">
-                                        <input type="password"
-                                               class="input"
-                                               placeholder="password"
-                                               ng-model="vm.requestRunnerModel.password"
-                                               ng-disabled="!vm.requestRunnerModel.requiresAuthorization"/>
-                                    </div>
-                                    <div class="toolbox-item-container submit">
-                                        <button type="submit" class="button clickable">
-                                            <span ng-bind="vm.requestRunnerModel.httpMethod"></span>
-                                        </button>
+                                <div class="toolbox-item-container">
+                                    <div class="toolbox-item">
+                                        <input type="checkbox" class="checkbox" ng-model="vm.requestRunnerModel.downloadResponseAsFile"/>
                                     </div>
                                 </div>
-
                             </div>
+
+                            <div class="row">
+                                <div class="toolbox-item-container">
+                                    <input type="text"
+                                           class="input"
+                                           placeholder="username"
+                                           ng-model="vm.requestRunnerModel.username"
+                                           ng-disabled="!vm.requestRunnerModel.requiresAuthorization"/>
+                                </div>
+                                <div class="toolbox-item-container">
+                                    <input type="password"
+                                           class="input"
+                                           placeholder="password"
+                                           ng-model="vm.requestRunnerModel.password"
+                                           ng-disabled="!vm.requestRunnerModel.requiresAuthorization"/>
+                                </div>
+                                <div class="toolbox-item-container submit">
+                                    <button type="submit" class="button clickable">
+                                        <span ng-bind="vm.requestRunnerModel.httpMethod"></span>
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </form>
-                <form name="responseForm">
+                </div>
+            </form>
+            <form name="responseForm">
 
-                    <div class="card-tab" ng-class="{'response-tab': vm.requestRunnerModel.response.ok === true, 'response-tab-error' : vm.requestRunnerModel.response.ok === false}">
-                        Response <span ng-bind="vm.requestRunnerModel.response.status"></span> <span ng-bind="vm.requestRunnerModel.response.statusText"></span>
-                    </div>
-                    <div class="card">
+                <div class="card-tab" ng-class="{'response-tab': vm.requestRunnerModel.response.ok === true, 'response-tab-error' : vm.requestRunnerModel.response.ok === false}">
+                    Response <span ng-bind="vm.requestRunnerModel.response.status"></span> <span ng-bind="vm.requestRunnerModel.response.statusText"></span>
+                </div>
+                <div class="card">
 
-                        <div object-visualizer
-                             model="vm.requestRunnerModel.response"
-                             name="vm.requestRunnerModel.response.name"
-                             display-name="vm.requestRunnerModel.response.displayName"
-                             type="vm.requestRunnerModel.response.type"
-                             visualization-type="vm.requestRunnerModel.response.visualizationType"
-                             validators="vm.requestRunnerModel.response.validators"
-                             class="object-container"
-                             ng-if="vm.requestRunnerModel.response.type !== null || !vm.requestRunnerModel.response.ok"></div>
-                    </div>
-                </form>
-            </div>
+                    <div object-visualizer
+                         model="vm.requestRunnerModel.response"
+                         name="vm.requestRunnerModel.response.name"
+                         display-name="vm.requestRunnerModel.response.displayName"
+                         type="vm.requestRunnerModel.response.type"
+                         visualization-type="vm.requestRunnerModel.response.visualizationType"
+                         validators="vm.requestRunnerModel.response.validators"
+                         class="object-container"
+                         ng-if="vm.requestRunnerModel.response.type !== null || !vm.requestRunnerModel.response.ok"></div>
+                </div>
+            </form>
         </div>
-
-        <div class="wait-dialog" ng-show="vm.requestInProgress">
-            Executing request...
-        </div>
-
     </div>
+
+    <div class="wait-dialog" ng-show="vm.requestInProgress">
+        Executing request...
+    </div>
+
+</div>
 
     <!-- angular -->
     <script src="apinterest/content/js/lib/angular-1.4.6/angular.js"></script>

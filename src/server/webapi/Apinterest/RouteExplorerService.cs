@@ -85,9 +85,7 @@ namespace Apinterest
 
         private static MethodInfo GetMethodInfo(ApiDescription apiDescription)
         {
-            var actionDescriptor = apiDescription.ActionDescriptor as ReflectedHttpActionDescriptor;
-
-            return actionDescriptor != null ? actionDescriptor.MethodInfo : null;
+            return apiDescription.ActionDescriptor is ReflectedHttpActionDescriptor actionDescriptor ? actionDescriptor.MethodInfo : null;
         }
 
         private static string GetAssembly(MethodInfo methodInfo)
@@ -116,7 +114,7 @@ namespace Apinterest
                 {
                     var sample = _sampleFactory.CreateSample(apiParameterDescription.ParameterDescriptor.ParameterType);
 
-                    var parameter = new ParameterContract
+                    parameters.Add(new ParameterContract
                     {
                         Source = apiParameterDescription.Source.ToString(),
                         Name = apiParameterDescription.Name,
@@ -124,13 +122,30 @@ namespace Apinterest
                         Category = sample.Category,
                         Sample = sample.Instance,
                         Validators = MapValidators(sample)
-                    };
-
-                    parameters.Add(parameter);
+                    });
                 }
             }
 
+            AddRawBodyParameter(apiDescription, parameters);
+
             return parameters;
+        }
+
+        private static void AddRawBodyParameter(ApiDescription apiDescription, List<ParameterContract> parameters)
+        {
+            if ((apiDescription.HttpMethod == HttpMethod.Post || apiDescription.HttpMethod == HttpMethod.Put) &&
+                parameters.All(p => p.Source != ApiParameterSource.FromBody.ToString()))
+            {
+                parameters.Add(new ParameterContract
+                {
+                    Source = ApiParameterSource.FromBody.ToString(),
+                    Name = "body",
+                    Type = typeof(string).ToString(),
+                    Category = "object",
+                    Sample = new Dictionary<string, string> {{"property", "value"}},
+                    Validators = new List<ValidatorContract>()
+                });
+            }
         }
 
         private ResponseContract GetResponse(ApiDescription apiDescription)

@@ -126,10 +126,24 @@ namespace Apinterest.DemoServer.Demo
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ByteArrayContent(Encoding.UTF8.GetBytes("Hello :)")),
+                Content = new ByteArrayContent(Encoding.UTF8.GetBytes("Hello :)"))
             };
 
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
+
+            return result;
+        }
+
+        [HttpPost]
+        [Route("movies/post-raw-body")]
+        public HttpResponseMessage PostRawBody()
+        {
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(Request.Content.ReadAsStringAsync().Result)
+            };
+
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             return result;
         }

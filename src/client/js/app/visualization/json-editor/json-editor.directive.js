@@ -20,8 +20,13 @@
             link: function(scope, element, attributes, ngForm) {
 
                 scope.form = ngForm;
-                scope.activeTab = 'editor';
+                scope.activeTab = resolveActiveTab(scope.model);
             }
         };
+
+        function resolveActiveTab(parameter) {
+            return parameter.visualizationType === 'json' && (parameter.type === 'System.Net.Http.HttpResponseMessage' || parameter.type === 'System.String')
+                ? 'raw' :'editor';
+        }
     }
 })();

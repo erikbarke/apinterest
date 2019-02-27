@@ -116,7 +116,8 @@ th {
 
 .filter-box {
     width: 224px;
-    margin-left: 14px;
+    float: right;
+    margin-right: 14px;
     height: 70px;
     line-height: 70px;
 }
@@ -544,7 +545,7 @@ th {
     width: 24.5px;
     height: 24.5px;
     border-radius: 14px;
-    background-color: #066;
+    background-color: #888;
     top: 1.05px;
     left: 0;
 }

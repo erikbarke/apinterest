@@ -81,7 +81,7 @@
 
         function addPostData(request, requestRunnerModel) {
 
-            if (request.method === 'POST') {
+            if (request.method === 'PUT' || request.method === 'POST') {
 
                 if (requestRunnerModel.files) {
 

@@ -169,9 +169,6 @@
     <EmbeddedResource Include="..\..\..\client\js\app\visualization\path\path-render.service.js">
       <Link>EmbeddedWebClient\js\app\visualization\path\path-render.service.js</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\client\style\gh-fork-ribbon.css">
-      <Link>EmbeddedWebClient\style\gh-fork-ribbon.css</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\client\js\lib\angular-1.4.6\angular.js">
       <Link>EmbeddedWebClient\js\lib\angular-1.4.6\angular.js</Link>
     </EmbeddedResource>

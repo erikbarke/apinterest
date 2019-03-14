@@ -27,18 +27,18 @@
             function positionContainer () {
 
                 var eightyPercentOfViewPort = 0.8,
-                    horizontalMargin = 96,
+                    horizontalMargin = 98,
                     viewHeaderHeight = 53,
                     viewBodyElement = getViewBody(viewContainerElement, attributes.viewBody),
                     viewContainerWidth = $window.innerWidth * eightyPercentOfViewPort,
-                    viewContainerleft = ($window.innerWidth - viewContainerWidth) / 2,
+                    viewContainerLeft = ($window.innerWidth - viewContainerWidth) / 2,
                     viewContainerMaxHeight = $window.innerHeight - (horizontalMargin * 1.5),
                     viewContainerTop = horizontalMargin;
 
                 viewContainerElement.css({
 
                     'width': viewContainerWidth + 'px',
-                    'left': viewContainerleft + 'px',
+                    'left': viewContainerLeft + 'px',
                     'max-height': viewContainerMaxHeight + 'px',
                     'top': viewContainerTop + 'px'
                 });

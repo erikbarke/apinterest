@@ -112,11 +112,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\..\client\style\highlight-8.7\googlecode.css">
-      <Link>EmbeddedWebClient\style\highlight-8.7\googlecode.css</Link>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="..\..\..\client\js\lib\aes-2014.11.05\aes-ctr.js">
       <Link>EmbeddedWebClient\js\lib\aes-2014.11.05\aes-ctr.js</Link>
     </EmbeddedResource>
@@ -264,6 +259,9 @@
     <EmbeddedResource Include="..\..\..\client\js\app\file\file.service.js">
       <Link>EmbeddedWebClient\js\app\file\file.service.js</Link>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EmbeddedWebClient\style\highlight-8.7\style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

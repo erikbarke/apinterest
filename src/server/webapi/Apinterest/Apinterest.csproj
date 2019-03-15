@@ -68,8 +68,10 @@
   <ItemGroup>
     <Compile Include="ContentController.cs" />
     <Compile Include="IRouteExplorerService.cs" />
+    <Compile Include="Security\TokenStrategy.cs" />
+    <Compile Include="Security\TokenStrategyResolver.cs" />
     <Compile Include="Time\ITimeMachine.cs" />
-    <Compile Include="LocalhostOnlyAttribute.cs" />
+    <Compile Include="Security\LocalhostOnlyAttribute.cs" />
     <Compile Include="Contracts\ParameterContract.cs" />
     <Compile Include="Contracts\ResponseContract.cs" />
     <Compile Include="Contracts\ValidatorContract.cs" />

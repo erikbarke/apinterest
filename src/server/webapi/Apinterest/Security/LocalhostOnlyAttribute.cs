@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Controllers;
 
-namespace Apinterest
+namespace Apinterest.Security
 {
     public class LocalhostOnlyAttribute : AuthorizeAttribute
     {

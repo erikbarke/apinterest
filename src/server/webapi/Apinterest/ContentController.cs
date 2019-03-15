@@ -10,6 +10,7 @@ using System.Web.Http.Results;
 using Apinterest.Contracts;
 using Apinterest.Resources;
 using Apinterest.Samples;
+using Apinterest.Security;
 using Apinterest.Time;
 using Apinterest.Validation;
 using log4net;
@@ -31,6 +32,7 @@ namespace Apinterest
 
         private readonly IRouteExplorerService _routeExplorerService;
         private readonly IResourceLookup _resourceLookup;
+        private readonly TokenStrategyResolver _tokenStrategyResolver;
 
         public ContentController()
         {
@@ -41,6 +43,7 @@ namespace Apinterest
 
             _routeExplorerService = new RouteExplorerService(GlobalConfiguration.Configuration.Services.GetApiExplorer(), sampleFactory);
             _resourceLookup = new ResourceLookup(Assembly.GetExecutingAssembly());
+            _tokenStrategyResolver = new TokenStrategyResolver();
         }
 
         [HttpGet]
@@ -48,6 +51,13 @@ namespace Apinterest
         public HttpResponseMessage GetIndex()
         {
             return CreateStringResponse("index.html");
+        }
+
+        [HttpGet]
+        [Route("apinterest/token-strategy")]
+        public JsonResult<TokenStrategy> GetTokenStrategy()
+        {
+            return Json(_tokenStrategyResolver.Resolve(), JsonSerializerSettings);
         }
 
         [HttpGet]

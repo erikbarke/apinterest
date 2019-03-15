@@ -6,9 +6,9 @@
         .module('apinterest.request')
         .factory('RequestRunner', RequestRunner);
 
-    RequestRunner.$inject = ['$http', '$window', 'FileService', 'PathRenderService'];
+    RequestRunner.$inject = ['$http', 'FileService', 'PathRenderService'];
 
-    function RequestRunner($http, $window, fileService, pathRenderService) {
+    function RequestRunner($http, fileService, pathRenderService) {
 
         return {
             run: run
@@ -23,23 +23,33 @@
 
         function sendRequestWithToken(requestRunnerModel) {
 
-            return fetchToken(requestRunnerModel.username, requestRunnerModel.password)
-                .then(function(response) {
+            return fetchTokenStrategy()
+                .then(function(strategyResponse) {
+                    return fetchToken(strategyResponse.data, requestRunnerModel.username, requestRunnerModel.password)
+                        .then(function (response) {
 
-                    requestRunnerModel.token = response.data.access_token;
-                    return sendRequest(requestRunnerModel);
-                })
-                .catch(function(error) {
+                            requestRunnerModel.token = response.data.access_token;
+                            return sendRequest(requestRunnerModel);
+                        })
+                        .catch(function (error) {
 
-                    format(error, requestRunnerModel);
+                            format(error, requestRunnerModel);
+                        });
                 });
         }
 
-        function fetchToken(username, password) {
+        function fetchTokenStrategy() {
 
-            return $http.post('./Token',
-                'grant_type=password&username=' + username + '&password=' + password,
-                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            return $http.get('./apinterest/token-strategy');
+        }
+
+        function fetchToken(strategy, username, password) {
+
+            var body = strategy.requestBodyTemplate
+                .replace('${username}', username)
+                .replace('${password}', password);
+
+            return $http.post(strategy.url, body, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
         }
 
         function sendRequest(requestRunnerModel) {

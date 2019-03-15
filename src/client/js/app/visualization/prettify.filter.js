@@ -24,9 +24,7 @@
             prettified = prettified.replace(/\\"/g, '"');
             prettified = prettified.replace(/\\\\/g, '\\');
 
-            var highlighted = $window.hljs.highlightAuto(prettified);
-
-            return $sce.trustAsHtml(highlighted.value);
+            return $sce.trustAsHtml(prettified);
         };
     }
 })();

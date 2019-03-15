@@ -264,7 +264,7 @@ th {
 }
 
 .card-tab {
-    background-color: cornflowerblue;
+    background-color: #888;
     color: #fff;
     padding: 7px;
     display: inline-block;
@@ -274,11 +274,11 @@ th {
 }
 
 .response-tab {
-    background-color: mediumseagreen;
+    background-color: #78c478;
 }
 
 .response-tab-error {
-    background-color: indianred;
+    background-color: #cd5c5c;
 }
 
 .card {
@@ -374,7 +374,7 @@ th {
 }
 
 .path-container .path-key {
-    color: mediumorchid;
+    color: #5a9393;
 }
 
 .path-container .path-qualified-key {
@@ -436,15 +436,16 @@ th {
 }
 
 .json-numeric {
-    color: mediumorchid;
+    color: #1e6464;
+    font-style: italic;
 }
 
 .json-string {
-    color: mediumseagreen;
+    color: #4aa44a;
 }
 
 .json-list {
-    color: cornflowerblue;
+    color: #a63232;
 }
 
 .json-value, .json-numeric, .json-string, .json-list {
@@ -576,7 +577,7 @@ th {
     width: 24.5px;
     height: 24.5px;
     border-radius: 14px;
-    background-color: cornflowerblue;
+    background-color: #888;
     top: 1.05px;
     left: 0;
 }

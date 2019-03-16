@@ -2,13 +2,13 @@
 {
     public class TokenStrategy
     {
-        public TokenStrategy(string url, string requestBodyTemplate)
+        public TokenStrategy(string tokenUrl, string requestBodyTemplate)
         {
-            Url = url;
+            TokenUrl = tokenUrl;
             RequestBodyTemplate = requestBodyTemplate;
         }
 
-        public string Url { get; }
+        public string TokenUrl { get; }
         public string RequestBodyTemplate { get; }
     }
 }

@@ -35,6 +35,10 @@
 
                             format(error, requestRunnerModel);
                         });
+                })
+                .catch(function (error) {
+
+                    format(error, requestRunnerModel);
                 });
         }
 
@@ -49,7 +53,7 @@
                 .replace('${username}', username)
                 .replace('${password}', password);
 
-            return $http.post(strategy.url, body, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+            return $http.post(strategy.tokenUrl, body, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
         }
 
         function sendRequest(requestRunnerModel) {

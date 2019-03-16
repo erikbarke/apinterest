@@ -407,11 +407,12 @@ th {
     line-height: 24.5px;
 }
 
-.tool-button{
+.tool-button {
     background-color: #fff;
     color: #555;
     font-size: 12px;
     font-weight: bold;
+    font-style: normal;
     cursor: pointer;
 }
 

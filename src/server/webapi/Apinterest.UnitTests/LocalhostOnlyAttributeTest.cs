@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
+using Apinterest.Security;
 using Apinterest.UnitTests.Mocks;
 using Moq;
 using NUnit.Framework;
